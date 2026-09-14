@@ -70,6 +70,9 @@ export function createCensor(options = {}) {
     ...DEFAULT_ALLOWLIST,
     ...(Array.isArray(options.allowlist) ? options.allowlist : []),
   ]);
+  const commonPhrases = new Set(
+    entries.filter((entry) => entry.commonWord).map((entry) => entry.tokens.join(' ')),
+  );
 
   /**
    * @param {unknown} text
@@ -80,7 +83,7 @@ export function createCensor(options = {}) {
     if (!raw.trim()) return emptyResult();
 
     const tokens = tokenize(raw);
-    const catalogSpans = catalog ? findCatalogSpans(catalog, raw, tokens, allowSet) : [];
+    const catalogSpans = catalog ? findCatalogSpans(catalog, raw, tokens, allowSet, commonPhrases) : [];
     const listSpans = matcher.find(raw, tokens, allowSet);
     const heuristicSpans = findHeuristicSpans(raw);
     const spans = mergeSpans([...catalogSpans, ...listSpans, ...heuristicSpans]);

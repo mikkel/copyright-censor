@@ -1,5 +1,6 @@
-import { hasNearbyCue, looksProperName } from './heuristics.js';
+import { framingAllowsMatch } from './heuristics.js';
 import { normalizeToken } from './tokenize.js';
+import { isWeakPhrase } from './weak-tokens.js';
 
 /**
  * @typedef {import('./blocklist.js').BlocklistEntry} BlocklistEntry
@@ -38,7 +39,7 @@ export function compileMatcher(entries) {
       let best = null;
       for (const entry of candidates) {
         if (!matchesAt(tokens, i, entry.tokens)) continue;
-        if (entry.commonWord && !commonWordAllowed(tokens, i, entry.tokens.length)) {
+        if (needsFraming(entry) && !framingAllowsMatch(tokens, i, entry.tokens.length, entry.kind)) {
           continue;
         }
         const phrase = entry.tokens.join(' ');
@@ -83,16 +84,12 @@ function matchesAt(tokens, index, termTokens) {
 }
 
 /**
- * Ambiguous single words ("Queen", "Prince") only fire when they look like
- * a name or sit next to a music/rights cue.
- * @param {Token[]} tokens
- * @param {number} index
- * @param {number} length
+ * Ambiguous identifiers ("Queen", "morning dew", "rain on me") only fire
+ * when they look like a title/name or sit next to a rights cue.
+ * @param {BlocklistEntry & { tokens: string[] }} entry
  */
-function commonWordAllowed(tokens, index, length) {
-  if (length > 1) return true;
-  const token = tokens[index];
-  return looksProperName(token) || hasNearbyCue(tokens, index);
+function needsFraming(entry) {
+  return Boolean(entry.commonWord) || isWeakPhrase(entry.tokens);
 }
 
 /**

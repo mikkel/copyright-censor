@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
+import { framingAllowsMatch } from '../src/heuristics.js';
+import { tokenize } from '../src/tokenize.js';
 import { inventedCensor } from './helpers.js';
 
 describe('heuristics', () => {
@@ -45,5 +47,14 @@ describe('heuristics', () => {
   it('still blocks when style language is combined with a specific work', () => {
     const result = inventedCensor().check('in the style of Neon Glass Harbor');
     assert.equal(result.verdict, 'block');
+  });
+
+  it('requires song-title framing for common work tokens, not sentence-initial caps', () => {
+    const object = tokenize('Grenade in the foley bed');
+    assert.equal(framingAllowsMatch(object, 0, 1, 'work'), false);
+    const cued = tokenize('the song grenade on analog tape');
+    assert.equal(framingAllowsMatch(cued, 2, 1, 'work'), true);
+    const artist = tokenize('Tems stacked chorus');
+    assert.equal(framingAllowsMatch(artist, 0, 1, 'artist'), true);
   });
 });

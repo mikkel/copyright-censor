@@ -1,4 +1,11 @@
-import { hasNearbyCue, looksProperName } from './heuristics.js';
+import { framingAllowsMatch } from './heuristics.js';
+import { isWeakPhrase } from './weak-tokens.js';
+
+const WEAK_LEADERS = new Set(['the', 'a', 'an', 'my', 'your', 'our', 'their', 'his', 'her', 'its']);
+
+function isWeakLedShort(norms) {
+  return norms.length === 2 && WEAK_LEADERS.has(norms[0]);
+}
 
 const MAGIC = 0x4e454343; // "CCEN" little-endian
 export const CATALOG_VERSION = 1;
@@ -335,8 +342,9 @@ function emitFrom(model, state, emit) {
  * @param {string} text
  * @param {Array<{ start: number, end: number, text: string, norm: string }>} tokens
  * @param {Set<string>} allowSet
+ * @param {Set<string>} [commonPhrases] overlay phrases marked commonWord
  */
-export function findCatalogSpans(model, text, tokens, allowSet) {
+export function findCatalogSpans(model, text, tokens, allowSet, commonPhrases) {
   const spans = [];
   if (!tokens.length || !model?.tokenToId) return spans;
 
@@ -349,12 +357,16 @@ export function findCatalogSpans(model, text, tokens, allowSet) {
     const startIndex = endIndex - length + 1;
     const start = tokens[startIndex].start;
     const end = tokens[endIndex].end;
-    const phrase = tokens
-      .slice(startIndex, endIndex + 1)
-      .map((token) => token.norm)
-      .join(' ');
+    const matchedNorms = tokens.slice(startIndex, endIndex + 1).map((token) => token.norm);
+    const phrase = matchedNorms.join(' ');
     if (allowSet?.has(phrase) || allowSet?.has(tokens[endIndex].norm)) return;
-    if (meta.commonWord && length === 1 && !commonWordAllowed(tokens, startIndex)) return;
+    const needs =
+      meta.commonWord ||
+      length === 1 ||
+      isWeakPhrase(matchedNorms) ||
+      isWeakLedShort(matchedNorms) ||
+      Boolean(commonPhrases?.has(phrase));
+    if (needs && !framingAllowsMatch(tokens, startIndex, length, meta.kind)) return;
     spans.push({
       start,
       end,
@@ -375,10 +387,6 @@ export function findCatalogSpans(model, text, tokens, allowSet) {
     emitFrom(model, state, (patternIndex) => pushMatch(patternIndex, i));
   }
   return spans;
-}
-
-function commonWordAllowed(tokens, index) {
-  return looksProperName(tokens[index]) || hasNearbyCue(tokens, index);
 }
 
 export function emptyAutomaton() {

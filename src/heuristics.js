@@ -69,38 +69,38 @@ const REVIEW_PATTERNS = [
   },
 ];
 
-/** Tokens that make an otherwise-common word look like a rights request. */
+/**
+ * Nearby tokens that make an otherwise-common identifier look like a
+ * rights request. Mix/production words (chorus, vocal, film, track) stay
+ * out so "analog bus stacked chorus" and "film grain" are not auto-cued.
+ */
 export const CONTEXT_CUES = new Set([
   'album',
   'artist',
   'band',
   'brand',
   'character',
-  'chorus',
   'cover',
-  'film',
   'franchise',
   'like',
   'logo',
   'lyric',
   'lyrics',
-  'movie',
   'official',
   'ost',
   'rapper',
-  'record',
   'singer',
   'song',
   'soundtrack',
   'sounding',
   'sounds',
   'style',
-  'track',
   'trademark',
   'verse',
-  'vocal',
-  'voice',
 ]);
+
+/** Kinds where a sentence-initial capital is just English, not a title. */
+const WEAK_INITIAL_KINDS = new Set(['work', 'album', 'franchise', 'trademark', 'custom']);
 
 const QUOTE_RE = /"([^"]+)"|“([^”]+)”|‘([^’]+)’|'([^']+)'/gu;
 
@@ -190,10 +190,12 @@ export function findHeuristicSpans(text) {
  */
 const LIKE_PREFIXES = new Set(['sounds', 'sounding', 'voiced', 'voice', 'singer', 'rapper', 'vocal']);
 
-export function hasNearbyCue(tokens, index, window = 8) {
+export function hasNearbyCue(tokens, index, window = 8, matchLength = 1) {
   const from = Math.max(0, index - window);
   const to = Math.min(tokens.length, index + window + 1);
+  const matchEnd = index + matchLength;
   for (let i = from; i < to; i += 1) {
+    if (i >= index && i < matchEnd) continue;
     const norm = tokens[i].norm;
     if (!CONTEXT_CUES.has(norm)) continue;
     if (norm === 'like') {
@@ -210,4 +212,43 @@ export function hasNearbyCue(tokens, index, window = 8) {
  */
 export function looksProperName(token) {
   return /\p{Lu}/u.test(token.text);
+}
+
+/**
+ * Title-case evidence that a span is being used as a name/title, not
+ * ordinary English. Sentence-initial capitals on a single work/franchise
+ * token ("Grenade in the foley bed") are too weak.
+ * @param {import('./tokenize.js').Token[]} tokens
+ * @param {number} index
+ * @param {number} length
+ * @param {string} [kind]
+ */
+export function looksLikeTitledMention(tokens, index, length, kind = 'work') {
+  const slice = tokens.slice(index, index + length);
+  if (slice.length === 0) return false;
+  const letterTokens = slice.filter((token) => /\p{L}/u.test(token.text));
+  if (letterTokens.length === 0) return false;
+  const named = letterTokens.filter(looksProperName);
+  if (length === 1) {
+    if (named.length === 0) return false;
+    if (index === 0 && tokens.length > 1 && WEAK_INITIAL_KINDS.has(kind)) return false;
+    return true;
+  }
+  return named.length >= Math.ceil(letterTokens.length / 2);
+}
+
+/**
+ * Common / short identifiers may fire only with title-case evidence or a
+ * nearby rights cue (never because the match cued itself).
+ * @param {import('./tokenize.js').Token[]} tokens
+ * @param {number} index
+ * @param {number} length
+ * @param {string} [kind]
+ */
+export function framingAllowsMatch(tokens, index, length, kind = 'work') {
+  const first = tokens[index];
+  if (length === 1 && first && first.norm.length <= 2) {
+    return hasNearbyCue(tokens, index, 8, length);
+  }
+  return looksLikeTitledMention(tokens, index, length, kind) || hasNearbyCue(tokens, index, 8, length);
 }
