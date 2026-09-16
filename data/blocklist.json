@@ -180,7 +180,11 @@
     "Gurriers",
     "Lanie Gardner",
     "ABLUME",
-    "1900Rugrat"
+    "1900Rugrat",
+    "Pozer",
+    "Gyakie",
+    "izna",
+    "Bayker Blankenship"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -450,7 +454,9 @@
     "Pucky",
     "Yotei",
     "Nioh 3",
-    "Pragmata"
+    "Pragmata",
+    "Happy Gilmore 2",
+    "Lorcana"
   ],
   "trademarks": [
     "Ableton",
@@ -676,6 +682,16 @@
     "Supernote",
     "OnePlus",
     "Xiaomi",
-    "Anker"
+    "Anker",
+    "Supabase",
+    "Vercel",
+    "Fal",
+    "DraftKings",
+    "FanDuel",
+    "Sephora",
+    { "term": "Cava", "commonWord": true },
+    { "term": "Vans", "commonWord": true },
+    { "term": "Converse", "commonWord": true },
+    "Bearbrick"
   ]
 }
