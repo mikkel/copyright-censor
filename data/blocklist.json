@@ -447,7 +447,10 @@
     { "term": "F1", "commonWord": true },
     "Nightreign",
     "Hacipupu",
-    "Pucky"
+    "Pucky",
+    "Yotei",
+    "Nioh 3",
+    "Pragmata"
   ],
   "trademarks": [
     "Ableton",
@@ -643,6 +646,19 @@
     "SoundCloud",
     "AWAL",
     "OpenArt",
-    { "term": "Cursor", "commonWord": true }
+    { "term": "Cursor", "commonWord": true },
+    "Bandcamp",
+    "Audiomack",
+    "Mixcloud",
+    "Warner Records",
+    "Kobalt",
+    { "term": "Antigravity", "commonWord": true },
+    { "term": "Codex", "commonWord": true },
+    "LMArena",
+    "Uniqlo",
+    "Lululemon",
+    "Feastables",
+    "PredictIt",
+    "SM7B"
   ]
 }
