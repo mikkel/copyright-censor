@@ -318,6 +318,17 @@ describe('blocklist', () => {
       ['Descript logo sting, product shot', 'block'],
       ['Nutella logo sting, product shot', 'block'],
       ['Interscope logo sting, product shot', 'block'],
+      ['aespa hook over warm pads', 'review'],
+      ['Sprunki title sting, warm grain', 'block'],
+      ['Ne Zha title sting, warm grain', 'block'],
+      ['Nezha 2 title sting, warm grain', 'block'],
+      ['Shure mic close-up, product shot', 'block'],
+      ['AKG headphone product shot, studio light', 'block'],
+      ['Arturia synth product shot, studio light', 'block'],
+      ['BandLab mix sting, product shot', 'block'],
+      ['DistroKid release sting, product shot', 'block'],
+      ['Elgato capture product shot, studio light', 'block'],
+      ['close-up on the Rode logo, product shot', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);

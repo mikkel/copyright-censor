@@ -296,6 +296,20 @@ describe('allow-path / innocent usage', () => {
     'patron foley, warm mics',
     'smokestack foley, warm mics',
     'jess foley, warm mics',
+    'a spa day foley, warm mics',
+    'spunky foley, warm mics',
+    'near foley, warm mics',
+    'sure foley, warm mics',
+    'shore foley, warm mics',
+    'ack foley, warm mics',
+    'arthur foley, warm mics',
+    'my lab bench foley, warm mics',
+    'house band foley, warm mics',
+    'distro kid foley, warm mics',
+    'legato foley, warm mics',
+    'gato foley, warm mics',
+    'he rode his bike to the store',
+    'road foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
