@@ -142,7 +142,12 @@
     "Nettspend",
     { "term": "Glaive", "commonWord": true },
     "Midwxst",
-    "El Malilla"
+    "El Malilla",
+    "Quannnic",
+    "Shallipopi",
+    "BOYNEXTDOOR",
+    "QWER",
+    "Seyi Vibez"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -381,7 +386,11 @@
     "FragPunk",
     "Uma Musume",
     "Dandy's World",
-    "GQuuuuuuX"
+    "GQuuuuuuX",
+    "Megabonk",
+    { "term": "Adopt Me", "commonWord": true },
+    "Brookhaven",
+    { "term": "Italian Brainrot", "commonWord": true }
   ],
   "trademarks": [
     "Ableton",
@@ -515,6 +524,13 @@
     "RCA Records",
     { "term": "Stussy", "aliases": ["Stüssy"] },
     "Balenciaga",
-    "Krea"
+    "Krea",
+    "Rekordbox",
+    { "term": "Capitol Records", "commonWord": true },
+    { "term": "Epic Records", "commonWord": true },
+    "HYBE",
+    "Viggle",
+    "Higgsfield",
+    "Corteiz"
   ]
 }
