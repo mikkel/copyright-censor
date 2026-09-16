@@ -173,7 +173,14 @@
     "Tml Vibez",
     "Shoday",
     "M Huncho",
-    "Malugi"
+    "Malugi",
+    "Bakey",
+    "ifeye",
+    { "term": "Sprints", "commonWord": true },
+    "Gurriers",
+    "Lanie Gardner",
+    "ABLUME",
+    "1900Rugrat"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -436,7 +443,11 @@
     "Fisch",
     { "term": "BedWars", "aliases": ["Bed Wars"] },
     "Takopi",
-    "Lafufu"
+    "Lafufu",
+    { "term": "F1", "commonWord": true },
+    "Nightreign",
+    "Hacipupu",
+    "Pucky"
   ],
   "trademarks": [
     "Ableton",
@@ -627,6 +638,11 @@
     "Polymarket",
     "Kalshi",
     "Starlink",
-    "Bogg Bag"
+    "Bogg Bag",
+    "OP-1",
+    "SoundCloud",
+    "AWAL",
+    "OpenArt",
+    { "term": "Cursor", "commonWord": true }
   ]
 }
