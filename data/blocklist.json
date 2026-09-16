@@ -184,7 +184,10 @@
     "Pozer",
     "Gyakie",
     "izna",
-    "Bayker Blankenship"
+    "Bayker Blankenship",
+    "fcukers",
+    "Obskur",
+    { "term": "Wishy", "commonWord": true }
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -457,7 +460,9 @@
     "Pragmata",
     "Happy Gilmore 2",
     "Lorcana",
-    "Hytale"
+    "Hytale",
+    { "term": "Companion", "commonWord": true },
+    { "term": "Novocaine", "commonWord": true }
   ],
   "trademarks": [
     "Ableton",
@@ -729,6 +734,25 @@
     "Pinterest",
     "Strava",
     "Duolingo",
-    { "term": "Linear", "commonWord": true }
+    { "term": "Linear", "commonWord": true },
+    "Hasselblad",
+    "Nikon",
+    "Lumix",
+    "Ricoh",
+    "Pentax",
+    "Tamron",
+    "Zeiss",
+    "Godox",
+    "Profoto",
+    "Atomos",
+    "SmallRig",
+    "Aputure",
+    "Instax",
+    "Currys",
+    "Lidl",
+    "H&M",
+    "Recraft",
+    { "term": "Napkin", "commonWord": true },
+    "Tesco"
   ]
 }
