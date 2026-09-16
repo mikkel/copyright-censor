@@ -708,6 +708,27 @@
     "Leica",
     "Wooting",
     "Wispr",
-    "Raycast"
+    "Raycast",
+    "Aldi",
+    "Asics",
+    "Birkenstock",
+    "Vinted",
+    { "term": "Whatnot", "commonWord": true },
+    "BetMGM",
+    "Betway",
+    "Novation",
+    "Secretlab",
+    { "term": "OBS", "aliases": ["OBS Studio"], "commonWord": true },
+    "Streamlabs",
+    "Magnific",
+    { "term": "Sesame", "commonWord": true },
+    "Wakuku",
+    "pgLang",
+    "Anjunabeats",
+    { "term": "Spinnin' Records", "aliases": ["Spinnin Records"] },
+    "Pinterest",
+    "Strava",
+    "Duolingo",
+    { "term": "Linear", "commonWord": true }
   ]
 }
