@@ -409,7 +409,10 @@
     "Hirono",
     { "term": "Schedule 1", "commonWord": true },
     "Skullpanda",
-    "Dimoo"
+    "Dimoo",
+    "2XKO",
+    { "term": "Saros", "commonWord": true },
+    "Monchhichi"
   ],
   "trademarks": [
     "Ableton",
@@ -563,6 +566,19 @@
     "ComfyUI",
     "Behringer",
     "BAPE",
-    "Elektron"
+    "Elektron",
+    "Jellycat",
+    { "term": "GPT-5", "aliases": ["GPT 5"] },
+    "NotebookLM",
+    "Hunyuan",
+    { "term": "Lovable", "commonWord": true },
+    { "term": "Windsurf", "commonWord": true },
+    "Replit",
+    { "term": "Captions", "commonWord": true },
+    { "term": "Granola", "commonWord": true },
+    { "term": "Kith", "commonWord": true },
+    "Jacquemus",
+    "Sp5der",
+    "Hellstar"
   ]
 }
