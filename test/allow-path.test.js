@@ -27,6 +27,20 @@ describe('allow-path / innocent usage', () => {
     'analog bus stacked chorus',
     'dusty cassette, no crowd noise',
     'melancholic jazz piano, intimate vocal air',
+    'tape-saturated folk stomp',
+    'dusty vinyl crackle bed',
+    'cathedral reverb tail',
+    'muted trumpet air',
+    'slowed trap bounce',
+    'detuned choir swells',
+    'phaser-heavy psych groove',
+    'fingerpicked nylon intro',
+    'sub-bass pulse under soft keys',
+    'rainy rhodes, room tone',
+    'glockenspiel sparkle, gentle strum',
+    'flute loop with chopped choir',
+    'slow strings swell, no vocal',
+    'chorused twelve-string shimmer',
   ];
 
   const directionPrompts = [
@@ -36,6 +50,16 @@ describe('allow-path / innocent usage', () => {
     'film grain',
     'cinematic pads',
     'dreamy 80s synthwave, warm analog pads',
+    'slower build into the chorus',
+    'strip it back to piano',
+    'add vinyl crackle and hiss',
+    'more room tone, less polish',
+    'brighter master, tame the mud',
+    'easy feel on the bridge',
+    'switch to a minor key midway',
+    'make the drums switch up halfway',
+    'push the tempo to 128',
+    'drier vocal, wider pads',
   ];
 
   const objectPrompts = [
@@ -53,6 +77,19 @@ describe('allow-path / innocent usage', () => {
     'midnight sun through the window mics',
     'drop dead gorgeous vocal air',
     'be her friend on the chorus stack',
+    'boston rain on the window mics',
+    'leftover boston chowder in the green room',
+    'a boston fern in the corner of the set',
+    'dracula cape in the costume rack',
+    'paper dracula teeth for the halloween sting',
+    'nine to five shift whistle foley',
+    'clocking nine to five warehouse ambience',
+    'flip the pickup switch, second take',
+    'a faulty light switch buzzing onsite',
+    'something to lose, restless piano at midnight',
+    'steamboat whistle foley with willie on harmonica',
+    'a direct cinema cut, no captions',
+    'forty hours of overtime, tired vocal take',
   ];
 
   const nearMissPrompts = [
@@ -62,6 +99,18 @@ describe('allow-path / innocent usage', () => {
     'miami night pads',
     'combs through the mix',
     'tems? wait no, tempos',
+    'jude line the vocal booth with foam',
+    'rusty bowstring fiddle texture',
+    'enjoy conga breakdowns',
+    'joyful conga layer under the hook',
+    'vintage mason jar on the piano',
+    'dolly in slowly, then part the curtains',
+    'switch grass rustling, dry field mic',
+    'a direct feed from the desk',
+    'steam heat on the brass mic',
+    'boss tone stack, crunch channel',
+    'second switchback trail ambience',
+    'how to lose the hum in the amp',
   ];
 
   it('keeps genre / vibe / production prompts allow on the extras overlay', () => {
@@ -114,6 +163,16 @@ describe('allow-path / innocent usage', () => {
       'Sign of the Times piano sketch',
       'the Orbiter song demo',
       'the song Wonderwall on analog tape',
+      'the song Boston on analog tape',
+      'Boston song sketch, Stella Lefty vocal',
+      'the song Dracula on analog tape',
+      'Something to Lose piano sketch',
+      'the song 9 to 5 on piano',
+      'Steamboat Willie title card, warm grain',
+      'Nintendo Switch bumper sting',
+      'Switch 2 unboxing sting, warm grain',
+      'Joy-Con controller close-up, product shot',
+      'Nintendo Direct title sting',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -138,6 +197,10 @@ describe('allow-path / innocent usage', () => {
       'Tems stacked chorus, analog bus',
       'Luke Combs bar-room guitar',
       'Sam Fender guitar take',
+      'Judeline hook over warm pads',
+      'rusowsky bounce on cheap speakers',
+      'Dolly Parton choir stack, analog bus',
+      'Vincent Mason guitar take',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);

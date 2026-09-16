@@ -156,6 +156,23 @@ describe('blocklist', () => {
       ['the Orbiter song demo, pads and soft choir', 'block'],
       ['Morning Dew arrangement, soft tape', 'block'],
       ['Morning Dew (Donk) sketch', 'block'],
+      ['Judeline hook over warm pads', 'review'],
+      ['rusowsky bounce on cheap speakers', 'review'],
+      ['Rusowsky perreo bounce, dusty cassette', 'review'],
+      ['Dolly Parton choir stack, analog bus', 'review'],
+      ['Vincent Mason guitar take', 'review'],
+      ['the song Boston on analog tape', 'block'],
+      ['Boston song sketch, Stella Lefty vocal', 'block'],
+      ['the song Dracula on analog tape', 'block'],
+      ['Something to Lose piano sketch', 'block'],
+      ['the song 9 to 5 on piano', 'block'],
+      ['Steamboat Willie title card, warm grain', 'block'],
+      ['Nintendo Switch bumper sting', 'block'],
+      ['Nintendo Switch 2 unboxing sting', 'block'],
+      ['Switch 2 unboxing sting, warm grain', 'block'],
+      ['Joy-Con controller close-up, product shot', 'block'],
+      ['Joy Con 2 click foley, game trailer', 'block'],
+      ['Nintendo Direct title sting', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);
