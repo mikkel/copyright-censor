@@ -246,6 +246,20 @@ describe('blocklist', () => {
       ['DALL-E prompt sting, product shot', 'block'],
       ['Funko unboxing sting', 'block'],
       ['Mattel title sting', 'block'],
+      ['Peso Pluma hook over warm pads', 'review'],
+      ['Valorant lobby title sting', 'block'],
+      ['Hulu title sting', 'block'],
+      ['Crunchyroll title sting', 'block'],
+      ['Reddit title sting', 'block'],
+      ['Yamaha logo sting, product shot', 'block'],
+      ['Ableton title sting', 'block'],
+      ['Nerf logo sting, product shot', 'block'],
+      ['Hasbro title sting', 'block'],
+      ['Copilot logo sting, product shot', 'block'],
+      ['Grok title sting', 'block'],
+      ['ElevenLabs title sting', 'block'],
+      ['CapCut edit sting, product shot', 'block'],
+      ['Serato DJ sting, product shot', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);

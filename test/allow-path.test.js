@@ -138,6 +138,22 @@ describe('allow-path / innocent usage', () => {
     'deli foley bed, warm mics',
     'funky foley bed, warm mics',
     'matte finish foley, warm mics',
+    'peso exchange rate foley, warm mics',
+    'pluma feather foley, warm mics',
+    'valor foley, warm mics',
+    'hula dance foley, warm mics',
+    'crunchy granola foley, warm mics',
+    'read it later foley, warm mics',
+    'yamaha foley, warm mics',
+    'able foley, warm mics',
+    'nerf the bass foley, warm mics',
+    'hash brown foley, warm mics',
+    'co-pilot foley, warm mics',
+    'copilot foley, warm mics',
+    'rock foley, warm mics',
+    'eleven labs foley, warm mics',
+    'cap cut foley, warm mics',
+    'serrated knife foley, warm mics',
   ];
 
   const nearMissPrompts = [
@@ -177,6 +193,10 @@ describe('allow-path / innocent usage', () => {
     'chatty green room foley, warm mics',
     'mid journey field recording, slow build',
     'django guitar foley, warm mics',
+    'grock foley, warm mics',
+    'redder foley, warm mics',
+    'crunchy roll foley, warm mics',
+    'able tone foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -301,6 +321,19 @@ describe('allow-path / innocent usage', () => {
       'DALL-E prompt sting, product shot',
       'Funko unboxing sting',
       'Mattel title sting',
+      'Valorant lobby title sting',
+      'Hulu title sting',
+      'Crunchyroll title sting',
+      'Reddit title sting',
+      'Yamaha logo sting, product shot',
+      'Ableton title sting',
+      'Nerf logo sting, product shot',
+      'Hasbro title sting',
+      'Copilot logo sting, product shot',
+      'Grok title sting',
+      'ElevenLabs title sting',
+      'CapCut edit sting, product shot',
+      'Serato DJ sting, product shot',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -339,6 +372,7 @@ describe('allow-path / innocent usage', () => {
       'sombr bedroom demo, soft tape',
       'Shaboozey bar-room guitar',
       'Djo bar-room guitar',
+      'Peso Pluma hook over warm pads',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
