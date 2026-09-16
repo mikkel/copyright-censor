@@ -329,6 +329,21 @@ describe('blocklist', () => {
       ['DistroKid release sting, product shot', 'block'],
       ['Elgato capture product shot, studio light', 'block'],
       ['close-up on the Rode logo, product shot', 'block'],
+      ['Mitski hook over warm pads', 'review'],
+      ['Tucker Wetmore hook over warm pads', 'review'],
+      ['4batz hook over warm pads', 'review'],
+      ['Gabito Ballesteros hook over warm pads', 'review'],
+      ['Evangelion title sting, warm grain', 'block'],
+      ['PUBG title sting, warm grain', 'block'],
+      ['Smiski blind-box unboxing sting', 'block'],
+      ['Korg logo sting, product shot', 'block'],
+      ['Sennheiser logo sting, product shot', 'block'],
+      ['Focusrite logo sting, product shot', 'block'],
+      ['Pioneer DJ logo sting, product shot', 'block'],
+      ['LTX logo sting, product shot', 'block'],
+      ['Skims logo sting, product shot', 'block'],
+      ['Rhode logo sting, product shot', 'block'],
+      ['Motown logo sting, product shot', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);

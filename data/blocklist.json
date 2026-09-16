@@ -129,7 +129,11 @@
     "Vincent Mason",
     "Whitney Houston",
     "Yung Miami",
-    "Zara Larsson"
+    "Zara Larsson",
+    "Mitski",
+    "Tucker Wetmore",
+    "4batz",
+    "Gabito Ballesteros"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -355,7 +359,10 @@
     "Wonka",
     "Xbox",
     "Yoda",
-    "Zelda"
+    "Zelda",
+    "Evangelion",
+    "PUBG",
+    "Smiski"
   ],
   "trademarks": [
     "Ableton",
@@ -469,6 +476,14 @@
     { "term":     "Warner Music Group", "aliases": ["Warner Music"] },
     "Xbox Series X",
     { "term": "Yamaha", "commonWord": true },
-    "YouTube"
+    "YouTube",
+    "Korg",
+    "Sennheiser",
+    "Focusrite",
+    "Pioneer DJ",
+    "LTX",
+    { "term": "Skims", "commonWord": true },
+    { "term": "Rhode", "commonWord": true },
+    "Motown"
   ]
 }
