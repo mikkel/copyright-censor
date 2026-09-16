@@ -260,6 +260,21 @@ describe('blocklist', () => {
       ['ElevenLabs title sting', 'block'],
       ['CapCut edit sting, product shot', 'block'],
       ['Serato DJ sting, product shot', 'block'],
+      ['Feid perreo bounce sketch', 'review'],
+      ['Helldivers lobby title sting', 'block'],
+      ['Palworld lobby title sting', 'block'],
+      ['Wicked logo sting, product shot', 'block'],
+      ['Steam logo sting, product shot', 'block'],
+      ['Shein product shot, studio light', 'block'],
+      ['Bose logo sting, product shot', 'block'],
+      ['JBL product shot, studio light', 'block'],
+      ['IKEA product shot, studio light', 'block'],
+      ['Unity logo sting, product shot', 'block'],
+      ['Perplexity logo sting, product shot', 'block'],
+      ['DeepSeek prompt sting, product shot', 'block'],
+      ['Pika logo sting, product shot', 'block'],
+      ['Luma logo sting, product shot', 'block'],
+      ['Shazam title sting, product shot', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);

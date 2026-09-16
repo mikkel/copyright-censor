@@ -154,6 +154,21 @@ describe('allow-path / innocent usage', () => {
     'eleven labs foley, warm mics',
     'cap cut foley, warm mics',
     'serrated knife foley, warm mics',
+    'steamy vocal booth foley, warm mics',
+    'sheen product shot foley, warm mics',
+    'bose foley, warm mics',
+    'idea foley, warm mics',
+    'community unity foley, warm mics',
+    'unity foley, warm mics',
+    'perplexity foley, warm mics',
+    'deep seek foley, warm mics',
+    'pika foley, warm mics',
+    'luma foley, warm mics',
+    'lumen foley, warm mics',
+    'wicked weather foley, warm mics',
+    'hell diver foley, warm mics',
+    'pal world foley, warm mics',
+    'feud foley, warm mics',
   ];
 
   const nearMissPrompts = [
@@ -197,6 +212,12 @@ describe('allow-path / innocent usage', () => {
     'redder foley, warm mics',
     'crunchy roll foley, warm mics',
     'able tone foley, warm mics',
+    'jlb foley, warm mics',
+    'sham foley, warm mics',
+    'pica foley, warm mics',
+    'lumia foley, warm mics',
+    'feuding vocal booth foley, warm mics',
+    'boss pedal foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -334,6 +355,20 @@ describe('allow-path / innocent usage', () => {
       'ElevenLabs title sting',
       'CapCut edit sting, product shot',
       'Serato DJ sting, product shot',
+      'Helldivers lobby title sting',
+      'Palworld lobby title sting',
+      'Wicked logo sting, product shot',
+      'Steam logo sting, product shot',
+      'Shein product shot, studio light',
+      'Bose logo sting, product shot',
+      'JBL product shot, studio light',
+      'IKEA product shot, studio light',
+      'Unity logo sting, product shot',
+      'Perplexity logo sting, product shot',
+      'DeepSeek prompt sting, product shot',
+      'Pika logo sting, product shot',
+      'Luma logo sting, product shot',
+      'Shazam title sting, product shot',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -373,6 +408,7 @@ describe('allow-path / innocent usage', () => {
       'Shaboozey bar-room guitar',
       'Djo bar-room guitar',
       'Peso Pluma hook over warm pads',
+      'Feid perreo bounce sketch',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
