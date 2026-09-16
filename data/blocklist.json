@@ -162,7 +162,12 @@
     "YTB Fatt",
     "Ghostemane",
     "Clavish",
-    "Odeal"
+    "Odeal",
+    "FattMack",
+    "Aldn",
+    "Lasmid",
+    "XLOV",
+    "Kettama"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -420,7 +425,11 @@
     "Monchhichi",
     "Mofusand",
     "Tralalero Tralala",
-    "Wuchang"
+    "Wuchang",
+    { "term": "REPO", "aliases": ["R.E.P.O."], "commonWord": true },
+    "Fisch",
+    { "term": "BedWars", "aliases": ["Bed Wars"] },
+    "Takopi"
   ],
   "trademarks": [
     "Ableton",
@@ -595,6 +604,13 @@
     "Insta360",
     "Bitwig",
     "Mubi",
-    "Letterboxd"
+    "Letterboxd",
+    "TDE",
+    { "term": "Amuse", "commonWord": true },
+    "SeaArt",
+    "FabFilter",
+    "Beyerdynamic",
+    "Fujifilm",
+    { "term": "Glossier", "commonWord": true }
   ]
 }
