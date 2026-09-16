@@ -122,6 +122,9 @@ describe('allow-path / innocent usage', () => {
     'play the station break foley',
     'barbecue smoke ambience, grill foley',
     'barbed fence wire foley, high wind',
+    'blue tarp flapping foley, high wind',
+    'fender bender foley, parking lot ambience',
+    'muddy fender rattle foley, garage bed',
   ];
 
   const nearMissPrompts = [
@@ -156,6 +159,10 @@ describe('allow-path / innocent usage', () => {
     'x box mic crate, roadie foley',
     'ps 5 mic positions, drum overheads',
     'street-pop mural on the brick wall',
+    'shabby vocal booth foley, warm mics',
+    'narrow hallway reverb foley',
+    'chatty green room foley, warm mics',
+    'mid journey field recording, slow build',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -264,6 +271,11 @@ describe('allow-path / innocent usage', () => {
       'Universal Music Group title sting',
       'Atlantic Records title sting',
       'BMG logo sting, warm grain',
+      'Naruto title sting',
+      'Bluey title sting, warm grain',
+      'ChatGPT prompt sting, product shot',
+      'Midjourney prompt sting, product shot',
+      'Fender logo sting, product shot',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -300,6 +312,7 @@ describe('allow-path / innocent usage', () => {
       'Ty Dolla $ign late-night keys',
       'Ty Dolla Sign hook over warm pads',
       'sombr bedroom demo, soft tape',
+      'Shaboozey bar-room guitar',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
