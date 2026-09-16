@@ -403,6 +403,29 @@ describe('allow-path / innocent usage', () => {
     'kith and kin foley, warm mics',
     'kith foley, warm mics',
     'hell star foley, warm mics',
+    'molly foley, warm mics',
+    'fat foley, warm mics',
+    'ghost foley, warm mics',
+    'horse mane foley, warm mics',
+    'clavinet foley, warm mics',
+    'lavish foley, warm mics',
+    'ordeal foley, warm mics',
+    'sand art foley, warm mics',
+    'mofu foley, warm mics',
+    'wuxia film foley, warm mics',
+    'vintage video foley, warm mics',
+    'drum kits foley, warm mics',
+    'kit foley, warm mics',
+    'tuning foley, warm mics',
+    'core workout foley, warm mics',
+    'united choir foley, warm mics',
+    'masters foley, warm mics',
+    'squishy toy foley, warm mics',
+    'marshmallow roast foley, warm mics',
+    'insta pic foley, warm mics',
+    'bigwig foley, warm mics',
+    'tubi night foley, warm mics',
+    'letterbox foley, warm mics',
   ];
 
   const nearMissPrompts = [
@@ -647,6 +670,9 @@ describe('allow-path / innocent usage', () => {
     'allstar foley, warm mics',
     'hell foley, warm mics',
     'star foley, warm mics',
+    'tra la la vocal warm-up foley, warm mics',
+    'tralala choir warm-up foley, warm mics',
+    'wuhan rain foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -919,6 +945,17 @@ describe('allow-path / innocent usage', () => {
       'Jacquemus product shot, studio light',
       'Sp5der product shot, studio light',
       'Hellstar product shot, studio light',
+      'Mofusand character title sting, warm grain',
+      'Tralalero Tralala title sting, warm grain',
+      'Wuchang title sting, warm grain',
+      'Kits AI prompt sting, product shot',
+      'TuneCore logo sting, product shot',
+      'UnitedMasters logo sting, product shot',
+      'Squishmallows product shot, studio light',
+      'Insta360 product shot, studio light',
+      'Bitwig title sting, product shot',
+      'Mubi title sting, warm grain',
+      'Letterboxd title sting, warm grain',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -991,6 +1028,11 @@ describe('allow-path / innocent usage', () => {
       'Disclosure hook over warm pads',
       'Underscores hook over warm pads',
       'Femtanyl hook over warm pads',
+      'Moliy hook over warm pads',
+      'YTB Fatt hook over warm pads',
+      'Ghostemane hook over warm pads',
+      'Clavish hook over warm pads',
+      'Odeal hook over warm pads',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);

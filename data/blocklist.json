@@ -157,7 +157,12 @@
     { "term": "Future", "commonWord": true },
     { "term": "Disclosure", "commonWord": true },
     { "term": "Underscores", "commonWord": true },
-    "Femtanyl"
+    "Femtanyl",
+    "Moliy",
+    "YTB Fatt",
+    "Ghostemane",
+    "Clavish",
+    "Odeal"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -412,7 +417,10 @@
     "Dimoo",
     "2XKO",
     { "term": "Saros", "commonWord": true },
-    "Monchhichi"
+    "Monchhichi",
+    "Mofusand",
+    "Tralalero Tralala",
+    "Wuchang"
   ],
   "trademarks": [
     "Ableton",
@@ -579,6 +587,14 @@
     { "term": "Kith", "commonWord": true },
     "Jacquemus",
     "Sp5der",
-    "Hellstar"
+    "Hellstar",
+    "Kits AI",
+    "TuneCore",
+    "UnitedMasters",
+    "Squishmallows",
+    "Insta360",
+    "Bitwig",
+    "Mubi",
+    "Letterboxd"
   ]
 }
