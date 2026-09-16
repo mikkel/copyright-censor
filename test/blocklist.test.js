@@ -304,6 +304,20 @@ describe('blocklist', () => {
       ['Bandai logo sting, product shot', 'block'],
       ['Patreon logo sting, product shot', 'block'],
       ['Substack logo sting, product shot', 'block'],
+      ['Jessie Murph hook over warm pads', 'review'],
+      ['FIFA title sting, warm grain', 'block'],
+      ['OnlyFans logo sting, product shot', 'block'],
+      ['HeyGen logo sting, product shot', 'block'],
+      ['Venmo logo sting, product shot', 'block'],
+      ['Walmart logo sting, product shot', 'block'],
+      ['Technics logo sting, product shot', 'block'],
+      ['Chipotle logo sting, product shot', 'block'],
+      ['Expedia logo sting, product shot', 'block'],
+      ['Costco logo sting, product shot', 'block'],
+      ['Instacart logo sting, product shot', 'block'],
+      ['Descript logo sting, product shot', 'block'],
+      ['Nutella logo sting, product shot', 'block'],
+      ['Interscope logo sting, product shot', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);

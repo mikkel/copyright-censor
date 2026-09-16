@@ -209,6 +209,24 @@ describe('allow-path / innocent usage', () => {
     'patron foley, warm mics',
     'pattern foley, warm mics',
     'smokestack foley, warm mics',
+    'jessie foley, warm mics',
+    'murph foley, warm mics',
+    'fife loop foley, warm mics',
+    'only fans foley, warm mics',
+    'fan foley, warm mics',
+    'hey gen foley, warm mics',
+    'venom foley, warm mics',
+    'wall art foley, warm mics',
+    'tech foley, warm mics',
+    'chip foley, warm mics',
+    'expedite foley, warm mics',
+    'cost foley, warm mics',
+    'insta foley, warm mics',
+    'cart foley, warm mics',
+    'script foley, warm mics',
+    'describe foley, warm mics',
+    'nut foley, warm mics',
+    'intercom foley, warm mics',
   ];
 
   const nearMissPrompts = [
@@ -277,6 +295,7 @@ describe('allow-path / innocent usage', () => {
     'etude foley, warm mics',
     'patron foley, warm mics',
     'smokestack foley, warm mics',
+    'jess foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -454,6 +473,19 @@ describe('allow-path / innocent usage', () => {
       'Bandai logo sting, product shot',
       'Patreon logo sting, product shot',
       'Substack logo sting, product shot',
+      'FIFA title sting, warm grain',
+      'OnlyFans logo sting, product shot',
+      'HeyGen logo sting, product shot',
+      'Venmo logo sting, product shot',
+      'Walmart logo sting, product shot',
+      'Technics logo sting, product shot',
+      'Chipotle logo sting, product shot',
+      'Expedia logo sting, product shot',
+      'Costco logo sting, product shot',
+      'Instacart logo sting, product shot',
+      'Descript logo sting, product shot',
+      'Nutella logo sting, product shot',
+      'Interscope logo sting, product shot',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -497,6 +529,7 @@ describe('allow-path / innocent usage', () => {
       'GloRilla hook over warm pads',
       'Latto bounce on cheap speakers',
       'Hozier hook over warm pads',
+      'Jessie Murph hook over warm pads',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
