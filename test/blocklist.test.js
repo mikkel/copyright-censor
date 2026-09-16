@@ -392,6 +392,22 @@ describe('blocklist', () => {
       ['Viggle prompt sting, product shot', 'block'],
       ['Higgsfield prompt sting, product shot', 'block'],
       ['Corteiz product shot, studio light', 'block'],
+      ['DannyLux hook over warm pads', 'review'],
+      ['Eslabon Armado hook over warm pads', 'review'],
+      ['Nemzzz hook over warm pads', 'review'],
+      ['Fireboy DML hook over warm pads', 'review'],
+      ['P1Harmony hook over warm pads', 'review'],
+      ['Piggy character title sting, warm grain', 'block'],
+      ['Mickey 17 title sting, warm grain', 'block'],
+      ['Bongo Cat title sting, warm grain', 'block'],
+      ['PixVerse prompt sting, product shot', 'block'],
+      ['Hailuo prompt sting, product shot', 'block'],
+      ['MiniMax logo sting, product shot', 'block'],
+      ['Whisk logo sting, product shot', 'block'],
+      ['LANDR prompt sting, product shot', 'block'],
+      ['Monstercat title sting, warm grain', 'block'],
+      ['Alamo Records title sting, warm grain', 'block'],
+      ['Keychron product shot, studio light', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);

@@ -147,7 +147,12 @@
     "Shallipopi",
     "BOYNEXTDOOR",
     "QWER",
-    "Seyi Vibez"
+    "Seyi Vibez",
+    "DannyLux",
+    "Eslabon Armado",
+    "Nemzzz",
+    "Fireboy DML",
+    "P1Harmony"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -390,7 +395,10 @@
     "Megabonk",
     { "term": "Adopt Me", "commonWord": true },
     "Brookhaven",
-    { "term": "Italian Brainrot", "commonWord": true }
+    { "term": "Italian Brainrot", "commonWord": true },
+    { "term": "Piggy", "commonWord": true },
+    "Mickey 17",
+    "Bongo Cat"
   ],
   "trademarks": [
     "Ableton",
@@ -531,6 +539,14 @@
     "HYBE",
     "Viggle",
     "Higgsfield",
-    "Corteiz"
+    "Corteiz",
+    "PixVerse",
+    "Hailuo",
+    { "term": "MiniMax", "commonWord": true },
+    { "term": "Whisk", "commonWord": true },
+    "LANDR",
+    "Monstercat",
+    "Alamo Records",
+    "Keychron"
   ]
 }
