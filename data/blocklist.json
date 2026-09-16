@@ -167,7 +167,13 @@
     "Aldn",
     "Lasmid",
     "XLOV",
-    "Kettama"
+    "Kettama",
+    { "term": "Floodlights", "commonWord": true },
+    "PlaqueBoyMax",
+    "Tml Vibez",
+    "Shoday",
+    "M Huncho",
+    "Malugi"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -429,7 +435,8 @@
     { "term": "REPO", "aliases": ["R.E.P.O."], "commonWord": true },
     "Fisch",
     { "term": "BedWars", "aliases": ["Bed Wars"] },
-    "Takopi"
+    "Takopi",
+    "Lafufu"
   ],
   "trademarks": [
     "Ableton",
@@ -611,6 +618,15 @@
     "FabFilter",
     "Beyerdynamic",
     "Fujifilm",
-    { "term": "Glossier", "commonWord": true }
+    { "term": "Glossier", "commonWord": true },
+    "Boox",
+    "Owala",
+    "Hoka",
+    "UGG",
+    "Salomon",
+    "Polymarket",
+    "Kalshi",
+    "Starlink",
+    "Bogg Bag"
   ]
 }
