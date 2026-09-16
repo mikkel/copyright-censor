@@ -152,7 +152,12 @@
     "Eslabon Armado",
     "Nemzzz",
     "Fireboy DML",
-    "P1Harmony"
+    "P1Harmony",
+    { "term": "Oasis", "commonWord": true },
+    { "term": "Future", "commonWord": true },
+    { "term": "Disclosure", "commonWord": true },
+    { "term": "Underscores", "commonWord": true },
+    "Femtanyl"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -398,7 +403,13 @@
     { "term": "Italian Brainrot", "commonWord": true },
     { "term": "Piggy", "commonWord": true },
     "Mickey 17",
-    "Bongo Cat"
+    "Bongo Cat",
+    "Hades 2",
+    { "term": "Battlefield 6", "commonWord": true },
+    "Hirono",
+    { "term": "Schedule 1", "commonWord": true },
+    "Skullpanda",
+    "Dimoo"
   ],
   "trademarks": [
     "Ableton",
@@ -547,6 +558,11 @@
     "LANDR",
     "Monstercat",
     "Alamo Records",
-    "Keychron"
+    "Keychron",
+    "Vidu",
+    "ComfyUI",
+    "Behringer",
+    "BAPE",
+    "Elektron"
   ]
 }
