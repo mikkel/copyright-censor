@@ -137,7 +137,12 @@
     "Billy Strings",
     "Sierra Ferrell",
     "2hollis",
-    "Grupo Frontera"
+    "Grupo Frontera",
+    "d4vd",
+    "Nettspend",
+    { "term": "Glaive", "commonWord": true },
+    "Midwxst",
+    "El Malilla"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -372,7 +377,11 @@
     "GTA 6",
     "Castlevania",
     "Undertale",
-    "Zootopia"
+    "Zootopia",
+    "FragPunk",
+    "Uma Musume",
+    "Dandy's World",
+    "GQuuuuuuX"
   ],
   "trademarks": [
     "Ableton",
@@ -499,6 +508,13 @@
     "Manus",
     "Ideogram",
     "Akai",
-    "Crocs"
+    "Crocs",
+    "Samsung",
+    "Synthesia",
+    "Teenage Engineering",
+    "RCA Records",
+    { "term": "Stussy", "aliases": ["Stüssy"] },
+    "Balenciaga",
+    "Krea"
   ]
 }
