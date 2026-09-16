@@ -227,6 +227,36 @@ describe('allow-path / innocent usage', () => {
     'describe foley, warm mics',
     'nut foley, warm mics',
     'intercom foley, warm mics',
+    'billy foley, warm mics',
+    'sierra nevada foley, warm mics',
+    'feral cat foley, warm mics',
+    'hollis hall foley, warm mics',
+    'group vocal foley, warm mics',
+    'frontier foley, warm mics',
+    'delta blues foley, warm mics',
+    'rune stone foley, warm mics',
+    'under foley, warm mics',
+    'tale foley, warm mics',
+    'tales foley, warm mics',
+    'dota foley, warm mics',
+    'dot foley, warm mics',
+    'gta foley, warm mics',
+    'gt foley, warm mics',
+    'castle foley, warm mics',
+    'vania foley, warm mics',
+    'zoo foley, warm mics',
+    'utopia foley, warm mics',
+    'gem foley, warm mics',
+    'mini foley, warm mics',
+    'manual foley, warm mics',
+    'manta ray foley, warm mics',
+    'idea gram foley, warm mics',
+    'gram foley, warm mics',
+    'kai foley, warm mics',
+    'croc foley, warm mics',
+    'clog foley, warm mics',
+    'sierra foley, warm mics',
+    'frontera foley, warm mics',
   ];
 
   const nearMissPrompts = [
@@ -340,6 +370,9 @@ describe('allow-path / innocent usage', () => {
     'rhodes piano foley, warm mics',
     'motel foley, warm mics',
     'town foley, warm mics',
+    'bill foley, warm mics',
+    'delta foley, warm mics',
+    'undertow foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -541,6 +574,17 @@ describe('allow-path / innocent usage', () => {
       'Skims logo sting, product shot',
       'Rhode logo sting, product shot',
       'Motown logo sting, product shot',
+      'Deltarune title sting, warm grain',
+      'Undertale title sting, warm grain',
+      'Dota 2 title sting, warm grain',
+      'GTA 6 title sting, warm grain',
+      'Castlevania title sting, warm grain',
+      'Zootopia title card, warm grain',
+      'Gemini prompt sting, product shot',
+      'Manus prompt sting, product shot',
+      'Ideogram prompt sting, product shot',
+      'Akai title sting, product shot',
+      'Crocs product shot, studio light',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -589,6 +633,10 @@ describe('allow-path / innocent usage', () => {
       'Tucker Wetmore hook over warm pads',
       '4batz hook over warm pads',
       'Gabito Ballesteros hook over warm pads',
+      'Billy Strings guitar take, flatpicking',
+      'Sierra Ferrell hook over warm pads',
+      '2hollis hook over warm pads',
+      'Grupo Frontera hook over warm pads',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);

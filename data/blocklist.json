@@ -133,7 +133,11 @@
     "Mitski",
     "Tucker Wetmore",
     "4batz",
-    "Gabito Ballesteros"
+    "Gabito Ballesteros",
+    "Billy Strings",
+    "Sierra Ferrell",
+    "2hollis",
+    "Grupo Frontera"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -362,7 +366,13 @@
     "Zelda",
     "Evangelion",
     "PUBG",
-    "Smiski"
+    "Smiski",
+    "Deltarune",
+    "Dota 2",
+    "GTA 6",
+    "Castlevania",
+    "Undertale",
+    "Zootopia"
   ],
   "trademarks": [
     "Ableton",
@@ -484,6 +494,11 @@
     "LTX",
     { "term": "Skims", "commonWord": true },
     { "term": "Rhode", "commonWord": true },
-    "Motown"
+    "Motown",
+    "Gemini",
+    "Manus",
+    "Ideogram",
+    "Akai",
+    "Crocs"
   ]
 }
