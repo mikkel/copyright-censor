@@ -119,6 +119,19 @@ describe('allow-path / innocent usage', () => {
     'mid-atlantic ridge hydrophone foley',
     'universal reverb preset, large hall',
     'warner rainstorm field recording',
+    'kindle a fire, field recording',
+    'humanoid android costume prop on the set',
+    'android phone foley, warm mics',
+    'mail foley, warm mics',
+    'dj set foley, warm mics',
+    'sonar ping foley, warm mics',
+    'canvas foley, warm mics',
+    'canvas tote foley, warm mics',
+    'when foley, warm mics',
+    'quill foley, warm mics',
+    'siri foley, warm mics',
+    'kling foley, warm mics',
+    'gorilla enclosure foley, warm mics',
     'play the station break foley',
     'barbecue smoke ambience, grill foley',
     'barbed fence wire foley, high wind',
@@ -218,6 +231,16 @@ describe('allow-path / innocent usage', () => {
     'lumia foley, warm mics',
     'feuding vocal booth foley, warm mics',
     'boss pedal foley, warm mics',
+    'latte art foley, warm mics',
+    'open timer foley, warm mics',
+    'salty air foley, warm mics',
+    'burnt toast foley, warm mics',
+    'cling wrap foley, warm mics',
+    'kindling foley, warm mics',
+    'sirius star field recording',
+    'leo foley, warm mics',
+    'veil foley, warm mics',
+    'veo foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -369,6 +392,18 @@ describe('allow-path / innocent usage', () => {
       'Pika logo sting, product shot',
       'Luma logo sting, product shot',
       'Shazam title sting, product shot',
+      'Oppenheimer title card, warm grain',
+      'Saltburn title card, warm grain',
+      'Kindle logo sting, product shot',
+      'Siri logo sting, product shot',
+      'Android logo sting, product shot',
+      'Gmail title sting, product shot',
+      'Kling logo sting, product shot',
+      'Veo logo sting, product shot',
+      'DJI drone close-up, product shot',
+      'Sonos speaker product shot, studio light',
+      'Canva title sting, product shot',
+      'Qwen prompt sting, product shot',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -409,6 +444,8 @@ describe('allow-path / innocent usage', () => {
       'Djo bar-room guitar',
       'Peso Pluma hook over warm pads',
       'Feid perreo bounce sketch',
+      'GloRilla hook over warm pads',
+      'Latto bounce on cheap speakers',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
