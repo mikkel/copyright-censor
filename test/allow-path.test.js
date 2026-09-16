@@ -182,6 +182,33 @@ describe('allow-path / innocent usage', () => {
     'hell diver foley, warm mics',
     'pal world foley, warm mics',
     'feud foley, warm mics',
+    'hosier foley, warm mics',
+    'cozier foley, warm mics',
+    'wonky foley, warm mics',
+    'wonk foley, warm mics',
+    'backrooms foley, warm mics',
+    'backroom foley, warm mics',
+    'silk foley, warm mics',
+    'silkworm foley, warm mics',
+    'thunderbolts foley, warm mics',
+    'thunderbolt foley, warm mics',
+    'mandolin foley, warm mics',
+    'mandala foley, warm mics',
+    'grog foley, warm mics',
+    'grove foley, warm mics',
+    'air foley, warm mics',
+    'air bed foley, warm mics',
+    'door foley, warm mics',
+    'dash foley, warm mics',
+    'shop foley, warm mics',
+    'shopfront foley, warm mics',
+    'etude foley, warm mics',
+    'fig foley, warm mics',
+    'band foley, warm mics',
+    'bonsai foley, warm mics',
+    'patron foley, warm mics',
+    'pattern foley, warm mics',
+    'smokestack foley, warm mics',
   ];
 
   const nearMissPrompts = [
@@ -241,6 +268,15 @@ describe('allow-path / innocent usage', () => {
     'leo foley, warm mics',
     'veil foley, warm mics',
     'veo foley, warm mics',
+    'hosier foley, warm mics',
+    'wonky foley, warm mics',
+    'silkworm foley, warm mics',
+    'mandolin foley, warm mics',
+    'grog foley, warm mics',
+    'fig foley, warm mics',
+    'etude foley, warm mics',
+    'patron foley, warm mics',
+    'smokestack foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -404,6 +440,20 @@ describe('allow-path / innocent usage', () => {
       'Sonos speaker product shot, studio light',
       'Canva title sting, product shot',
       'Qwen prompt sting, product shot',
+      'Backrooms logo sting, product shot',
+      'Thunderbolts logo sting, product shot',
+      'Wonka title card, warm grain',
+      'Silksong title card, warm grain',
+      'Mandalorian title card, warm grain',
+      'Grogu title card, warm grain',
+      'Airbnb logo sting, product shot',
+      'DoorDash logo sting, product shot',
+      'Shopify logo sting, product shot',
+      'Etsy logo sting, product shot',
+      'Figma logo sting, product shot',
+      'Bandai logo sting, product shot',
+      'Patreon logo sting, product shot',
+      'Substack logo sting, product shot',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -446,6 +496,7 @@ describe('allow-path / innocent usage', () => {
       'Feid perreo bounce sketch',
       'GloRilla hook over warm pads',
       'Latto bounce on cheap speakers',
+      'Hozier hook over warm pads',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
