@@ -234,6 +234,18 @@ describe('blocklist', () => {
       ['Universal Music Group title sting', 'block'],
       ['Atlantic Records title sting', 'block'],
       ['BMG logo sting, warm grain', 'block'],
+      ['Djo bar-room guitar', 'review'],
+      ['Cocomelon title sting', 'block'],
+      ['FNAF title sting', 'block'],
+      ['OpenAI title sting, product shot', 'block'],
+      ['Instagram product shot, studio light', 'block'],
+      ['Facebook title sting', 'block'],
+      ['Prime Video title sting', 'block'],
+      ['Gibson logo sting, product shot', 'block'],
+      ['Stable Diffusion prompt sting, product shot', 'block'],
+      ['DALL-E prompt sting, product shot', 'block'],
+      ['Funko unboxing sting', 'block'],
+      ['Mattel title sting', 'block'],
     ];
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);

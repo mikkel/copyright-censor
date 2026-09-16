@@ -125,6 +125,19 @@ describe('allow-path / innocent usage', () => {
     'blue tarp flapping foley, high wind',
     'fender bender foley, parking lot ambience',
     'muddy fender rattle foley, garage bed',
+    'gibson desert foley, warm mics',
+    'gibson guitar foley, warm mics',
+    'coconut melon foley, warm mics',
+    'fan art foley, warm mics',
+    'open connection foley, warm mics',
+    'instant gram foley, warm mics',
+    'face book foley, warm mics',
+    'prime rib foley, warm mics',
+    'prime video essay foley, warm mics',
+    'stable diffusion foley, warm mics',
+    'deli foley bed, warm mics',
+    'funky foley bed, warm mics',
+    'matte finish foley, warm mics',
   ];
 
   const nearMissPrompts = [
@@ -163,6 +176,7 @@ describe('allow-path / innocent usage', () => {
     'narrow hallway reverb foley',
     'chatty green room foley, warm mics',
     'mid journey field recording, slow build',
+    'django guitar foley, warm mics',
   ];
 
   // Overlaps that stay allow on the extras overlay but trip pre-existing
@@ -276,6 +290,17 @@ describe('allow-path / innocent usage', () => {
       'ChatGPT prompt sting, product shot',
       'Midjourney prompt sting, product shot',
       'Fender logo sting, product shot',
+      'Cocomelon title sting',
+      'FNAF title sting',
+      'OpenAI title sting, product shot',
+      'Instagram product shot, studio light',
+      'Facebook title sting',
+      'Prime Video title sting',
+      'Gibson logo sting, product shot',
+      'Stable Diffusion prompt sting, product shot',
+      'DALL-E prompt sting, product shot',
+      'Funko unboxing sting',
+      'Mattel title sting',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -313,6 +338,7 @@ describe('allow-path / innocent usage', () => {
       'Ty Dolla Sign hook over warm pads',
       'sombr bedroom demo, soft tape',
       'Shaboozey bar-room guitar',
+      'Djo bar-room guitar',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
