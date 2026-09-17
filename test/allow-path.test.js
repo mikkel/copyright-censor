@@ -4881,4 +4881,124 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path podcast-audiobook boundary');
     }
   });
+
+  it('scopes short-form platform/footage marks to image/video so song prompts stay allow (short-form Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore Pond5 in this song',
+      'wore Shorts Fund in this song',
+      'wore Video Reply in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music short-form platform/footage');
+    }
+    const productPrompts = [
+      'Pond5 product shot, studio light',
+      'Shorts Fund product shot, studio light',
+      'Video Reply product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps music-native short-form identifiers blocking on song prompts (short-form Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const cases = [
+      'heard Sidemen yesterday',
+      'watched Charli Damelio yesterday',
+      'filmed Wipe It Down yesterday',
+      'saw Grimace yesterday',
+      'licensed with Artlist yesterday',
+      'licensed with Uppbeat yesterday',
+    ];
+    for (const prompt of cases) {
+      const result = music.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new short-form tokens (short-form Part B)', () => {
+    const nearMiss = [
+      'side foley, warm mics',
+      'sides foley, warm mics',
+      'men foley, warm mics',
+      'side men foley, warm mics',
+      'char foley, warm mics',
+      'amelio foley, warm mics',
+      'lee foley, warm mics',
+      'wipe foley, warm mics',
+      'down foley, warm mics',
+      'wipe down foley, warm mics',
+      'grim foley, warm mics',
+      'ace foley, warm mics',
+      'grime foley, warm mics',
+      'art foley, warm mics',
+      'list foley, warm mics',
+      'upp foley, warm mics',
+      'beat foley, warm mics',
+      'upbeat foley, warm mics',
+      'pond foley, warm mics',
+      'shorts foley, warm mics',
+      'fund foley, warm mics',
+      'short fund foley, warm mics',
+      'video foley, warm mics',
+      'reply foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay short-form near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path short-form near-miss');
+    }
+  });
+
+  it('still blocks explicit short-form prompts on the overlay path (short-form Part B)', () => {
+    const cases = [
+      'Sidemen title sting, warm grain',
+      'watched Sidemen yesterday',
+      "Charli D'Amelio title sting, warm grain",
+      'watched Charli Damelio yesterday',
+      'Wipe It Down title sting, warm grain',
+      'filmed Wipe It Down yesterday',
+      'Grimace title sting, warm grain',
+      'saw Grimace yesterday',
+      'Artlist title sting, warm grain',
+      'licensed with Artlist yesterday',
+      'Uppbeat title sting, warm grain',
+      'licensed with Uppbeat yesterday',
+      'Pond5 product shot, studio light',
+      'Shorts Fund product shot, studio light',
+      'Video Reply product shot, studio light',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent short-form-adjacent prompts allow (short-form Part B)', () => {
+    const innocent = [
+      'vertical video vibes, warm room tone',
+      'phone footage from the night out, no captions',
+      'night out clip with friends, room tone',
+      'portrait mode clip, soft daylight',
+      'front camera footage, warm room',
+      'overcast daylight clip, room tone',
+      'late bus foley, warm mics',
+      'grainy zoom foley, warm mics',
+      'shaky cam foley, warm mics',
+      'wipe the counter foley, warm mics',
+      'lens foley, warm mics',
+      'charlie foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay short-form boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path short-form boundary');
+    }
+  });
 });

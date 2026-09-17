@@ -5,6 +5,7 @@ import {
   defaultBlocklist,
   flattenBlocklist,
   mergeBlocklists,
+  shippedCatalog,
 } from '../src/index.js';
 
 describe('blocklist', () => {
@@ -1839,6 +1840,103 @@ describe('blocklist', () => {
     for (const [prompt, verdict] of cases) {
       const result = censor.check(prompt);
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('matches short-form-social overlay identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Sidemen title sting, warm grain', 'block'],
+      ['watched Sidemen yesterday', 'block'],
+      ["Charli D'Amelio title sting, warm grain", 'block'],
+      ['watched Charli Damelio yesterday', 'block'],
+      ['Wipe It Down title sting, warm grain', 'block'],
+      ['filmed Wipe It Down yesterday', 'block'],
+      ['Grimace title sting, warm grain', 'block'],
+      ['saw Grimace yesterday', 'block'],
+      ['Artlist title sting, warm grain', 'block'],
+      ['licensed with Artlist yesterday', 'block'],
+      ['Uppbeat title sting, warm grain', 'block'],
+      ['licensed with Uppbeat yesterday', 'block'],
+      ['Pond5 product shot, studio light', 'block'],
+      ['licensed on Pond5 yesterday', 'block'],
+      ['Shorts Fund product shot, studio light', 'block'],
+      ['paid via Shorts Fund yesterday', 'block'],
+      ['Video Reply product shot, studio light', 'block'],
+      ['replied with Video Reply yesterday', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('proves short-form-social identifiers are true gaps via catalog-only isolation', () => {
+    const catalogOnly = createCensor({ replaceBlocklist: true, catalog: shippedCatalog });
+    const overlayOnly = createCensor({ replaceCatalog: true });
+    const candidates = [
+      'Sidemen',
+      "Charli D'Amelio",
+      'Wipe It Down',
+      'Grimace',
+      'Artlist',
+      'Uppbeat',
+      'Pond5',
+      'Shorts Fund',
+      'Video Reply',
+    ];
+    for (const term of candidates) {
+      const prompt = `warm pads ${term} dusty cassette`;
+      const catalogResult = catalogOnly.check(prompt);
+      assert.equal(
+        catalogResult.verdict,
+        'allow',
+        `catalog-only ${JSON.stringify(prompt)} => ${catalogResult.verdict} (expected allow for a true gap)`,
+      );
+      const overlayResult = overlayOnly.check(prompt);
+      assert.notEqual(
+        overlayResult.verdict,
+        'allow',
+        `overlay ${JSON.stringify(prompt)} unexpectedly allows after adding the identifier`,
+      );
+    }
+  });
+
+  it('scopes short-form platform/footage marks to image/video (short-form Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Pond5 product shot, studio light', 'block'],
+      ['Shorts Fund product shot, studio light', 'block'],
+      ['Video Reply product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('documents Part A audit: leftover visual marks are catalog hits, not overlay gaps', () => {
+    const catalogOnly = createCensor({ replaceBlocklist: true, catalog: shippedCatalog });
+    const skipped = [
+      'Netflix',
+      'Paramount',
+      'Sony Pictures',
+      'Universal Pictures',
+      'Warner Bros',
+      'DreamWorks',
+      'Coca-Cola',
+      'Pepsi',
+      'Starbucks',
+      'Adidas',
+      'Gucci',
+    ];
+    for (const term of skipped) {
+      const result = catalogOnly.check(`warm pads ${term} dusty cassette`);
+      assert.notEqual(
+        result.verdict,
+        'allow',
+        `catalog-only ${JSON.stringify(term)} unexpectedly allows; re-audit overlay scoping`,
+      );
     }
   });
 });

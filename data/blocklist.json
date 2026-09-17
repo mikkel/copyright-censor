@@ -469,7 +469,11 @@
     "Radiolab",
     { "term": "Buzz Lightyear", "media": ["image", "video"] },
     { "term": "Nyan Cat", "media": ["image", "video"] },
-    { "term": "Wojak", "media": ["image", "video"] }
+    { "term": "Wojak", "media": ["image", "video"] },
+    "Sidemen",
+    "Charli D'Amelio",
+    "Wipe It Down",
+    "Grimace"
   ],
   "trademarks": [
     "Ableton",
@@ -1007,6 +1011,11 @@
     { "term": "Issey Miyake", "media": ["image", "video"] },
     { "term": "Blackmagic", "media": ["image", "video"] },
     { "term": "Charlotte Tilbury", "media": ["image", "video"] },
-    { "term": "Stanley Tumbler", "media": ["image", "video"] }
+    { "term": "Stanley Tumbler", "media": ["image", "video"] },
+    "Artlist",
+    "Uppbeat",
+    { "term": "Pond5", "media": ["image", "video"] },
+    { "term": "Shorts Fund", "media": ["image", "video"] },
+    { "term": "Video Reply", "media": ["image", "video"] }
   ]
 }
