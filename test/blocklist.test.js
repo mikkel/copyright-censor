@@ -1622,5 +1622,31 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 48 CH/AT-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Hat Hut Records logo sting, warm grain', 'block'],
+      ['signed to Hat Hut Records for the new single', 'block'],
+      ['Intakt Records logo sting, warm grain', 'block'],
+      ['signed to Intakt Records for the new single', 'block'],
+      ['Col Legno logo sting, warm grain', 'block'],
+      ['signed to Col Legno for the new single', 'block'],
+      ['Gramola Records logo sting, warm grain', 'block'],
+      ['signed to Gramola Records for the new single', 'block'],
+      ['Preiser Records logo sting, warm grain', 'block'],
+      ['signed to Preiser Records for the new single', 'block'],
+      ['Extraplatte logo sting, warm grain', 'block'],
+      ['signed to Extraplatte for the new single', 'block'],
+      ['Irascible Records logo sting, warm grain', 'block'],
+      ['signed to Irascible Records for the new single', 'block'],
+      ['Phonag Records logo sting, warm grain', 'block'],
+      ['signed to Phonag Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

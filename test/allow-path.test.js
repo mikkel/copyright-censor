@@ -4112,4 +4112,104 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path CIS-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new CH/AT-label tokens (Pass 48 Part B)', () => {
+    const nearMiss = [
+      'hat foley, warm mics',
+      'hut foley, warm mics',
+      'hat hut foley, warm mics',
+      'hathut foley, warm mics',
+      'hat hut record foley, warm mics',
+      'intak foley, warm mics',
+      'ntakt foley, warm mics',
+      'intackt foley, warm mics',
+      'intake foley, warm mics',
+      'col foley, warm mics',
+      'legno foley, warm mics',
+      'cole foley, warm mics',
+      'legna foley, warm mics',
+      'gramol foley, warm mics',
+      'ramola foley, warm mics',
+      'gramala foley, warm mics',
+      'gramolo foley, warm mics',
+      'preise foley, warm mics',
+      'reiser foley, warm mics',
+      'preisler foley, warm mics',
+      'preizer foley, warm mics',
+      'extra foley, warm mics',
+      'platte foley, warm mics',
+      'extraplat foley, warm mics',
+      'xtraplatte foley, warm mics',
+      'extra plate foley, warm mics',
+      'irascibl foley, warm mics',
+      'rascible foley, warm mics',
+      'irascable foley, warm mics',
+      'phona foley, warm mics',
+      'honag foley, warm mics',
+      'phonak hearing aid foley, warm mics',
+      'phonograph foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay CH/AT-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path CH/AT-label near-miss');
+    }
+  });
+
+  it('still blocks explicit CH/AT-label prompts on the overlay path (Pass 48 Part B)', () => {
+    const cases = [
+      'Hat Hut Records logo sting, warm grain',
+      'signed to Hat Hut Records for the new single',
+      'Intakt Records logo sting, warm grain',
+      'signed to Intakt Records for the new single',
+      'Col Legno logo sting, warm grain',
+      'signed to Col Legno for the new single',
+      'Gramola Records logo sting, warm grain',
+      'signed to Gramola Records for the new single',
+      'Preiser Records logo sting, warm grain',
+      'signed to Preiser Records for the new single',
+      'Extraplatte logo sting, warm grain',
+      'signed to Extraplatte for the new single',
+      'Irascible Records logo sting, warm grain',
+      'signed to Irascible Records for the new single',
+      'Phonag Records logo sting, warm grain',
+      'signed to Phonag Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new CH/AT-label tokens (Pass 48 Part B)', () => {
+    const innocent = [
+      'zurich lake ambience at dawn',
+      'alpine cowbell foley, high meadow',
+      'vienna courtyard ambience at dawn',
+      'tyrolean ridge wind foley, high pass',
+      'danube riverside ambience at dawn',
+      'bern old town ambience at dawn',
+      'alpine horn rehearsal, room tone',
+      'coffee house piano rehearsal, room tone',
+      'mountain chapel choir rehearsal',
+      'limmat river ambience at dawn',
+      'engadine valley wind foley, high ridge',
+      'grisons mountain ambience at dawn',
+      'ringstrasse tram ambience at dawn',
+      'lake lucerne shoreline ambience',
+      'innsbruck courtyard ambience at dawn',
+      'appenzell meadow ambience at dawn',
+      'salzburg garden ambience at dawn',
+      'matterhorn wind foley, high ridge',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay CH/AT-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path CH/AT-label boundary');
+    }
+  });
 });
