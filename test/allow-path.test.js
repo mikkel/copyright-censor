@@ -4526,4 +4526,94 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Americas-indie-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new Afrobeats-label tokens (Pass 52 Part B)', () => {
+    const nearMiss = [
+      'ybn foley, warm mics',
+      'bnl foley, warm mics',
+      'ynl foley, warm mics',
+      'empa foley, warm mics',
+      'mpawa foley, warm mics',
+      'pawa foley, warm mics',
+      'jonz foley, warm mics',
+      'onzing foley, warm mics',
+      'nzing foley, warm mics',
+      'pent foley, warm mics',
+      'hauze foley, warm mics',
+      'enthauze foley, warm mics',
+      'zank foley, warm mics',
+      'anku foley, warm mics',
+      'pluto foley, warm mics',
+      'mania foley, warm mics',
+      'lutomania foley, warm mics',
+      'hyper foley, warm mics',
+      'tek foley, warm mics',
+      'ypertek foley, warm mics',
+      'kuk foley, warm mics',
+      'ukere foley, warm mics',
+      'kere foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+      'digital foley, warm mics',
+      'world foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay Afrobeats-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path Afrobeats-label near-miss');
+    }
+  });
+
+  it('still blocks explicit Afrobeats-label prompts on the overlay path (Pass 52 Part B)', () => {
+    const cases = [
+      'YBNL logo sting, warm grain',
+      'signed to YBNL for the new single',
+      'Empawa logo sting, warm grain',
+      'signed to Empawa for the new single',
+      'Jonzing World logo sting, warm grain',
+      'signed to Jonzing World for the new single',
+      'PentHauze logo sting, warm grain',
+      'signed to PentHauze for the new single',
+      'Zanku Records logo sting, warm grain',
+      'signed to Zanku Records for the new single',
+      'Plutomania Records logo sting, warm grain',
+      'signed to Plutomania Records for the new single',
+      'Hypertek Digital logo sting, warm grain',
+      'signed to Hypertek Digital for the new single',
+      'Kukere Records logo sting, warm grain',
+      'signed to Kukere Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new Afrobeats-label tokens (Pass 52 Part B)', () => {
+    const innocent = [
+      'empower the bridge draft, room tone',
+      'zoning map foley, warm mics',
+      'pentatonic run foley, warm mics',
+      'pluto projection foley, warm mics',
+      'hyper focus mix notes, room tone',
+      'digital delay foley, warm mics',
+      'afrobeats groove sketch, warm pads',
+      'afro-fusion bounce, room tone',
+      'lagos street foley, warm mics',
+      'cookout ambience foley, warm mics',
+      'zanzibar breeze foley, warm mics',
+      'lullaby hum foley, warm mics',
+      'anthem sketch for the bridge draft',
+      'rising action foley, warm mics',
+      'warm tape foley, room tone',
+      'world music shelf foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay Afrobeats-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path Afrobeats-label boundary');
+    }
+  });
 });

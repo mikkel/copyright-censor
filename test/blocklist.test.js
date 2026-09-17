@@ -1730,5 +1730,31 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 52 Afrobeats-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['YBNL logo sting, warm grain', 'block'],
+      ['signed to YBNL for the new single', 'block'],
+      ['Empawa logo sting, warm grain', 'block'],
+      ['signed to Empawa for the new single', 'block'],
+      ['Jonzing World logo sting, warm grain', 'block'],
+      ['signed to Jonzing World for the new single', 'block'],
+      ['PentHauze logo sting, warm grain', 'block'],
+      ['signed to PentHauze for the new single', 'block'],
+      ['Zanku Records logo sting, warm grain', 'block'],
+      ['signed to Zanku Records for the new single', 'block'],
+      ['Plutomania Records logo sting, warm grain', 'block'],
+      ['signed to Plutomania Records for the new single', 'block'],
+      ['Hypertek Digital logo sting, warm grain', 'block'],
+      ['signed to Hypertek Digital for the new single', 'block'],
+      ['Kukere Records logo sting, warm grain', 'block'],
+      ['signed to Kukere Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
