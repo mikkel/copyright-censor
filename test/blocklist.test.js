@@ -1472,5 +1472,37 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 43 South Asia-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Saregama logo sting, warm grain', 'block'],
+      ['signed to Saregama for the new single', 'block'],
+      ['T-Series logo sting, warm grain', 'block'],
+      ['signed to T-Series for the new single', 'block'],
+      ['T Series logo sting, warm grain', 'block'],
+      ['signed to T Series for the new single', 'block'],
+      ['Tips Industries logo sting, warm grain', 'block'],
+      ['signed to Tips Industries for the new single', 'block'],
+      ['Hungama logo sting, warm grain', 'block'],
+      ['signed to Hungama for the new single', 'block'],
+      ['JioSaavn logo sting, warm grain', 'block'],
+      ['signed to JioSaavn for the new single', 'block'],
+      ['Gaana logo sting, warm grain', 'block'],
+      ['signed to Gaana for the new single', 'block'],
+      ['Patari logo sting, warm grain', 'block'],
+      ['signed to Patari for the new single', 'block'],
+      ['Uth Records logo sting, warm grain', 'block'],
+      ['signed to Uth Records for the new single', 'block'],
+      ['Soundtek logo sting, warm grain', 'block'],
+      ['signed to Soundtek for the new single', 'block'],
+      ['Agniveena logo sting, warm grain', 'block'],
+      ['signed to Agniveena for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

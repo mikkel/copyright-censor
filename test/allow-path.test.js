@@ -3562,4 +3562,110 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Middle East-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new South Asia-label tokens (Pass 43 Part B)', () => {
+    const nearMiss = [
+      'sare foley, warm mics',
+      'gama foley, warm mics',
+      'rega foley, warm mics',
+      'sareg foley, warm mics',
+      'aregama foley, warm mics',
+      'serie foley, warm mics',
+      'eries foley, warm mics',
+      'tip foley, warm mics',
+      'tipsy foley, warm mics',
+      'industries foley, warm mics',
+      'dustry foley, warm mics',
+      'hung foley, warm mics',
+      'ungama foley, warm mics',
+      'hangama foley, warm mics',
+      'jio foley, warm mics',
+      'saavn foley, warm mics',
+      'jiosaav foley, warm mics',
+      'gaa foley, warm mics',
+      'gaan foley, warm mics',
+      'aana foley, warm mics',
+      'pata foley, warm mics',
+      'tari foley, warm mics',
+      'patar foley, warm mics',
+      'uth foley, warm mics',
+      'th foley, warm mics',
+      'soun foley, warm mics',
+      'tek foley, warm mics',
+      'soundte foley, warm mics',
+      'ndtek foley, warm mics',
+      'agni foley, warm mics',
+      'veena foley, warm mics',
+      'niveena foley, warm mics',
+      'agnivee foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay South Asia-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path South Asia-label near-miss');
+    }
+  });
+
+  it('still blocks explicit South Asia-label prompts on the overlay path (Pass 43 Part B)', () => {
+    const cases = [
+      'Saregama logo sting, warm grain',
+      'signed to Saregama for the new single',
+      'T-Series logo sting, warm grain',
+      'signed to T-Series for the new single',
+      'T Series logo sting, warm grain',
+      'signed to T Series for the new single',
+      'Tips Industries logo sting, warm grain',
+      'signed to Tips Industries for the new single',
+      'Hungama logo sting, warm grain',
+      'signed to Hungama for the new single',
+      'JioSaavn logo sting, warm grain',
+      'signed to JioSaavn for the new single',
+      'Gaana logo sting, warm grain',
+      'signed to Gaana for the new single',
+      'Patari logo sting, warm grain',
+      'signed to Patari for the new single',
+      'Uth Records logo sting, warm grain',
+      'signed to Uth Records for the new single',
+      'Soundtek logo sting, warm grain',
+      'signed to Soundtek for the new single',
+      'Agniveena logo sting, warm grain',
+      'signed to Agniveena for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new South Asia-label tokens (Pass 43 Part B)', () => {
+    const innocent = [
+      'harmonium drone sketch, room tone',
+      'sitar loop over warm pads, room tone',
+      'dhol bounce under soft keys',
+      'carnatic violin air, room tone',
+      'mumbai street ambience at dawn',
+      'monsoon foley, slow build',
+      'bamboo flute loop with chopped choir',
+      'tabla groove sketch, warm mics',
+      'qawwali choir swell, room tone',
+      'dhaka traffic ambience at dawn',
+      'karachi rooftop ambience at dawn',
+      'lahore rooftop foley, warm mics',
+      'rickshaw foley, warm mics',
+      'morning raga run on nylon strings',
+      'tanpura drone, warm mics',
+      'mridangam groove sketch, room tone',
+      'sarangi air over soft keys',
+      'sea breeze foley, harbor ambience',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay South Asia-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path South Asia-label boundary');
+    }
+  });
 });
