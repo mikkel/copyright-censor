@@ -967,6 +967,16 @@
     "Zanku Records",
     "Plutomania Records",
     "Hypertek Digital",
-    "Kukere Records"
+    "Kukere Records",
+    { "term": "Blumhouse", "media": ["image", "video"] },
+    { "term": "Lionsgate", "media": ["image", "video"] },
+    { "term": "A24 Films", "media": ["image", "video"] },
+    { "term": "MGM Studios", "media": ["image", "video"] },
+    { "term": "Hayao Miyazaki", "media": ["image", "video"] },
+    { "term": "Vevo", "media": ["image", "video"] },
+    { "term": "Vevo DSCVR", "media": ["image", "video"] },
+    { "term": "HGTV", "media": ["image", "video"] },
+    { "term": "MAPPA", "media": ["image", "video"] },
+    { "term": "Eon Productions", "media": ["image", "video"] }
   ]
 }
