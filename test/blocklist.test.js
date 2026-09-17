@@ -1674,5 +1674,35 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 50 Balkan SE-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Menart Records logo sting, warm grain', 'block'],
+      ['signed to Menart Records for the new single', 'block'],
+      ['Mascom Records logo sting, warm grain', 'block'],
+      ['signed to Mascom Records for the new single', 'block'],
+      ['Jugodisk logo sting, warm grain', 'block'],
+      ['signed to Jugodisk for the new single', 'block'],
+      ['Moonlee Records logo sting, warm grain', 'block'],
+      ['signed to Moonlee Records for the new single', 'block'],
+      ['Kapa Records logo sting, warm grain', 'block'],
+      ['signed to Kapa Records for the new single', 'block'],
+      ['HaHaHa Production logo sting, warm grain', 'block'],
+      ['signed to HaHaHa Production for the new single', 'block'],
+      ['Global Records logo sting, warm grain', 'block'],
+      ['signed to Global Records for the new single', 'block'],
+      ['Feelgood Records logo sting, warm grain', 'block'],
+      ['signed to Feelgood Records for the new single', 'block'],
+      ['Payner logo sting, warm grain', 'block'],
+      ['signed to Payner for the new single', 'block'],
+      ['Ammonite Records logo sting, warm grain', 'block'],
+      ['signed to Ammonite Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

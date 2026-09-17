@@ -4322,4 +4322,117 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path BR-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new Balkan SE-label tokens (Pass 50 Part B)', () => {
+    const nearMiss = [
+      'menar foley, warm mics',
+      'enart foley, warm mics',
+      'menard foley, warm mics',
+      'menart record foley, warm mics',
+      'masco foley, warm mics',
+      'ascom foley, warm mics',
+      'mascomm foley, warm mics',
+      'mascom record foley, warm mics',
+      'jugo foley, warm mics',
+      'ugodisk foley, warm mics',
+      'jugodisc foley, warm mics',
+      'yugodisk foley, warm mics',
+      'jugo disk foley, warm mics',
+      'moonle foley, warm mics',
+      'oonlee foley, warm mics',
+      'moonley foley, warm mics',
+      'moon lee foley, warm mics',
+      'kap foley, warm mics',
+      'apa foley, warm mics',
+      'kappa foley, warm mics',
+      'capa foley, warm mics',
+      'haha foley, warm mics',
+      'hahaha rehearsal, room tone',
+      'haha production foley, warm mics',
+      'hahah foley, warm mics',
+      'globa foley, warm mics',
+      'lobal foley, warm mics',
+      'global record foley, warm mics',
+      'globall foley, warm mics',
+      'feelgoo foley, warm mics',
+      'eelgood foley, warm mics',
+      'feel good foley, warm mics',
+      'feelgood record foley, warm mics',
+      'payne foley, warm mics',
+      'ayner foley, warm mics',
+      'paynor foley, warm mics',
+      'painer foley, warm mics',
+      'ammoni foley, warm mics',
+      'mmonite foley, warm mics',
+      'ammonight foley, warm mics',
+      'ammonite record foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+      'production foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay Balkan SE-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path Balkan SE-label near-miss');
+    }
+  });
+
+  it('still blocks explicit Balkan SE-label prompts on the overlay path (Pass 50 Part B)', () => {
+    const cases = [
+      'Menart Records logo sting, warm grain',
+      'signed to Menart Records for the new single',
+      'Mascom Records logo sting, warm grain',
+      'signed to Mascom Records for the new single',
+      'Jugodisk logo sting, warm grain',
+      'signed to Jugodisk for the new single',
+      'Moonlee Records logo sting, warm grain',
+      'signed to Moonlee Records for the new single',
+      'Kapa Records logo sting, warm grain',
+      'signed to Kapa Records for the new single',
+      'HaHaHa Production logo sting, warm grain',
+      'signed to HaHaHa Production for the new single',
+      'Global Records logo sting, warm grain',
+      'signed to Global Records for the new single',
+      'Feelgood Records logo sting, warm grain',
+      'signed to Feelgood Records for the new single',
+      'Payner logo sting, warm grain',
+      'signed to Payner for the new single',
+      'Ammonite Records logo sting, warm grain',
+      'signed to Ammonite Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new Balkan SE-label tokens (Pass 50 Part B)', () => {
+    const innocent = [
+      'belgrade courtyard ambience at dawn',
+      'adriatic shoreline ambience at dawn',
+      'danube riverside ambience at dawn',
+      'zagreb courtyard ambience at dawn',
+      'sofia street ambience at dawn',
+      'bucharest courtyard ambience at dawn',
+      'athens rooftop ambience at dawn',
+      'ljubljana riverside ambience at dawn',
+      'sarajevo old town ambience at dawn',
+      'thessaloniki harbor ambience at dawn',
+      'balkan brass rehearsal, room tone',
+      'accordion rehearsal, room tone',
+      'bouzouki rehearsal, room tone',
+      'gaida drone rehearsal, room tone',
+      'kaval flute rehearsal, room tone',
+      'tram depot ambience at dawn',
+      'mountain chapel choir rehearsal',
+      'village choir rehearsal, room tone',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay Balkan SE-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path Balkan SE-label boundary');
+    }
+  });
 });
