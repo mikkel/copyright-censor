@@ -462,7 +462,10 @@
     "Lorcana",
     "Hytale",
     { "term": "Companion", "commonWord": true },
-    { "term": "Novocaine", "commonWord": true }
+    { "term": "Novocaine", "commonWord": true },
+    "Armchair Expert",
+    "SmartLess",
+    "Radiolab"
   ],
   "trademarks": [
     "Ableton",
@@ -987,6 +990,13 @@
     "Pukkelpop",
     "Creamfields",
     "Fuji Rock",
-    { "term": "Lowlands", "commonWord": true }
+    { "term": "Lowlands", "commonWord": true },
+    "Wondery",
+    "Earwolf",
+    "Pushkin Industries",
+    "Parcast",
+    "Stitcher",
+    { "term": "HarperAudio", "aliases": ["Harper Audio"] },
+    "Audible Studios"
   ]
 }
