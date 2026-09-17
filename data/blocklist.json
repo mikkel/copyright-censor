@@ -462,7 +462,11 @@
     "Lorcana",
     "Hytale",
     { "term": "Companion", "commonWord": true },
-    { "term": "Novocaine", "commonWord": true }
+    { "term": "Novocaine", "commonWord": true },
+    "Sidemen",
+    "Charli D'Amelio",
+    "Wipe It Down",
+    "Grimace"
   ],
   "trademarks": [
     "Ableton",
@@ -967,6 +971,11 @@
     "Zanku Records",
     "Plutomania Records",
     "Hypertek Digital",
-    "Kukere Records"
+    "Kukere Records",
+    "Artlist",
+    "Uppbeat",
+    { "term": "Pond5", "media": ["image", "video"] },
+    { "term": "Shorts Fund", "media": ["image", "video"] },
+    { "term": "Video Reply", "media": ["image", "video"] }
   ]
 }
