@@ -820,5 +820,71 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 29 UK-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Defected Records logo sting, warm grain', 'block'],
+      ['signed to Defected Records for the new single', 'block'],
+      ['Anjunadeep logo sting, warm grain', 'block'],
+      ['signed to Anjunadeep for the new single', 'block'],
+      ['Hyperdub logo sting, warm grain', 'block'],
+      ['signed to Hyperdub for the new single', 'block'],
+      ['Metalheadz logo sting, warm grain', 'block'],
+      ['signed to Metalheadz for the new single', 'block'],
+      ['Soul Jazz Records logo sting, warm grain', 'block'],
+      ['signed to Soul Jazz Records for the new single', 'block'],
+      ['Gondwana Records logo sting, warm grain', 'block'],
+      ['signed to Gondwana Records for the new single', 'block'],
+      ['Parlophone logo sting, warm grain', 'block'],
+      ['signed to Parlophone for the new single', 'block'],
+      ['Polydor Records logo sting, warm grain', 'block'],
+      ['signed to Polydor Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes music-irrelevant retail trademarks to image/video (Pass 29 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['H&M product shot, studio light', 'block'],
+      ['Currys product shot, studio light', 'block'],
+      ['Tesco product shot, studio light', 'block'],
+      ['Lidl product shot, studio light', 'block'],
+      ['Primark product shot, studio light', 'block'],
+      ['Gymshark product shot, studio light', 'block'],
+      ['Depop product shot, studio light', 'block'],
+      ['StockX product shot, studio light', 'block'],
+      ['Crumbl product shot, studio light', 'block'],
+      ['Aldi product shot, studio light', 'block'],
+      ['Asics product shot, studio light', 'block'],
+      ['Birkenstock product shot, studio light', 'block'],
+      ['Vinted product shot, studio light', 'block'],
+      ['Whatnot logo sting, product shot', 'block'],
+      ['Sephora product shot, studio light', 'block'],
+      ['Miniso product shot, studio light', 'block'],
+      ['Daiso product shot, studio light', 'block'],
+      ['Muji product shot, studio light', 'block'],
+      ['Hollister product shot, studio light', 'block'],
+      ['Uniqlo product shot, studio light', 'block'],
+      ['Lululemon product shot, studio light', 'block'],
+      ["Arc'teryx product shot, studio light", 'block'],
+      ['Vuori product shot, studio light', 'block'],
+      ['Rhude product shot, studio light', 'block'],
+      ['Nocta product shot, studio light', 'block'],
+      ['Olipop product shot, studio light', 'block'],
+      ['Cava logo sting, product shot', 'block'],
+      ['Vans logo sting, product shot', 'block'],
+      ['Converse logo sting, product shot', 'block'],
+      ['Bearbrick product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

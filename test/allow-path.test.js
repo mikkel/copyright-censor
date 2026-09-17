@@ -1706,4 +1706,140 @@ describe('allow-path / innocent usage', () => {
       assert.equal(result.verdict, 'review', `${JSON.stringify(prompt)} => ${result.verdict}`);
     }
   });
+
+  it('scopes retail trademarks to image/video so song prompts stay allow (Pass 29 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore H&M in this song',
+      'wore Currys in this song',
+      'wore Tesco in this song',
+      'wore Lidl in this song',
+      'wore Primark in this song',
+      'wore Gymshark in this song',
+      'wore Depop in this song',
+      'wore StockX in this song',
+      'wore Crumbl in this song',
+      'wore Aldi in this song',
+      'wore Asics in this song',
+      'wore Birkenstock in this song',
+      'wore Vinted in this song',
+      'wore Whatnot in this song',
+      'wore Sephora in this song',
+      'wore Miniso in this song',
+      'wore Daiso in this song',
+      'wore Muji in this song',
+      'wore Hollister in this song',
+      'wore Uniqlo in this song',
+      'wore Lululemon in this song',
+      "wore Arc'teryx in this song",
+      'wore Vuori in this song',
+      'wore Rhude in this song',
+      'wore Nocta in this song',
+      'wore Olipop in this song',
+      'wore Cava in this song',
+      'wore Vans in this song',
+      'wore Converse in this song',
+      'wore Bearbrick in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music retail');
+    }
+    const productPrompts = [
+      'H&M product shot, studio light',
+      'Currys product shot, studio light',
+      'Tesco product shot, studio light',
+      'Lidl product shot, studio light',
+      'Primark product shot, studio light',
+      'Gymshark product shot, studio light',
+      'Depop product shot, studio light',
+      'StockX product shot, studio light',
+      'Crumbl product shot, studio light',
+      'Aldi product shot, studio light',
+      'Asics product shot, studio light',
+      'Birkenstock product shot, studio light',
+      'Vinted product shot, studio light',
+      'Whatnot logo sting, product shot',
+      'Sephora product shot, studio light',
+      'Miniso product shot, studio light',
+      'Daiso product shot, studio light',
+      'Muji product shot, studio light',
+      'Hollister product shot, studio light',
+      'Uniqlo product shot, studio light',
+      'Lululemon product shot, studio light',
+      "Arc'teryx product shot, studio light",
+      'Vuori product shot, studio light',
+      'Rhude product shot, studio light',
+      'Nocta product shot, studio light',
+      'Olipop product shot, studio light',
+      'Cava logo sting, product shot',
+      'Vans logo sting, product shot',
+      'Converse logo sting, product shot',
+      'Bearbrick product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new UK-label tokens (Pass 29 Part B)', () => {
+    const nearMiss = [
+      'defect foley, warm mics',
+      'defects foley, warm mics',
+      'defected records filed in the archive, foley mix',
+      'the defected batch foley, warm mics',
+      'anjuna foley, warm mics',
+      'deep foley, warm mics',
+      'anjun foley, warm mics',
+      'hyper foley, warm mics',
+      'dub foley, warm mics',
+      'metal foley, warm mics',
+      'metalhead foley, warm mics',
+      'headz foley, warm mics',
+      'soul foley, warm mics',
+      'jazz foley, warm mics',
+      'soul jazz groove foley, warm mics',
+      'gond foley, warm mics',
+      'wana foley, warm mics',
+      'gondola foley, warm mics',
+      'parlo foley, warm mics',
+      'phone foley, warm mics',
+      'parlor foley, warm mics',
+      'poly foley, warm mics',
+      'dor foley, warm mics',
+      'polly foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay UK-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path UK-label near-miss');
+    }
+  });
+
+  it('still blocks explicit UK-label prompts on the overlay path (Pass 29 Part B)', () => {
+    const cases = [
+      'Defected Records logo sting, warm grain',
+      'signed to Defected Records for the new single',
+      'Anjunadeep logo sting, warm grain',
+      'signed to Anjunadeep for the new single',
+      'Hyperdub logo sting, warm grain',
+      'signed to Hyperdub for the new single',
+      'Metalheadz logo sting, warm grain',
+      'signed to Metalheadz for the new single',
+      'Soul Jazz Records logo sting, warm grain',
+      'signed to Soul Jazz Records for the new single',
+      'Gondwana Records logo sting, warm grain',
+      'signed to Gondwana Records for the new single',
+      'Parlophone logo sting, warm grain',
+      'signed to Parlophone for the new single',
+      'Polydor Records logo sting, warm grain',
+      'signed to Polydor Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
 });
