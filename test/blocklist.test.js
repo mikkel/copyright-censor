@@ -886,5 +886,31 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 30 JP-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Avex Trax logo sting, warm grain', 'block'],
+      ['signed to Avex Trax for the new single', 'block'],
+      ['Lantis logo sting, warm grain', 'block'],
+      ['signed to Lantis for the new single', 'block'],
+      ['FlyingDog logo sting, warm grain', 'block'],
+      ['signed to FlyingDog for the new single', 'block'],
+      ['Maltine Records logo sting, warm grain', 'block'],
+      ['signed to Maltine Records for the new single', 'block'],
+      ['Rallye Records logo sting, warm grain', 'block'],
+      ['signed to Rallye Records for the new single', 'block'],
+      ['Speedstar Records logo sting, warm grain', 'block'],
+      ['signed to Speedstar Records for the new single', 'block'],
+      ['VAP Inc logo sting, warm grain', 'block'],
+      ['signed to VAP Inc for the new single', 'block'],
+      ['HoriPro logo sting, warm grain', 'block'],
+      ['signed to HoriPro for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
