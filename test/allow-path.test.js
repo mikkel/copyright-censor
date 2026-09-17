@@ -4212,4 +4212,114 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path CH/AT-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new BR-label tokens (Pass 49 Part B)', () => {
+    const nearMiss = [
+      'copacaban foley, warm mics',
+      'capacabana foley, warm mics',
+      'copacabanna foley, warm mics',
+      'copacabana record foley, warm mics',
+      'copa foley, warm mics',
+      'cabana foley, warm mics',
+      'continent foley, warm mics',
+      'continentall foley, warm mics',
+      'continental breakfast foley, warm mics',
+      'continental record foley, warm mics',
+      'chantecle foley, warm mics',
+      'chanteclair foley, warm mics',
+      'chantekler foley, warm mics',
+      'shantecler foley, warm mics',
+      'chante foley, warm mics',
+      'rge foley, warm mics',
+      'rge disco foley, warm mics',
+      'rg discos foley, warm mics',
+      'rgee discos foley, warm mics',
+      'rge disc foley, warm mics',
+      'tapeca foley, warm mics',
+      'tapecarr foley, warm mics',
+      'tape car foley, warm mics',
+      'tapekar foley, warm mics',
+      'tapec foley, warm mics',
+      'deckdis foley, warm mics',
+      'eckdisc foley, warm mics',
+      'deck disk foley, warm mics',
+      'deck disc foley, warm mics',
+      'deck foley, warm mics',
+      'trator foley, warm mics',
+      'trattore foley, warm mics',
+      'tractor foley, warm mics',
+      'tratoree foley, warm mics',
+      'tratorre foley, warm mics',
+      'laboratorio foley, warm mics',
+      'fantasma foley, warm mics',
+      'lab fantasma foley, warm mics',
+      'laboratory foley, warm mics',
+      'fantasmas foley, warm mics',
+      'fantasma rehearsal, room tone',
+      'record foley, warm mics',
+      'records foley, warm mics',
+      'discos foley, warm mics',
+      'disco foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay BR-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path BR-label near-miss');
+    }
+  });
+
+  it('still blocks explicit BR-label prompts on the overlay path (Pass 49 Part B)', () => {
+    const cases = [
+      'Copacabana Records logo sting, warm grain',
+      'signed to Copacabana Records for the new single',
+      'Continental Records logo sting, warm grain',
+      'signed to Continental Records for the new single',
+      'Chantecler logo sting, warm grain',
+      'signed to Chantecler for the new single',
+      'RGE Discos logo sting, warm grain',
+      'signed to RGE Discos for the new single',
+      'Tapecar logo sting, warm grain',
+      'signed to Tapecar for the new single',
+      'Deckdisc logo sting, warm grain',
+      'signed to Deckdisc for the new single',
+      'Tratore logo sting, warm grain',
+      'signed to Tratore for the new single',
+      'Laboratório Fantasma logo sting, warm grain',
+      'signed to Laboratório Fantasma for the new single',
+      'Laboratorio Fantasma logo sting, warm grain',
+      'signed to Laboratorio Fantasma for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new BR-label tokens (Pass 49 Part B)', () => {
+    const innocent = [
+      'rio shoreline ambience at dawn',
+      'copacabana sunset ambience',
+      'ipanema boardwalk ambience at dawn',
+      'paulista avenue ambience at dawn',
+      'samba rehearsal, room tone',
+      'bossa nova guitar rehearsal',
+      'forro dance rehearsal, room tone',
+      'choro rehearsal, room tone',
+      'capoeira circle ambience at dawn',
+      'amazon rainforest ambience at dawn',
+      'bahia courtyard ambience at dawn',
+      'olinda carnival ambience at dawn',
+      'sertanejo viola rehearsal, room tone',
+      'maracana crowd walla, distant',
+      'sugarloaf wind foley, high ridge',
+      'recife frevo rehearsal, room tone',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay BR-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path BR-label boundary');
+    }
+  });
 });

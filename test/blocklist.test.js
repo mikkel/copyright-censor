@@ -1648,5 +1648,31 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 49 BR-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Copacabana Records logo sting, warm grain', 'block'],
+      ['signed to Copacabana Records for the new single', 'block'],
+      ['Continental Records logo sting, warm grain', 'block'],
+      ['signed to Continental Records for the new single', 'block'],
+      ['Chantecler logo sting, warm grain', 'block'],
+      ['signed to Chantecler for the new single', 'block'],
+      ['RGE Discos logo sting, warm grain', 'block'],
+      ['signed to RGE Discos for the new single', 'block'],
+      ['Tapecar logo sting, warm grain', 'block'],
+      ['signed to Tapecar for the new single', 'block'],
+      ['Deckdisc logo sting, warm grain', 'block'],
+      ['signed to Deckdisc for the new single', 'block'],
+      ['Tratore logo sting, warm grain', 'block'],
+      ['signed to Tratore for the new single', 'block'],
+      ['Laboratório Fantasma logo sting, warm grain', 'block'],
+      ['signed to Laboratório Fantasma for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
