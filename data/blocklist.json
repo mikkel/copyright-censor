@@ -977,6 +977,16 @@
     { "term": "Vevo DSCVR", "media": ["image", "video"] },
     { "term": "HGTV", "media": ["image", "video"] },
     { "term": "MAPPA", "media": ["image", "video"] },
-    { "term": "Eon Productions", "media": ["image", "video"] }
+    { "term": "Eon Productions", "media": ["image", "video"] },
+    "Coachella",
+    "Lollapalooza",
+    "Glastonbury",
+    "Bonnaroo",
+    "Sziget",
+    "Roskilde",
+    "Pukkelpop",
+    "Creamfields",
+    "Fuji Rock",
+    { "term": "Lowlands", "commonWord": true }
   ]
 }
