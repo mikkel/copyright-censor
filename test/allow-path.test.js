@@ -3887,4 +3887,119 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Caribbean-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new IE/Nordic-label tokens (Pass 46 Part B)', () => {
+    const nearMiss = [
+      'ruby foley, warm mics',
+      'ubyworks foley, warm mics',
+      'rubworks foley, warm mics',
+      'rubywork foley, warm mics',
+      'rubyvorks foley, warm mics',
+      'clad foley, warm mics',
+      'laddagh foley, warm mics',
+      'cladagh foley, warm mics',
+      'claddag foley, warm mics',
+      'claddach foley, warm mics',
+      'set foley, warm mics',
+      'etanta foley, warm mics',
+      'setant foley, warm mics',
+      'setonta foley, warm mics',
+      'spine foley, warm mics',
+      'pinefarm foley, warm mics',
+      'spinfarm foley, warm mics',
+      'spinefar foley, warm mics',
+      'full foley, warm mics',
+      'ullsteam foley, warm mics',
+      'fullstem foley, warm mics',
+      'fullstea foley, warm mics',
+      'rank foley, warm mics',
+      'anka foley, warm mics',
+      'rankka foley, warm mics',
+      'kust foley, warm mics',
+      'ustannus foley, warm mics',
+      'kustanus foley, warm mics',
+      'tambour foley, warm mics',
+      'rhinoceros foley, warm mics',
+      'tambourhino foley, warm mics',
+      'tambourhine foley, warm mics',
+      'despo foley, warm mics',
+      'espotz foley, warm mics',
+      'despots foley, warm mics',
+      'despot foley, warm mics',
+      'kari foley, warm mics',
+      'arisma foley, warm mics',
+      'karism foley, warm mics',
+      'charisma foley, warm mics',
+      'smek foley, warm mics',
+      'mekkleysa foley, warm mics',
+      'smekleys foley, warm mics',
+      'smekleisa foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay IE/Nordic-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path IE/Nordic-label near-miss');
+    }
+  });
+
+  it('still blocks explicit IE/Nordic-label prompts on the overlay path (Pass 46 Part B)', () => {
+    const cases = [
+      'Rubyworks logo sting, warm grain',
+      'signed to Rubyworks for the new single',
+      'Claddagh Records logo sting, warm grain',
+      'signed to Claddagh Records for the new single',
+      'Setanta Records logo sting, warm grain',
+      'signed to Setanta Records for the new single',
+      'Spinefarm Records logo sting, warm grain',
+      'signed to Spinefarm Records for the new single',
+      'Fullsteam Records logo sting, warm grain',
+      'signed to Fullsteam Records for the new single',
+      'Ranka Kustannus logo sting, warm grain',
+      'signed to Ranka Kustannus for the new single',
+      'Tambourhinoceros logo sting, warm grain',
+      'signed to Tambourhinoceros for the new single',
+      'Despotz Records logo sting, warm grain',
+      'signed to Despotz Records for the new single',
+      'Karisma Records logo sting, warm grain',
+      'signed to Karisma Records for the new single',
+      'Smekkleysa logo sting, warm grain',
+      'signed to Smekkleysa for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new IE/Nordic-label tokens (Pass 46 Part B)', () => {
+    const innocent = [
+      'dublin street ambience at dawn',
+      'tin whistle rehearsal, room tone',
+      'bodhran pulse under soft keys',
+      'trad session sketch, room tone',
+      'galway harbor ambience at dawn',
+      'helsinki courtyard ambience at dawn',
+      'oslo rooftop foley, warm mics',
+      'copenhagen traffic ambience at dawn',
+      'stockholm harbor ambience at dawn',
+      'reykjavik wind foley, high ridge',
+      'fjord shoreline ambience at dawn',
+      'sauna room tone, pine crackle',
+      'black metal rehearsal, room tone',
+      'psychedelic folk swell, room tone',
+      'harbor wind foley, high ridge',
+      'north sea ferry ambience at dawn',
+      'distant choir swell, room tone',
+      'peat fire crackle, room tone',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay IE/Nordic-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path IE/Nordic-label boundary');
+    }
+  });
 });

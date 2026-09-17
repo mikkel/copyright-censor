@@ -1562,5 +1562,35 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 46 IE/Nordic-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Rubyworks logo sting, warm grain', 'block'],
+      ['signed to Rubyworks for the new single', 'block'],
+      ['Claddagh Records logo sting, warm grain', 'block'],
+      ['signed to Claddagh Records for the new single', 'block'],
+      ['Setanta Records logo sting, warm grain', 'block'],
+      ['signed to Setanta Records for the new single', 'block'],
+      ['Spinefarm Records logo sting, warm grain', 'block'],
+      ['signed to Spinefarm Records for the new single', 'block'],
+      ['Fullsteam Records logo sting, warm grain', 'block'],
+      ['signed to Fullsteam Records for the new single', 'block'],
+      ['Ranka Kustannus logo sting, warm grain', 'block'],
+      ['signed to Ranka Kustannus for the new single', 'block'],
+      ['Tambourhinoceros logo sting, warm grain', 'block'],
+      ['signed to Tambourhinoceros for the new single', 'block'],
+      ['Despotz Records logo sting, warm grain', 'block'],
+      ['signed to Despotz Records for the new single', 'block'],
+      ['Karisma Records logo sting, warm grain', 'block'],
+      ['signed to Karisma Records for the new single', 'block'],
+      ['Smekkleysa logo sting, warm grain', 'block'],
+      ['signed to Smekkleysa for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
