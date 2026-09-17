@@ -5001,4 +5001,95 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path short-form boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new cover-art tokens (Pass 53 Part B)', () => {
+    const nearMiss = [
+      '4a foley, warm mics',
+      'ad foley, warm mics',
+      '4d foley, warm mics',
+      'ad4 foley, warm mics',
+      'd4 foley, warm mics',
+      'ecm foley, warm mics',
+      'ecm record foley, warm mics',
+      'deutsche foley, warm mics',
+      'deut foley, warm mics',
+      'gramo foley, warm mics',
+      'mophon foley, warm mics',
+      'phon foley, warm mics',
+      'grammophon foley, warm mics',
+      'ranky foley, warm mics',
+      'krany foley, warm mics',
+      'kanky foley, warm mics',
+      'krank foley, warm mics',
+      'ria foley, warm mics',
+      'iaa foley, warm mics',
+      'raa foley, warm mics',
+      'gild foley, warm mics',
+      'ildan foley, warm mics',
+      'han foley, warm mics',
+      'anes foley, warm mics',
+      'hanesque foley, warm mics',
+      'chella foley, warm mics',
+      'coachell foley, warm mics',
+      'oachella foley, warm mics',
+      'oachell foley, warm mics',
+      'hella foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay cover-art near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path cover-art near-miss');
+    }
+  });
+
+  it('still blocks explicit cover-art prompts on the overlay path (Pass 53 Part B)', () => {
+    const cases = [
+      '4AD logo sting, warm grain',
+      'signed to 4AD for the new single',
+      'ECM Records logo sting, warm grain',
+      'signed to ECM Records for the new single',
+      'Deutsche Grammophon logo sting, warm grain',
+      'signed to Deutsche Grammophon for the new single',
+      'Kranky logo sting, warm grain',
+      'signed to Kranky for the new single',
+      'RIAA logo sting, warm grain',
+      'signed to RIAA for the new single',
+      'Gildan logo sting, warm grain',
+      'signed to Gildan for the new single',
+      'Hanes logo sting, warm grain',
+      'signed to Hanes for the new single',
+      'Coachella logo sting, warm grain',
+      'signed to Coachella for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new cover-art tokens (Pass 53 Part B)', () => {
+    const innocent = [
+      'matte poster mockup, vinyl texture',
+      'typography layout, matte finish',
+      'vinyl texture foley, warm mics',
+      'matte poster foley, warm mics',
+      'poster layout sketch, room tone',
+      'typography kerning notes, room tone',
+      'sleeve mockup with matte laminate, room tone',
+      'gatefold mockup foley, warm mics',
+      'obi strip mockup foley, warm mics',
+      'hype sticker mockup, room tone',
+      'tour poster layout sketch, room tone',
+      'merch table mockup foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay cover-art boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path cover-art boundary');
+    }
+  });
 });

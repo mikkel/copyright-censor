@@ -1016,6 +1016,31 @@
     "Uppbeat",
     { "term": "Pond5", "media": ["image", "video"] },
     { "term": "Shorts Fund", "media": ["image", "video"] },
-    { "term": "Video Reply", "media": ["image", "video"] }
+    { "term": "Video Reply", "media": ["image", "video"] },
+    "4AD",
+    "ECM Records",
+    "Deutsche Grammophon",
+    "Kranky",
+    {
+      "term": "RIAA",
+      "media": [
+        "image",
+        "video"
+      ]
+    },
+    {
+      "term": "Gildan",
+      "media": [
+        "image",
+        "video"
+      ]
+    },
+    {
+      "term": "Hanes",
+      "media": [
+        "image",
+        "video"
+      ]
+    }
   ]
 }
