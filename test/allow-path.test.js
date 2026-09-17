@@ -1598,6 +1598,62 @@ describe('allow-path / innocent usage', () => {
       'rendered with Recraft yesterday',
       'Napkin logo sting, product shot',
       'used Napkin yesterday',
+      'Canva product shot, studio light',
+      'Figma product shot, studio light',
+      'Reddit product shot, studio light',
+      'Gmail product shot, studio light',
+      'Venmo product shot, studio light',
+      'Midjourney product shot, studio light',
+      'HeyGen product shot, studio light',
+      'Synthesia product shot, studio light',
+      'Krea product shot, studio light',
+      'Viggle product shot, studio light',
+      'Higgsfield product shot, studio light',
+      'PixVerse product shot, studio light',
+      'Hailuo product shot, studio light',
+      'Vidu product shot, studio light',
+      'ComfyUI product shot, studio light',
+      'SeaArt product shot, studio light',
+      'OpenArt product shot, studio light',
+      'Magnific product shot, studio light',
+      'LTX product shot, studio light',
+      'Replit product shot, studio light',
+      'Raycast product shot, studio light',
+      'Wakuku product shot, studio light',
+      'Napkin logo sting, product shot',
+      'Pika logo sting, product shot',
+      'Kling logo sting, product shot',
+      'Veo logo sting, product shot',
+      'Stable Diffusion logo sting, product shot',
+      'MiniMax logo sting, product shot',
+      'Whisk logo sting, product shot',
+      'Lovable logo sting, product shot',
+      'Windsurf logo sting, product shot',
+      'Linear logo sting, product shot',
+      'Cursor logo sting, product shot',
+      'Captions logo sting, product shot',
+      'Granola logo sting, product shot',
+      'Kindle logo sting, product shot',
+      'Nerf logo sting, product shot',
+      'Siri logo sting, product shot',
+      'Discomagic Records logo sting, warm grain',
+      'signed to Discomagic Records for the new single',
+      'DWA Records logo sting, warm grain',
+      'signed to DWA Records for the new single',
+      'Il Discotto logo sting, warm grain',
+      'signed to Il Discotto for the new single',
+      'Disco Più logo sting, warm grain',
+      'signed to Disco Più for the new single',
+      'Disco Piu logo sting, warm grain',
+      'signed to Disco Piu for the new single',
+      'SAIFAM logo sting, warm grain',
+      'signed to SAIFAM for the new single',
+      'BXR Records logo sting, warm grain',
+      'signed to BXR Records for the new single',
+      'Durium Records logo sting, warm grain',
+      'signed to Durium Records for the new single',
+      'Fonit Cetra logo sting, warm grain',
+      'signed to Fonit Cetra for the new single',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -2477,6 +2533,158 @@ describe('allow-path / innocent usage', () => {
       'signed to Sonido Muchacho for the new single',
       'BCore Disc logo sting, warm grain',
       'signed to BCore Disc for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('scopes design/social/dev/AI-video/toy trademarks to image/video so song prompts stay allow (Pass 35 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore Canva in this song',
+      'wore Figma in this song',
+      'wore Reddit in this song',
+      'wore Gmail in this song',
+      'wore Venmo in this song',
+      'wore Midjourney in this song',
+      'wore HeyGen in this song',
+      'wore Synthesia in this song',
+      'wore Krea in this song',
+      'wore Viggle in this song',
+      'wore Higgsfield in this song',
+      'wore PixVerse in this song',
+      'wore Hailuo in this song',
+      'wore Vidu in this song',
+      'wore ComfyUI in this song',
+      'wore SeaArt in this song',
+      'wore OpenArt in this song',
+      'wore Magnific in this song',
+      'wore LTX in this song',
+      'wore Replit in this song',
+      'wore Raycast in this song',
+      'wore Wakuku in this song',
+      'wore Napkin in this song',
+      'wore Pika in this song',
+      'wore Kling in this song',
+      'wore Veo in this song',
+      'wore Stable Diffusion in this song',
+      'wore MiniMax in this song',
+      'wore Whisk in this song',
+      'wore Lovable in this song',
+      'wore Windsurf in this song',
+      'wore Linear in this song',
+      'wore Cursor in this song',
+      'wore Captions in this song',
+      'wore Granola in this song',
+      'wore Kindle in this song',
+      'wore Nerf in this song',
+      'wore Siri in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music design/dev/AI-video/toy');
+    }
+    const productPrompts = [
+      'Canva product shot, studio light',
+      'Figma product shot, studio light',
+      'Reddit product shot, studio light',
+      'Gmail product shot, studio light',
+      'Venmo product shot, studio light',
+      'Midjourney product shot, studio light',
+      'HeyGen product shot, studio light',
+      'Synthesia product shot, studio light',
+      'Krea product shot, studio light',
+      'Viggle product shot, studio light',
+      'Higgsfield product shot, studio light',
+      'PixVerse product shot, studio light',
+      'Hailuo product shot, studio light',
+      'Vidu product shot, studio light',
+      'ComfyUI product shot, studio light',
+      'SeaArt product shot, studio light',
+      'OpenArt product shot, studio light',
+      'Magnific product shot, studio light',
+      'LTX product shot, studio light',
+      'Replit product shot, studio light',
+      'Raycast product shot, studio light',
+      'Wakuku product shot, studio light',
+      'Napkin logo sting, product shot',
+      'Pika logo sting, product shot',
+      'Kling logo sting, product shot',
+      'Veo logo sting, product shot',
+      'Stable Diffusion logo sting, product shot',
+      'MiniMax logo sting, product shot',
+      'Whisk logo sting, product shot',
+      'Lovable logo sting, product shot',
+      'Windsurf logo sting, product shot',
+      'Linear logo sting, product shot',
+      'Cursor logo sting, product shot',
+      'Captions logo sting, product shot',
+      'Granola logo sting, product shot',
+      'Kindle logo sting, product shot',
+      'Nerf logo sting, product shot',
+      'Siri logo sting, product shot',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new IT-label tokens (Pass 35 Part B)', () => {
+    const nearMiss = [
+      'disco foley, warm mics',
+      'magic foley, warm mics',
+      'discomagic foley, warm mics',
+      'dwa foley, warm mics',
+      'dw foley, warm mics',
+      'il foley, warm mics',
+      'discotto foley, warm mics',
+      'otto foley, warm mics',
+      'piu foley, warm mics',
+      'pius foley, warm mics',
+      'saif foley, warm mics',
+      'fam foley, warm mics',
+      'bxr foley, warm mics',
+      'xr foley, warm mics',
+      'duri foley, warm mics',
+      'rium foley, warm mics',
+      'durium foley, warm mics',
+      'fonit foley, warm mics',
+      'cetra foley, warm mics',
+      'cetera foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay IT-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path IT-label near-miss');
+    }
+  });
+
+  it('still blocks explicit IT-label prompts on the overlay path (Pass 35 Part B)', () => {
+    const cases = [
+      'Discomagic Records logo sting, warm grain',
+      'signed to Discomagic Records for the new single',
+      'DWA Records logo sting, warm grain',
+      'signed to DWA Records for the new single',
+      'Il Discotto logo sting, warm grain',
+      'signed to Il Discotto for the new single',
+      'Disco Più logo sting, warm grain',
+      'signed to Disco Più for the new single',
+      'Disco Piu logo sting, warm grain',
+      'signed to Disco Piu for the new single',
+      'SAIFAM logo sting, warm grain',
+      'signed to SAIFAM for the new single',
+      'BXR Records logo sting, warm grain',
+      'signed to BXR Records for the new single',
+      'Durium Records logo sting, warm grain',
+      'signed to Durium Records for the new single',
+      'Fonit Cetra logo sting, warm grain',
+      'signed to Fonit Cetra for the new single',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);

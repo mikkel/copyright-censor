@@ -1137,5 +1137,81 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 35 IT-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Discomagic Records logo sting, warm grain', 'block'],
+      ['signed to Discomagic Records for the new single', 'block'],
+      ['DWA Records logo sting, warm grain', 'block'],
+      ['signed to DWA Records for the new single', 'block'],
+      ['Il Discotto logo sting, warm grain', 'block'],
+      ['signed to Il Discotto for the new single', 'block'],
+      ['Disco Più logo sting, warm grain', 'block'],
+      ['signed to Disco Più for the new single', 'block'],
+      ['Disco Piu logo sting, warm grain', 'block'],
+      ['signed to Disco Piu for the new single', 'block'],
+      ['SAIFAM logo sting, warm grain', 'block'],
+      ['signed to SAIFAM for the new single', 'block'],
+      ['BXR Records logo sting, warm grain', 'block'],
+      ['signed to BXR Records for the new single', 'block'],
+      ['Durium Records logo sting, warm grain', 'block'],
+      ['signed to Durium Records for the new single', 'block'],
+      ['Fonit Cetra logo sting, warm grain', 'block'],
+      ['signed to Fonit Cetra for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes design/social/dev/AI-video/toy trademarks to image/video (Pass 35 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Canva product shot, studio light', 'block'],
+      ['Figma product shot, studio light', 'block'],
+      ['Reddit product shot, studio light', 'block'],
+      ['Gmail product shot, studio light', 'block'],
+      ['Venmo product shot, studio light', 'block'],
+      ['Midjourney product shot, studio light', 'block'],
+      ['HeyGen product shot, studio light', 'block'],
+      ['Synthesia product shot, studio light', 'block'],
+      ['Krea product shot, studio light', 'block'],
+      ['Viggle product shot, studio light', 'block'],
+      ['Higgsfield product shot, studio light', 'block'],
+      ['PixVerse product shot, studio light', 'block'],
+      ['Hailuo product shot, studio light', 'block'],
+      ['Vidu product shot, studio light', 'block'],
+      ['ComfyUI product shot, studio light', 'block'],
+      ['SeaArt product shot, studio light', 'block'],
+      ['OpenArt product shot, studio light', 'block'],
+      ['Magnific product shot, studio light', 'block'],
+      ['LTX product shot, studio light', 'block'],
+      ['Replit product shot, studio light', 'block'],
+      ['Raycast product shot, studio light', 'block'],
+      ['Wakuku product shot, studio light', 'block'],
+      ['Napkin logo sting, product shot', 'block'],
+      ['Pika logo sting, product shot', 'block'],
+      ['Kling logo sting, product shot', 'block'],
+      ['Veo logo sting, product shot', 'block'],
+      ['Stable Diffusion logo sting, product shot', 'block'],
+      ['MiniMax logo sting, product shot', 'block'],
+      ['Whisk logo sting, product shot', 'block'],
+      ['Lovable logo sting, product shot', 'block'],
+      ['Windsurf logo sting, product shot', 'block'],
+      ['Linear logo sting, product shot', 'block'],
+      ['Cursor logo sting, product shot', 'block'],
+      ['Captions logo sting, product shot', 'block'],
+      ['Granola logo sting, product shot', 'block'],
+      ['Kindle logo sting, product shot', 'block'],
+      ['Nerf logo sting, product shot', 'block'],
+      ['Siri logo sting, product shot', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
