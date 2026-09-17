@@ -1704,5 +1704,31 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 51 Americas-indie-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Merge Records logo sting, warm grain', 'block'],
+      ['signed to Merge Records for the new single', 'block'],
+      ['Astralwerks logo sting, warm grain', 'block'],
+      ['signed to Astralwerks for the new single', 'block'],
+      ['OWSLA logo sting, warm grain', 'block'],
+      ['signed to OWSLA for the new single', 'block'],
+      ['Counter Records logo sting, warm grain', 'block'],
+      ['signed to Counter Records for the new single', 'block'],
+      ['Nacional Records logo sting, warm grain', 'block'],
+      ['signed to Nacional Records for the new single', 'block'],
+      ['Sonolux logo sting, warm grain', 'block'],
+      ['signed to Sonolux for the new single', 'block'],
+      ['88rising logo sting, warm grain', 'block'],
+      ['signed to 88rising for the new single', 'block'],
+      ['Lilystars Records logo sting, warm grain', 'block'],
+      ['signed to Lilystars Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

@@ -4435,4 +4435,95 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Balkan SE-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new Americas-indie-label tokens (Pass 51 Part B)', () => {
+    const nearMiss = [
+      'merge foley, warm mics',
+      'merg foley, warm mics',
+      'erge foley, warm mics',
+      'astral foley, warm mics',
+      'tral foley, warm mics',
+      'werks foley, warm mics',
+      'ows foley, warm mics',
+      'wsla foley, warm mics',
+      'sla foley, warm mics',
+      'counter foley, warm mics',
+      'count foley, warm mics',
+      'ounter foley, warm mics',
+      'nacional foley, warm mics',
+      'naci foley, warm mics',
+      'cional foley, warm mics',
+      'sono foley, warm mics',
+      'lux foley, warm mics',
+      'sonol foley, warm mics',
+      'olux foley, warm mics',
+      '88 foley, warm mics',
+      'rising foley, warm mics',
+      'lily foley, warm mics',
+      'stars foley, warm mics',
+      'lilystars foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay Americas-indie-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path Americas-indie-label near-miss');
+    }
+  });
+
+  it('still blocks explicit Americas-indie-label prompts on the overlay path (Pass 51 Part B)', () => {
+    const cases = [
+      'Merge Records logo sting, warm grain',
+      'signed to Merge Records for the new single',
+      'Astralwerks logo sting, warm grain',
+      'signed to Astralwerks for the new single',
+      'OWSLA logo sting, warm grain',
+      'signed to OWSLA for the new single',
+      'Counter Records logo sting, warm grain',
+      'signed to Counter Records for the new single',
+      'Nacional Records logo sting, warm grain',
+      'signed to Nacional Records for the new single',
+      'Sonolux logo sting, warm grain',
+      'signed to Sonolux for the new single',
+      '88rising logo sting, warm grain',
+      'signed to 88rising for the new single',
+      'Lilystars Records logo sting, warm grain',
+      'signed to Lilystars Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new Americas-indie-label tokens (Pass 51 Part B)', () => {
+    const innocent = [
+      'merged mix stems, room tone',
+      'merger hum foley, warm mics',
+      'astral synth swell, room tone',
+      'astral lights foley, warm mics',
+      'counter melody sketch for the bridge draft',
+      'native drum foley, warm mics',
+      'nationwide tour foley, warm mics',
+      'sono buoy foley, warm mics',
+      'lux lighting foley, warm mics',
+      'rising action foley, warm mics',
+      'lily pond foley, warm mics',
+      'star field foley, warm mics',
+      'county fair foley, warm mics',
+      'owls at dusk foley, warm mics',
+      'slow riser swell, dark pads',
+      'anthem sketch for the bridge draft',
+      'projection room tone, warm mics',
+      'national park ambience at dawn',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay Americas-indie-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path Americas-indie-label boundary');
+    }
+  });
 });
