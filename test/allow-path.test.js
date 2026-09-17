@@ -1952,4 +1952,112 @@ describe('allow-path / innocent usage', () => {
       assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
     }
   });
+
+  it('scopes toy/retail/beauty trademarks to image/video so song prompts stay allow (Pass 31 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore IKEA in this song',
+      'wore Mattel in this song',
+      'wore Hasbro in this song',
+      'wore Funko in this song',
+      'wore Bandai in this song',
+      'wore Labubu in this song',
+      'wore Pop Mart in this song',
+      'wore Squishmallows in this song',
+      'wore Jellycat in this song',
+      'wore Glossier in this song',
+      'wore Feastables in this song',
+      'wore Chipotle in this song',
+      'wore Nutella in this song',
+      'wore Costco in this song',
+      'wore Walmart in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music toy/retail');
+    }
+    const productPrompts = [
+      'IKEA product shot, studio light',
+      'Mattel product shot, studio light',
+      'Hasbro product shot, studio light',
+      'Funko product shot, studio light',
+      'Bandai product shot, studio light',
+      'Labubu logo sting, product shot',
+      'Pop Mart product shot, studio light',
+      'Squishmallows product shot, studio light',
+      'Jellycat product shot, studio light',
+      'Glossier logo sting, product shot',
+      'Feastables product shot, studio light',
+      'Chipotle product shot, studio light',
+      'Nutella product shot, studio light',
+      'Costco product shot, studio light',
+      'Walmart product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new DE/Nordic-label tokens (Pass 31 Part B)', () => {
+    const nearMiss = [
+      'kompak foley, warm mics',
+      'compact foley, warm mics',
+      'pakt foley, warm mics',
+      'perl foley, warm mics',
+      'lon foley, warm mics',
+      'pearl foley, warm mics',
+      'pamp foley, warm mics',
+      'ampa foley, warm mics',
+      'pampas foley, warm mics',
+      'dynamic foley, warm mics',
+      'dyn foley, warm mics',
+      'namic foley, warm mics',
+      'kater foley, warm mics',
+      'mukke foley, warm mics',
+      'cat foley, warm mics',
+      'pitch foley, warm mics',
+      'bit foley, warm mics',
+      'bpi foley, warm mics',
+      'drum foley, warm mics',
+      'code foley, warm mics',
+      'drum code foley, warm mics',
+      'true foley, warm mics',
+      'soul foley, warm mics',
+      'true soul foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay DE/Nordic-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path DE/Nordic-label near-miss');
+    }
+  });
+
+  it('still blocks explicit DE/Nordic-label prompts on the overlay path (Pass 31 Part B)', () => {
+    const cases = [
+      'Kompakt logo sting, warm grain',
+      'signed to Kompakt for the new single',
+      'Perlon logo sting, warm grain',
+      'signed to Perlon for the new single',
+      'Pampa Records logo sting, warm grain',
+      'signed to Pampa Records for the new single',
+      'Diynamic logo sting, warm grain',
+      'signed to Diynamic for the new single',
+      'Katermukke logo sting, warm grain',
+      'signed to Katermukke for the new single',
+      'BPitch logo sting, warm grain',
+      'signed to BPitch for the new single',
+      'Drumcode logo sting, warm grain',
+      'signed to Drumcode for the new single',
+      'Truesoul logo sting, warm grain',
+      'signed to Truesoul for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
 });

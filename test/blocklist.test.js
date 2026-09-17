@@ -912,5 +912,56 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 31 DE/Nordic-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Kompakt logo sting, warm grain', 'block'],
+      ['signed to Kompakt for the new single', 'block'],
+      ['Perlon logo sting, warm grain', 'block'],
+      ['signed to Perlon for the new single', 'block'],
+      ['Pampa Records logo sting, warm grain', 'block'],
+      ['signed to Pampa Records for the new single', 'block'],
+      ['Diynamic logo sting, warm grain', 'block'],
+      ['signed to Diynamic for the new single', 'block'],
+      ['Katermukke logo sting, warm grain', 'block'],
+      ['signed to Katermukke for the new single', 'block'],
+      ['BPitch logo sting, warm grain', 'block'],
+      ['signed to BPitch for the new single', 'block'],
+      ['Drumcode logo sting, warm grain', 'block'],
+      ['signed to Drumcode for the new single', 'block'],
+      ['Truesoul logo sting, warm grain', 'block'],
+      ['signed to Truesoul for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes music-irrelevant toy/retail/beauty trademarks to image/video (Pass 31 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['IKEA product shot, studio light', 'block'],
+      ['Mattel product shot, studio light', 'block'],
+      ['Hasbro product shot, studio light', 'block'],
+      ['Funko product shot, studio light', 'block'],
+      ['Bandai product shot, studio light', 'block'],
+      ['Labubu logo sting, product shot', 'block'],
+      ['Pop Mart product shot, studio light', 'block'],
+      ['Squishmallows product shot, studio light', 'block'],
+      ['Jellycat product shot, studio light', 'block'],
+      ['Glossier logo sting, product shot', 'block'],
+      ['Feastables product shot, studio light', 'block'],
+      ['Chipotle product shot, studio light', 'block'],
+      ['Nutella product shot, studio light', 'block'],
+      ['Costco product shot, studio light', 'block'],
+      ['Walmart product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
