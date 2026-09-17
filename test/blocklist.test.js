@@ -1418,5 +1418,31 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 41 Africa-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Mavin Records logo sting, warm grain', 'block'],
+      ['signed to Mavin Records for the new single', 'block'],
+      ['Kalawa Jazmee logo sting, warm grain', 'block'],
+      ['signed to Kalawa Jazmee for the new single', 'block'],
+      ['Afrotainment logo sting, warm grain', 'block'],
+      ['signed to Afrotainment for the new single', 'block'],
+      ['RuffTown Records logo sting, warm grain', 'block'],
+      ['signed to RuffTown Records for the new single', 'block'],
+      ['WCB Wasafi logo sting, warm grain', 'block'],
+      ['signed to WCB Wasafi for the new single', 'block'],
+      ['Aristokrat Records logo sting, warm grain', 'block'],
+      ['signed to Aristokrat Records for the new single', 'block'],
+      ['Calif Records logo sting, warm grain', 'block'],
+      ['signed to Calif Records for the new single', 'block'],
+      ['Spaceship Records logo sting, warm grain', 'block'],
+      ['signed to Spaceship Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

@@ -1770,6 +1770,22 @@ describe('allow-path / innocent usage', () => {
       'signed to ZudRangMa Records for the new single',
       'SpaceSpeakers logo sting, warm grain',
       'signed to SpaceSpeakers for the new single',
+      'Mavin Records logo sting, warm grain',
+      'signed to Mavin Records for the new single',
+      'Kalawa Jazmee logo sting, warm grain',
+      'signed to Kalawa Jazmee for the new single',
+      'Afrotainment logo sting, warm grain',
+      'signed to Afrotainment for the new single',
+      'RuffTown Records logo sting, warm grain',
+      'signed to RuffTown Records for the new single',
+      'WCB Wasafi logo sting, warm grain',
+      'signed to WCB Wasafi for the new single',
+      'Aristokrat Records logo sting, warm grain',
+      'signed to Aristokrat Records for the new single',
+      'Calif Records logo sting, warm grain',
+      'signed to Calif Records for the new single',
+      'Spaceship Records logo sting, warm grain',
+      'signed to Spaceship Records for the new single',
       'DALL-E product shot, studio light',
       'CapCut edit sting, product shot',
       'Descript product shot, studio light',
@@ -3324,6 +3340,102 @@ describe('allow-path / innocent usage', () => {
     }
     for (const prompt of innocent) {
       assertAllow(full, prompt, 'full-path KR/TW/SEA-label boundary');
+    }
+  });
+
+  it('does not trip on near-miss substrings of new Africa-label tokens (Pass 41 Part B)', () => {
+    const nearMiss = [
+      'mav foley, warm mics',
+      'vin foley, warm mics',
+      'mavin foley, warm mics',
+      'mavinette foley, warm mics',
+      'kal foley, warm mics',
+      'lawa foley, warm mics',
+      'kalawa foley, warm mics',
+      'jaz foley, warm mics',
+      'mee foley, warm mics',
+      'jazmee foley, warm mics',
+      'afro foley, warm mics',
+      'tainment foley, warm mics',
+      'afrotain foley, warm mics',
+      'town foley, warm mics',
+      'township foley, warm mics',
+      'rufftown foley, warm mics',
+      'uftown foley, warm mics',
+      'town crier foley, warm mics',
+      'wcb foley, warm mics',
+      'wasafi foley, warm mics',
+      'safi foley, warm mics',
+      'wasa foley, warm mics',
+      'aristo foley, warm mics',
+      'krat foley, warm mics',
+      'aristokrat foley, warm mics',
+      'tocrat foley, warm mics',
+      'cali foley, warm mics',
+      'lif foley, warm mics',
+      'calif foley, warm mics',
+      'space foley, warm mics',
+      'ship foley, warm mics',
+      'spaces foley, warm mics',
+      'shipspace foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay Africa-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path Africa-label near-miss');
+    }
+  });
+
+  it('still blocks explicit Africa-label prompts on the overlay path (Pass 41 Part B)', () => {
+    const cases = [
+      'Mavin Records logo sting, warm grain',
+      'signed to Mavin Records for the new single',
+      'Kalawa Jazmee logo sting, warm grain',
+      'signed to Kalawa Jazmee for the new single',
+      'Afrotainment logo sting, warm grain',
+      'signed to Afrotainment for the new single',
+      'RuffTown Records logo sting, warm grain',
+      'signed to RuffTown Records for the new single',
+      'WCB Wasafi logo sting, warm grain',
+      'signed to WCB Wasafi for the new single',
+      'Aristokrat Records logo sting, warm grain',
+      'signed to Aristokrat Records for the new single',
+      'Calif Records logo sting, warm grain',
+      'signed to Calif Records for the new single',
+      'Spaceship Records logo sting, warm grain',
+      'signed to Spaceship Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new Africa-label tokens (Pass 41 Part B)', () => {
+    const innocent = [
+      'morning kalimba loop, warm mics',
+      'jazzy keys break, room tone',
+      'afrobeat groove sketch, room tone',
+      'riverside town ambience at dawn',
+      'township choir rehearsal, room tone',
+      'wasp drone foley, high wind',
+      'safari field recording, slow build',
+      'arid desert drone, warm mics',
+      'calico cat foley, warm mics',
+      'shipping container foley, harbor ambience',
+      'harbor ship horn foley, dawn ambience',
+      'starship corridor foley, room tone',
+      'paper spaceship model foley, warm mics',
+      'crate digging foley, vinyl crackle',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay Africa-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path Africa-label boundary');
     }
   });
 });
