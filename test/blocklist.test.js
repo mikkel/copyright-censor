@@ -1504,5 +1504,33 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 44 Eastern Europe-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Supraphon logo sting, warm grain', 'block'],
+      ['signed to Supraphon for the new single', 'block'],
+      ['Roton logo sting, warm grain', 'block'],
+      ['signed to Roton for the new single', 'block'],
+      ['Electrecord logo sting, warm grain', 'block'],
+      ['signed to Electrecord for the new single', 'block'],
+      ['Jugoton logo sting, warm grain', 'block'],
+      ['signed to Jugoton for the new single', 'block'],
+      ['Croatia Records logo sting, warm grain', 'block'],
+      ['signed to Croatia Records for the new single', 'block'],
+      ['Magneoton logo sting, warm grain', 'block'],
+      ['signed to Magneoton for the new single', 'block'],
+      ['Balkanton logo sting, warm grain', 'block'],
+      ['signed to Balkanton for the new single', 'block'],
+      ['Kayax logo sting, warm grain', 'block'],
+      ['signed to Kayax for the new single', 'block'],
+      ['Asfalt Records logo sting, warm grain', 'block'],
+      ['signed to Asfalt Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

@@ -3668,4 +3668,110 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path South Asia-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new Eastern Europe-label tokens (Pass 44 Part B)', () => {
+    const nearMiss = [
+      'supra foley, warm mics',
+      'praphon foley, warm mics',
+      'supraph foley, warm mics',
+      'upraphon foley, warm mics',
+      'rot foley, warm mics',
+      'rotten foley, warm mics',
+      'roto foley, warm mics',
+      'oton foley, warm mics',
+      'rotor foley, warm mics',
+      'elec foley, warm mics',
+      'trecord foley, warm mics',
+      'electr foley, warm mics',
+      'cord foley, warm mics',
+      'jugo foley, warm mics',
+      'goton foley, warm mics',
+      'jugot foley, warm mics',
+      'ugoton foley, warm mics',
+      'croat foley, warm mics',
+      'croatian foley, warm mics',
+      'croatia foley, warm mics',
+      'oatia foley, warm mics',
+      'magne foley, warm mics',
+      'gneoton foley, warm mics',
+      'magneot foley, warm mics',
+      'neoton foley, warm mics',
+      'balkan foley, warm mics',
+      'kanton foley, warm mics',
+      'balkant foley, warm mics',
+      'alkanton foley, warm mics',
+      'kaya foley, warm mics',
+      'kayak foley, warm mics',
+      'ayax foley, warm mics',
+      'kayaq foley, warm mics',
+      'asfa foley, warm mics',
+      'sfalt foley, warm mics',
+      'asfal foley, warm mics',
+      'falt foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay Eastern Europe-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path Eastern Europe-label near-miss');
+    }
+  });
+
+  it('still blocks explicit Eastern Europe-label prompts on the overlay path (Pass 44 Part B)', () => {
+    const cases = [
+      'Supraphon logo sting, warm grain',
+      'signed to Supraphon for the new single',
+      'Roton logo sting, warm grain',
+      'signed to Roton for the new single',
+      'Electrecord logo sting, warm grain',
+      'signed to Electrecord for the new single',
+      'Jugoton logo sting, warm grain',
+      'signed to Jugoton for the new single',
+      'Croatia Records logo sting, warm grain',
+      'signed to Croatia Records for the new single',
+      'Magneoton logo sting, warm grain',
+      'signed to Magneoton for the new single',
+      'Balkanton logo sting, warm grain',
+      'signed to Balkanton for the new single',
+      'Kayax logo sting, warm grain',
+      'signed to Kayax for the new single',
+      'Asfalt Records logo sting, warm grain',
+      'signed to Asfalt Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new Eastern Europe-label tokens (Pass 44 Part B)', () => {
+    const innocent = [
+      'accordion folk dance sketch, room tone',
+      'village horn rehearsal, room tone',
+      'cimbalom loop over warm pads, room tone',
+      'polka bounce under soft keys',
+      'danube river ambience at dawn',
+      'carpathian wind foley, high ridge',
+      'warsaw street ambience at dawn',
+      'prague rooftop foley, warm mics',
+      'bucharest traffic ambience at dawn',
+      'zagreb courtyard ambience at dawn',
+      'budapest tram foley, warm mics',
+      'sofia choir rehearsal, room tone',
+      'tambura strum over soft keys',
+      'village harvest foley, warm mics',
+      'forest cabin ambience, room tone',
+      'folk choir swell, room tone',
+      'baltic harbor ambience at dawn',
+      'rye field foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay Eastern Europe-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path Eastern Europe-label boundary');
+    }
+  });
 });
