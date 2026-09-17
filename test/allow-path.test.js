@@ -1786,6 +1786,24 @@ describe('allow-path / innocent usage', () => {
       'signed to Calif Records for the new single',
       'Spaceship Records logo sting, warm grain',
       'signed to Spaceship Records for the new single',
+      'Rotana Records logo sting, warm grain',
+      'signed to Rotana Records for the new single',
+      'Mazzika logo sting, warm grain',
+      'signed to Mazzika for the new single',
+      'Alam El Phan logo sting, warm grain',
+      'signed to Alam El Phan for the new single',
+      'Nogoum Records logo sting, warm grain',
+      'signed to Nogoum Records for the new single',
+      'Watary logo sting, warm grain',
+      'signed to Watary for the new single',
+      'Qanawat logo sting, warm grain',
+      'signed to Qanawat for the new single',
+      'PopArabia logo sting, warm grain',
+      'signed to PopArabia for the new single',
+      'Sawt El Fan logo sting, warm grain',
+      'signed to Sawt El Fan for the new single',
+      'Digital Sound logo sting, warm grain',
+      'signed to Digital Sound for the new single',
       'DALL-E product shot, studio light',
       'CapCut edit sting, product shot',
       'Descript product shot, studio light',
@@ -3436,6 +3454,112 @@ describe('allow-path / innocent usage', () => {
     }
     for (const prompt of innocent) {
       assertAllow(full, prompt, 'full-path Africa-label boundary');
+    }
+  });
+
+  it('does not trip on near-miss substrings of new Middle East-label tokens (Pass 42 Part B)', () => {
+    const nearMiss = [
+      'rot foley, warm mics',
+      'tana foley, warm mics',
+      'rotan foley, warm mics',
+      'otan foley, warm mics',
+      'maz foley, warm mics',
+      'zika foley, warm mics',
+      'mazz foley, warm mics',
+      'azzika foley, warm mics',
+      'ala foley, warm mics',
+      'lam foley, warm mics',
+      'phan foley, warm mics',
+      'alam foley, warm mics',
+      'el foley, warm mics',
+      'nog foley, warm mics',
+      'goum foley, warm mics',
+      'nogo foley, warm mics',
+      'ogoum foley, warm mics',
+      'wat foley, warm mics',
+      'tary foley, warm mics',
+      'wata foley, warm mics',
+      'atary foley, warm mics',
+      'qan foley, warm mics',
+      'nawat foley, warm mics',
+      'qana foley, warm mics',
+      'anawat foley, warm mics',
+      'pop foley, warm mics',
+      'arab foley, warm mics',
+      'abia foley, warm mics',
+      'parabia foley, warm mics',
+      'saw foley, warm mics',
+      'fan foley, warm mics',
+      'sawt foley, warm mics',
+      'elfan foley, warm mics',
+      'digit foley, warm mics',
+      'sound foley, warm mics',
+      'digi foley, warm mics',
+      'igital foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay Middle East-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path Middle East-label near-miss');
+    }
+  });
+
+  it('still blocks explicit Middle East-label prompts on the overlay path (Pass 42 Part B)', () => {
+    const cases = [
+      'Rotana Records logo sting, warm grain',
+      'signed to Rotana Records for the new single',
+      'Mazzika logo sting, warm grain',
+      'signed to Mazzika for the new single',
+      'Alam El Phan logo sting, warm grain',
+      'signed to Alam El Phan for the new single',
+      'Nogoum Records logo sting, warm grain',
+      'signed to Nogoum Records for the new single',
+      'Watary logo sting, warm grain',
+      'signed to Watary for the new single',
+      'Qanawat logo sting, warm grain',
+      'signed to Qanawat for the new single',
+      'PopArabia logo sting, warm grain',
+      'signed to PopArabia for the new single',
+      'Sawt El Fan logo sting, warm grain',
+      'signed to Sawt El Fan for the new single',
+      'Digital Sound logo sting, warm grain',
+      'signed to Digital Sound for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new Middle East-label tokens (Pass 42 Part B)', () => {
+    const innocent = [
+      'morning rotation foley, warm mics',
+      'souk ambience at dawn, room tone',
+      'oud loop over warm pads, room tone',
+      'desert wind foley, slow build',
+      'dabke drum groove sketch, room tone',
+      'cairo street ambience at dawn',
+      'beirut rooftop foley, harbor ambience',
+      'nile riverbank ambience at dawn',
+      'arabic scale run on nylon strings',
+      'mizmar foley over trap bounce',
+      'tabla groove sketch, warm mics',
+      'qanun loop with chopped choir',
+      'darbuka bounce under soft keys',
+      'digital delay tail, warm mics',
+      'warm analog sound bed, room tone',
+      'sawtooth bass pulse, slow build',
+      'paper fan foley, warm room',
+      'popping candy foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay Middle East-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path Middle East-label boundary');
     }
   });
 });

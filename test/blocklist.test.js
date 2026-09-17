@@ -1444,5 +1444,33 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 42 Middle East-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Rotana Records logo sting, warm grain', 'block'],
+      ['signed to Rotana Records for the new single', 'block'],
+      ['Mazzika logo sting, warm grain', 'block'],
+      ['signed to Mazzika for the new single', 'block'],
+      ['Alam El Phan logo sting, warm grain', 'block'],
+      ['signed to Alam El Phan for the new single', 'block'],
+      ['Nogoum Records logo sting, warm grain', 'block'],
+      ['signed to Nogoum Records for the new single', 'block'],
+      ['Watary logo sting, warm grain', 'block'],
+      ['signed to Watary for the new single', 'block'],
+      ['Qanawat logo sting, warm grain', 'block'],
+      ['signed to Qanawat for the new single', 'block'],
+      ['PopArabia logo sting, warm grain', 'block'],
+      ['signed to PopArabia for the new single', 'block'],
+      ['Sawt El Fan logo sting, warm grain', 'block'],
+      ['signed to Sawt El Fan for the new single', 'block'],
+      ['Digital Sound logo sting, warm grain', 'block'],
+      ['signed to Digital Sound for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
