@@ -1750,6 +1750,26 @@ describe('allow-path / innocent usage', () => {
       'signed to Rhymesayers for the new single',
       'Brainfeeder logo sting, warm grain',
       'signed to Brainfeeder for the new single',
+      'AOMG logo sting, warm grain',
+      'signed to AOMG for the new single',
+      'Ambition Musik logo sting, warm grain',
+      'signed to Ambition Musik for the new single',
+      'Illionaire Records logo sting, warm grain',
+      'signed to Illionaire Records for the new single',
+      'Dreamus logo sting, warm grain',
+      'signed to Dreamus for the new single',
+      'Fantagio logo sting, warm grain',
+      'signed to Fantagio for the new single',
+      'Rock Records logo sting, warm grain',
+      'signed to Rock Records for the new single',
+      'StreetVoice logo sting, warm grain',
+      'signed to StreetVoice for the new single',
+      'Demajors logo sting, warm grain',
+      'signed to Demajors for the new single',
+      'ZudRangMa Records logo sting, warm grain',
+      'signed to ZudRangMa Records for the new single',
+      'SpaceSpeakers logo sting, warm grain',
+      'signed to SpaceSpeakers for the new single',
       'DALL-E product shot, studio light',
       'CapCut edit sting, product shot',
       'Descript product shot, studio light',
@@ -3205,6 +3225,105 @@ describe('allow-path / innocent usage', () => {
     }
     for (const prompt of innocent) {
       assertAllow(full, prompt, 'full-path US-label boundary');
+    }
+  });
+
+  it('does not trip on near-miss substrings of new KR/TW/SEA-label tokens (Pass 40 Part B)', () => {
+    const nearMiss = [
+      'aom foley, warm mics',
+      'omg foley, warm mics',
+      'ao foley, warm mics',
+      'ambition foley, warm mics',
+      'amb foley, warm mics',
+      'musik foley, warm mics',
+      'mus foley, warm mics',
+      'illionaire foley, warm mics',
+      'illi foley, warm mics',
+      'onnaire foley, warm mics',
+      'dream foley, warm mics',
+      'dreamu foley, warm mics',
+      'reamus foley, warm mics',
+      'fanta foley, warm mics',
+      'fant foley, warm mics',
+      'tagio foley, warm mics',
+      'rock foley, warm mics',
+      'records foley, warm mics',
+      'roc foley, warm mics',
+      'street foley, warm mics',
+      'voice foley, warm mics',
+      'streetv foley, warm mics',
+      'etvoice foley, warm mics',
+      'major foley, warm mics',
+      'majors foley, warm mics',
+      'dema foley, warm mics',
+      'zud foley, warm mics',
+      'rangma foley, warm mics',
+      'zudrang foley, warm mics',
+      'space foley, warm mics',
+      'speakers foley, warm mics',
+      'spaces foley, warm mics',
+      'spacepeak foley, warm mics',
+      'eakers foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay KR/TW/SEA-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path KR/TW/SEA-label near-miss');
+    }
+  });
+
+  it('still blocks explicit KR/TW/SEA-label prompts on the overlay path (Pass 40 Part B)', () => {
+    const cases = [
+      'AOMG logo sting, warm grain',
+      'signed to AOMG for the new single',
+      'Ambition Musik logo sting, warm grain',
+      'signed to Ambition Musik for the new single',
+      'Illionaire Records logo sting, warm grain',
+      'signed to Illionaire Records for the new single',
+      'Dreamus logo sting, warm grain',
+      'signed to Dreamus for the new single',
+      'Fantagio logo sting, warm grain',
+      'signed to Fantagio for the new single',
+      'Rock Records logo sting, warm grain',
+      'signed to Rock Records for the new single',
+      'StreetVoice logo sting, warm grain',
+      'signed to StreetVoice for the new single',
+      'Demajors logo sting, warm grain',
+      'signed to Demajors for the new single',
+      'ZudRangMa Records logo sting, warm grain',
+      'signed to ZudRangMa Records for the new single',
+      'SpaceSpeakers logo sting, warm grain',
+      'signed to SpaceSpeakers for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new KR/TW/SEA-label tokens (Pass 40 Part B)', () => {
+    const innocent = [
+      'ambitious bridge vocal, room tone',
+      'high ambition mix notes, room tone',
+      'dreamscape pads, soft tape',
+      'daydream field recording, slow build',
+      'streetlight hum foley, warm mics',
+      'spacious hall ambience, room tone',
+      'moss garden foley, warm mics',
+      'hard rock guitar tone, warm mics',
+      'record fair foley, warm mics',
+      'voice memo foley, warm mics',
+      'fantail pigeon foley, warm mics',
+      'major key change, room tone',
+      'the majors played a day game, room tone',
+      'deep hall drone swell, dark pads',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay KR/TW/SEA-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path KR/TW/SEA-label boundary');
     }
   });
 });
