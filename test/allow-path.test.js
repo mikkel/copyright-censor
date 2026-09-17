@@ -1730,6 +1730,26 @@ describe('allow-path / innocent usage', () => {
       'signed to Quemasucabeza for the new single',
       'Rancho Humilde logo sting, warm grain',
       'signed to Rancho Humilde for the new single',
+      'Jagjaguwar logo sting, warm grain',
+      'signed to Jagjaguwar for the new single',
+      'Secretly Canadian logo sting, warm grain',
+      'signed to Secretly Canadian for the new single',
+      'Saddle Creek logo sting, warm grain',
+      'signed to Saddle Creek for the new single',
+      'Polyvinyl Records logo sting, warm grain',
+      'signed to Polyvinyl Records for the new single',
+      'Barsuk Records logo sting, warm grain',
+      'signed to Barsuk Records for the new single',
+      'Glassnote Records logo sting, warm grain',
+      'signed to Glassnote Records for the new single',
+      'Sumerian Records logo sting, warm grain',
+      'signed to Sumerian Records for the new single',
+      'Rostrum Records logo sting, warm grain',
+      'signed to Rostrum Records for the new single',
+      'Rhymesayers logo sting, warm grain',
+      'signed to Rhymesayers for the new single',
+      'Brainfeeder logo sting, warm grain',
+      'signed to Brainfeeder for the new single',
       'DALL-E product shot, studio light',
       'CapCut edit sting, product shot',
       'Descript product shot, studio light',
@@ -3083,6 +3103,108 @@ describe('allow-path / innocent usage', () => {
     for (const prompt of cases) {
       const result = overlay.check(prompt);
       assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new US-label tokens (Pass 39 Part B)', () => {
+    const nearMiss = [
+      'jag foley, warm mics',
+      'jagjag foley, warm mics',
+      'aguwar foley, warm mics',
+      'secret foley, warm mics',
+      'secretly foley, warm mics',
+      'canadian foley, warm mics',
+      'secr foley, warm mics',
+      'nadian foley, warm mics',
+      'saddle foley, warm mics',
+      'creek foley, warm mics',
+      'sadd foley, warm mics',
+      'reek foley, warm mics',
+      'addle foley, warm mics',
+      'poly foley, warm mics',
+      'vinyl foley, warm mics',
+      'polyvinyl foley, warm mics',
+      'lyvinyl foley, warm mics',
+      'bar foley, warm mics',
+      'suk foley, warm mics',
+      'barsuk foley, warm mics',
+      'arsuk foley, warm mics',
+      'glass foley, warm mics',
+      'note foley, warm mics',
+      'glassnote foley, warm mics',
+      'lassnote foley, warm mics',
+      'sumer foley, warm mics',
+      'merian foley, warm mics',
+      'sumerian foley, warm mics',
+      'rostrum foley, warm mics',
+      'rostr foley, warm mics',
+      'trum foley, warm mics',
+      'rhyme foley, warm mics',
+      'sayers foley, warm mics',
+      'rhym foley, warm mics',
+      'ayers foley, warm mics',
+      'brain foley, warm mics',
+      'feeder foley, warm mics',
+      'ainfeeder foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay US-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path US-label near-miss');
+    }
+  });
+
+  it('still blocks explicit US-label prompts on the overlay path (Pass 39 Part B)', () => {
+    const cases = [
+      'Jagjaguwar logo sting, warm grain',
+      'signed to Jagjaguwar for the new single',
+      'Secretly Canadian logo sting, warm grain',
+      'signed to Secretly Canadian for the new single',
+      'Saddle Creek logo sting, warm grain',
+      'signed to Saddle Creek for the new single',
+      'Polyvinyl Records logo sting, warm grain',
+      'signed to Polyvinyl Records for the new single',
+      'Barsuk Records logo sting, warm grain',
+      'signed to Barsuk Records for the new single',
+      'Glassnote Records logo sting, warm grain',
+      'signed to Glassnote Records for the new single',
+      'Sumerian Records logo sting, warm grain',
+      'signed to Sumerian Records for the new single',
+      'Rostrum Records logo sting, warm grain',
+      'signed to Rostrum Records for the new single',
+      'Rhymesayers logo sting, warm grain',
+      'signed to Rhymesayers for the new single',
+      'Brainfeeder logo sting, warm grain',
+      'signed to Brainfeeder for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new US-label tokens (Pass 39 Part B)', () => {
+    const innocent = [
+      'snowy canadian highway ambience, wind foley',
+      'wooden podium mic stand creak, onstage hush',
+      'dusty saddle leather creak in the foley bed',
+      'creekside ambience at dawn, gentle water',
+      'secretly sad bridge vocal, room tone',
+      'glass harmonica sparkle, gentle strum',
+      'sumerian scale run on nylon strings',
+      'rhyme scheme sketch for the bridge draft',
+      'brainstorm feeder track ideas for the outro',
+      'baritone sax hook, warm room',
+      'barside chatter ambience for the intro',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay US-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path US-label boundary');
     }
   });
 });

@@ -1306,6 +1306,36 @@ describe('blocklist', () => {
     }
   });
 
+  it('matches Pass 39 US-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Jagjaguwar logo sting, warm grain', 'block'],
+      ['signed to Jagjaguwar for the new single', 'block'],
+      ['Secretly Canadian logo sting, warm grain', 'block'],
+      ['signed to Secretly Canadian for the new single', 'block'],
+      ['Saddle Creek logo sting, warm grain', 'block'],
+      ['signed to Saddle Creek for the new single', 'block'],
+      ['Polyvinyl Records logo sting, warm grain', 'block'],
+      ['signed to Polyvinyl Records for the new single', 'block'],
+      ['Barsuk Records logo sting, warm grain', 'block'],
+      ['signed to Barsuk Records for the new single', 'block'],
+      ['Glassnote Records logo sting, warm grain', 'block'],
+      ['signed to Glassnote Records for the new single', 'block'],
+      ['Sumerian Records logo sting, warm grain', 'block'],
+      ['signed to Sumerian Records for the new single', 'block'],
+      ['Rostrum Records logo sting, warm grain', 'block'],
+      ['signed to Rostrum Records for the new single', 'block'],
+      ['Rhymesayers logo sting, warm grain', 'block'],
+      ['signed to Rhymesayers for the new single', 'block'],
+      ['Brainfeeder logo sting, warm grain', 'block'],
+      ['signed to Brainfeeder for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
   it('scopes membership/creator/dev/phone trademarks to image/video (Pass 37 Part A)', () => {
     const censor = createCensor({ replaceCatalog: true });
     const cases = [
