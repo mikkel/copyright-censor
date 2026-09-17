@@ -4616,4 +4616,99 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Afrobeats-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new music-video/video-prompt tokens (Pass 53 Part B)', () => {
+    const nearMiss = [
+      'blum foley, warm mics',
+      'lumhouse foley, warm mics',
+      'house foley, warm mics',
+      'lions foley, warm mics',
+      'onsgate foley, warm mics',
+      'gate foley, warm mics',
+      'a2 foley, warm mics',
+      '24 foley, warm mics',
+      'film foley, warm mics',
+      'films foley, warm mics',
+      'mg foley, warm mics',
+      'studio foley, warm mics',
+      'studios foley, warm mics',
+      'haya foley, warm mics',
+      'miya foley, warm mics',
+      'zaki foley, warm mics',
+      'vev foley, warm mics',
+      'evo foley, warm mics',
+      'dscv foley, warm mics',
+      'scvr foley, warm mics',
+      'hgt foley, warm mics',
+      'gtv foley, warm mics',
+      'mapp foley, warm mics',
+      'appa foley, warm mics',
+      'eo foley, warm mics',
+      'production foley, warm mics',
+      'productions foley, warm mics',
+      'eon foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay music-video/video-prompt near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path music-video/video-prompt near-miss');
+    }
+  });
+
+  it('still blocks explicit music-video/video-prompt prompts on the overlay path (Pass 53 Part B)', () => {
+    const cases = [
+      'Blumhouse logo sting, warm grain',
+      'signed to Blumhouse for the new single',
+      'Lionsgate logo sting, warm grain',
+      'signed to Lionsgate for the new single',
+      'A24 Films logo sting, warm grain',
+      'signed to A24 Films for the new single',
+      'MGM Studios logo sting, warm grain',
+      'signed to MGM Studios for the new single',
+      'Hayao Miyazaki logo sting, warm grain',
+      'signed to Hayao Miyazaki for the new single',
+      'Vevo logo sting, warm grain',
+      'signed to Vevo for the new single',
+      'Vevo DSCVR logo sting, warm grain',
+      'signed to Vevo DSCVR for the new single',
+      'HGTV logo sting, warm grain',
+      'signed to HGTV for the new single',
+      'MAPPA logo sting, warm grain',
+      'signed to MAPPA for the new single',
+      'Eon Productions logo sting, warm grain',
+      'signed to Eon Productions for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new music-video/video-prompt tokens (Pass 53 Part B)', () => {
+    const innocent = [
+      'slow push-in on a dusty street, room tone',
+      'handheld horror chase, practical lights',
+      'neon glow foley, warm mics',
+      'anime cel shading test, room tone',
+      'home renovation montage, room tone',
+      'nature documentary bumper, room tone',
+      'morning mist foley, warm mics',
+      'garden harvest foley, warm mics',
+      'desert highway drone pass, room tone',
+      'rainy window foley, warm mics',
+      'analog horror static, room tone',
+      'indie drama two-shot, room tone',
+      'cozy baking show foley, warm mics',
+      'city symphony montage, room tone',
+      'quiet office foley, warm mics',
+      'ocean documentary swell, room tone',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay music-video/video-prompt boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path music-video/video-prompt boundary');
+    }
+  });
 });

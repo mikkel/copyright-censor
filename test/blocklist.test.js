@@ -1756,5 +1756,59 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 53 music-video/video-prompt identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Blumhouse logo sting, warm grain', 'block'],
+      ['signed to Blumhouse for the new single', 'block'],
+      ['Lionsgate logo sting, warm grain', 'block'],
+      ['signed to Lionsgate for the new single', 'block'],
+      ['A24 Films logo sting, warm grain', 'block'],
+      ['signed to A24 Films for the new single', 'block'],
+      ['MGM Studios logo sting, warm grain', 'block'],
+      ['signed to MGM Studios for the new single', 'block'],
+      ['Hayao Miyazaki logo sting, warm grain', 'block'],
+      ['signed to Hayao Miyazaki for the new single', 'block'],
+      ['Vevo logo sting, warm grain', 'block'],
+      ['signed to Vevo for the new single', 'block'],
+      ['Vevo DSCVR logo sting, warm grain', 'block'],
+      ['signed to Vevo DSCVR for the new single', 'block'],
+      ['HGTV logo sting, warm grain', 'block'],
+      ['signed to HGTV for the new single', 'block'],
+      ['MAPPA logo sting, warm grain', 'block'],
+      ['signed to MAPPA for the new single', 'block'],
+      ['Eon Productions logo sting, warm grain', 'block'],
+      ['signed to Eon Productions for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes Pass 53 music-video/video-prompt identifiers to image/video (Pass 53 Part A)', () => {
+    const music = createCensor({ replaceCatalog: true, media: 'music' });
+    const image = createCensor({ replaceCatalog: true, media: 'image' });
+    const video = createCensor({ replaceCatalog: true, media: 'video' });
+    const terms = [
+      'Blumhouse',
+      'Lionsgate',
+      'A24 Films',
+      'MGM Studios',
+      'Hayao Miyazaki',
+      'Vevo',
+      'Vevo DSCVR',
+      'HGTV',
+      'MAPPA',
+      'Eon Productions',
+    ];
+    for (const term of terms) {
+      const prompt = `signed to ${term} for the new single`;
+      assert.equal(music.check(prompt).verdict, 'allow', `music ${JSON.stringify(prompt)}`);
+      assert.equal(image.check(prompt).verdict, 'block', `image ${JSON.stringify(prompt)}`);
+      assert.equal(video.check(prompt).verdict, 'block', `video ${JSON.stringify(prompt)}`);
+    }
+  });
 });
 
