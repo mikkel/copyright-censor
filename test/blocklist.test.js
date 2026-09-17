@@ -963,5 +963,61 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 32 FR-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Crydamoure logo sting, warm grain', 'block'],
+      ['signed to Crydamoure for the new single', 'block'],
+      ['Cracki Records logo sting, warm grain', 'block'],
+      ['signed to Cracki Records for the new single', 'block'],
+      ['Institubes logo sting, warm grain', 'block'],
+      ['signed to Institubes for the new single', 'block'],
+      ["Ekler'o'shock logo sting, warm grain", 'block'],
+      ["signed to Ekler'o'shock for the new single", 'block'],
+      ['Ekleroshock logo sting, warm grain', 'block'],
+      ['signed to Ekleroshock for the new single', 'block'],
+      ['Sound Pellegrino logo sting, warm grain', 'block'],
+      ['signed to Sound Pellegrino for the new single', 'block'],
+      ['Antinote logo sting, warm grain', 'block'],
+      ['signed to Antinote for the new single', 'block'],
+      ['Partyfine logo sting, warm grain', 'block'],
+      ['signed to Partyfine for the new single', 'block'],
+      ['Pont Neuf Records logo sting, warm grain', 'block'],
+      ['signed to Pont Neuf Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes music-irrelevant camera/creator trademarks to image/video (Pass 32 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Hasselblad product shot, studio light', 'block'],
+      ['Nikon product shot, studio light', 'block'],
+      ['Lumix product shot, studio light', 'block'],
+      ['Ricoh product shot, studio light', 'block'],
+      ['Pentax product shot, studio light', 'block'],
+      ['Tamron product shot, studio light', 'block'],
+      ['Zeiss product shot, studio light', 'block'],
+      ['Godox product shot, studio light', 'block'],
+      ['Profoto product shot, studio light', 'block'],
+      ['Atomos product shot, studio light', 'block'],
+      ['SmallRig product shot, studio light', 'block'],
+      ['Aputure product shot, studio light', 'block'],
+      ['Instax product shot, studio light', 'block'],
+      ['Fujifilm product shot, studio light', 'block'],
+      ['Insta360 product shot, studio light', 'block'],
+      ['Leica product shot, studio light', 'block'],
+      ['DJI product shot, studio light', 'block'],
+      ['Elgato product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

@@ -2060,4 +2060,148 @@ describe('allow-path / innocent usage', () => {
       assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
     }
   });
+
+  it('scopes camera/creator trademarks to image/video so song prompts stay allow (Pass 32 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore Hasselblad in this song',
+      'wore Nikon in this song',
+      'wore Lumix in this song',
+      'wore Ricoh in this song',
+      'wore Pentax in this song',
+      'wore Tamron in this song',
+      'wore Zeiss in this song',
+      'wore Godox in this song',
+      'wore Profoto in this song',
+      'wore Atomos in this song',
+      'wore SmallRig in this song',
+      'wore Aputure in this song',
+      'wore Instax in this song',
+      'wore Fujifilm in this song',
+      'wore Insta360 in this song',
+      'wore Leica in this song',
+      'wore DJI in this song',
+      'wore Elgato in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music camera/creator');
+    }
+    const productPrompts = [
+      'Hasselblad product shot, studio light',
+      'Nikon product shot, studio light',
+      'Lumix product shot, studio light',
+      'Ricoh product shot, studio light',
+      'Pentax product shot, studio light',
+      'Tamron product shot, studio light',
+      'Zeiss product shot, studio light',
+      'Godox product shot, studio light',
+      'Profoto product shot, studio light',
+      'Atomos product shot, studio light',
+      'SmallRig product shot, studio light',
+      'Aputure product shot, studio light',
+      'Instax product shot, studio light',
+      'Fujifilm product shot, studio light',
+      'Insta360 product shot, studio light',
+      'Leica product shot, studio light',
+      'DJI product shot, studio light',
+      'Elgato product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new FR-label tokens (Pass 32 Part B)', () => {
+    const nearMiss = [
+      'cry foley, warm mics',
+      'damour foley, warm mics',
+      'amour foley, warm mics',
+      'crack foley, warm mics',
+      'cracki foley, warm mics',
+      'tube foley, warm mics',
+      'tubes foley, warm mics',
+      'shock foley, warm mics',
+      'shocker foley, warm mics',
+      'eklero foley, warm mics',
+      'sound foley, warm mics',
+      'pellegrino foley, warm mics',
+      'pellegrini foley, warm mics',
+      'anti foley, warm mics',
+      'tinote foley, warm mics',
+      'note foley, warm mics',
+      'party foley, warm mics',
+      'fine foley, warm mics',
+      'party fine foley, warm mics',
+      'pont foley, warm mics',
+      'neuf foley, warm mics',
+      'new foley, warm mics',
+      'pont neuf foley, warm mics',
+      'hassel foley, warm mics',
+      'blad foley, warm mics',
+      'nik foley, warm mics',
+      'nylon foley, warm mics',
+      'lumi foley, warm mics',
+      'rico foley, warm mics',
+      'ricochet foley, warm mics',
+      'pent foley, warm mics',
+      'tam foley, warm mics',
+      'tamarind foley, warm mics',
+      'zeal foley, warm mics',
+      'seize foley, warm mics',
+      'godot foley, warm mics',
+      'dox foley, warm mics',
+      'pro photo foley, warm mics',
+      'atoms foley, warm mics',
+      'atomo foley, warm mics',
+      'small rig foley, warm mics',
+      'smalls foley, warm mics',
+      'aperture foley, warm mics',
+      'instep foley, warm mics',
+      'tacks foley, warm mics',
+      'fuji foley, warm mics',
+      'film foley, warm mics',
+      'insta foley, warm mics',
+      'leak foley, warm mics',
+      'leika foley, warm mics',
+      'gato foley, warm mics',
+      'dj foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay FR-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path FR-label near-miss');
+    }
+  });
+
+  it('still blocks explicit FR-label prompts on the overlay path (Pass 32 Part B)', () => {
+    const cases = [
+      'Crydamoure logo sting, warm grain',
+      'signed to Crydamoure for the new single',
+      'Cracki Records logo sting, warm grain',
+      'signed to Cracki Records for the new single',
+      'Institubes logo sting, warm grain',
+      'signed to Institubes for the new single',
+      "Ekler'o'shock logo sting, warm grain",
+      "signed to Ekler'o'shock for the new single",
+      'Ekleroshock logo sting, warm grain',
+      'signed to Ekleroshock for the new single',
+      'Sound Pellegrino logo sting, warm grain',
+      'signed to Sound Pellegrino for the new single',
+      'Antinote logo sting, warm grain',
+      'signed to Antinote for the new single',
+      'Partyfine logo sting, warm grain',
+      'signed to Partyfine for the new single',
+      'Pont Neuf Records logo sting, warm grain',
+      'signed to Pont Neuf Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
 });
