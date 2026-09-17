@@ -1244,6 +1244,63 @@ describe('blocklist', () => {
     }
   });
 
+  it('matches Pass 37 CA-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['604 Records logo sting, warm grain', 'block'],
+      ['signed to 604 Records for the new single', 'block'],
+      ['Nettwerk Records logo sting, warm grain', 'block'],
+      ['signed to Nettwerk Records for the new single', 'block'],
+      ['Bonsound logo sting, warm grain', 'block'],
+      ['signed to Bonsound for the new single', 'block'],
+      ['Grosse Boîte logo sting, warm grain', 'block'],
+      ['signed to Grosse Boîte for the new single', 'block'],
+      ['signed to Grosse Boite for the new single', 'block'],
+      ['Arbutus Records logo sting, warm grain', 'block'],
+      ['signed to Arbutus Records for the new single', 'block'],
+      ['Duprince logo sting, warm grain', 'block'],
+      ['signed to Duprince for the new single', 'block'],
+      ['Costume Records logo sting, warm grain', 'block'],
+      ['signed to Costume Records for the new single', 'block'],
+      ['Nevado Records logo sting, warm grain', 'block'],
+      ['signed to Nevado Records for the new single', 'block'],
+      ['Jeunesse Cosmique logo sting, warm grain', 'block'],
+      ['signed to Jeunesse Cosmique for the new single', 'block'],
+      ['Mothland logo sting, warm grain', 'block'],
+      ['signed to Mothland for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes membership/creator/dev/phone trademarks to image/video (Pass 37 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['DALL-E product shot, studio light', 'block'],
+      ['CapCut edit sting, product shot', 'block'],
+      ['Descript product shot, studio light', 'block'],
+      ['ElevenLabs product shot, studio light', 'block'],
+      ['OnlyFans product shot, studio light', 'block'],
+      ['Patreon product shot, studio light', 'block'],
+      ['Substack product shot, studio light', 'block'],
+      ['Streamlabs product shot, studio light', 'block'],
+      ['Wispr product shot, studio light', 'block'],
+      ['OBS logo sting, product shot', 'block'],
+      ['OBS Studio title sting, warm grain', 'block'],
+      ['built with OBS Studio yesterday', 'block'],
+      ['Sesame logo sting, product shot', 'block'],
+      ['Antigravity logo sting, product shot', 'block'],
+      ['Codex logo sting, product shot', 'block'],
+      ['Android logo sting, product shot', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
   it('scopes AI-chat/gaming trademarks to image/video (Pass 36 Part A)', () => {
     const censor = createCensor({ replaceCatalog: true });
     const cases = [

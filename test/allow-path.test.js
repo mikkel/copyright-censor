@@ -1690,6 +1690,40 @@ describe('allow-path / innocent usage', () => {
       'DualSense product shot, studio light',
       'Xbox Series X product shot, studio light',
       'Xbox product shot, studio light',
+      '604 Records logo sting, warm grain',
+      'signed to 604 Records for the new single',
+      'Nettwerk Records logo sting, warm grain',
+      'signed to Nettwerk Records for the new single',
+      'Bonsound logo sting, warm grain',
+      'signed to Bonsound for the new single',
+      'Grosse Boîte logo sting, warm grain',
+      'signed to Grosse Boîte for the new single',
+      'Arbutus Records logo sting, warm grain',
+      'signed to Arbutus Records for the new single',
+      'Duprince logo sting, warm grain',
+      'signed to Duprince for the new single',
+      'Costume Records logo sting, warm grain',
+      'signed to Costume Records for the new single',
+      'Nevado Records logo sting, warm grain',
+      'signed to Nevado Records for the new single',
+      'Jeunesse Cosmique logo sting, warm grain',
+      'signed to Jeunesse Cosmique for the new single',
+      'Mothland logo sting, warm grain',
+      'signed to Mothland for the new single',
+      'DALL-E product shot, studio light',
+      'CapCut edit sting, product shot',
+      'Descript product shot, studio light',
+      'ElevenLabs product shot, studio light',
+      'OnlyFans product shot, studio light',
+      'Patreon product shot, studio light',
+      'Substack product shot, studio light',
+      'Streamlabs product shot, studio light',
+      'Wispr product shot, studio light',
+      'OBS logo sting, product shot',
+      'Sesame logo sting, product shot',
+      'Antigravity logo sting, product shot',
+      'Codex logo sting, product shot',
+      'Android logo sting, product shot',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -2839,6 +2873,118 @@ describe('allow-path / innocent usage', () => {
       'signed to Muzai Records for the new single',
       'Onelove Records logo sting, warm grain',
       'signed to Onelove Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('scopes membership/creator/dev/phone trademarks to image/video so song prompts stay allow (Pass 37 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore DALL-E in this song',
+      'wore CapCut in this song',
+      'wore Descript in this song',
+      'wore ElevenLabs in this song',
+      'wore OnlyFans in this song',
+      'wore Patreon in this song',
+      'wore Substack in this song',
+      'wore Streamlabs in this song',
+      'wore Wispr in this song',
+      'built with OBS yesterday',
+      'built with Sesame yesterday',
+      'built with Antigravity yesterday',
+      'built with Codex yesterday',
+      'built with Android yesterday',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music membership/creator/dev/phone');
+    }
+    const productPrompts = [
+      'DALL-E product shot, studio light',
+      'CapCut edit sting, product shot',
+      'Descript product shot, studio light',
+      'ElevenLabs product shot, studio light',
+      'OnlyFans product shot, studio light',
+      'Patreon product shot, studio light',
+      'Substack product shot, studio light',
+      'Streamlabs product shot, studio light',
+      'Wispr product shot, studio light',
+      'OBS logo sting, product shot',
+      'Sesame logo sting, product shot',
+      'Antigravity logo sting, product shot',
+      'Codex logo sting, product shot',
+      'Android logo sting, product shot',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new CA-label tokens (Pass 37 Part B)', () => {
+    const nearMiss = [
+      '604 foley, warm mics',
+      'six oh four foley, warm mics',
+      'nett foley, warm mics',
+      'werk foley, warm mics',
+      'nettwerk foley, warm mics',
+      'bon foley, warm mics',
+      'sound foley, warm mics',
+      'grosse foley, warm mics',
+      'boite foley, warm mics',
+      'arbu foley, warm mics',
+      'tus foley, warm mics',
+      'arbutus foley, warm mics',
+      'dup foley, warm mics',
+      'rince foley, warm mics',
+      'costume foley, warm mics',
+      'cos foley, warm mics',
+      'tume foley, warm mics',
+      'nevado foley, warm mics',
+      'nev foley, warm mics',
+      'ado foley, warm mics',
+      'jeunesse foley, warm mics',
+      'cosmique foley, warm mics',
+      'jeun foley, warm mics',
+      'moth foley, warm mics',
+      'land foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay CA-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path CA-label near-miss');
+    }
+  });
+
+  it('still blocks explicit CA-label prompts on the overlay path (Pass 37 Part B)', () => {
+    const cases = [
+      '604 Records logo sting, warm grain',
+      'signed to 604 Records for the new single',
+      'Nettwerk Records logo sting, warm grain',
+      'signed to Nettwerk Records for the new single',
+      'Bonsound logo sting, warm grain',
+      'signed to Bonsound for the new single',
+      'Grosse Boîte logo sting, warm grain',
+      'signed to Grosse Boîte for the new single',
+      'signed to Grosse Boite for the new single',
+      'Arbutus Records logo sting, warm grain',
+      'signed to Arbutus Records for the new single',
+      'Duprince logo sting, warm grain',
+      'signed to Duprince for the new single',
+      'Costume Records logo sting, warm grain',
+      'signed to Costume Records for the new single',
+      'Nevado Records logo sting, warm grain',
+      'signed to Nevado Records for the new single',
+      'Jeunesse Cosmique logo sting, warm grain',
+      'signed to Jeunesse Cosmique for the new single',
+      'Mothland logo sting, warm grain',
+      'signed to Mothland for the new single',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
