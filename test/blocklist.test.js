@@ -1213,5 +1213,62 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 36 AU/NZ-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Flightless Records logo sting, warm grain', 'block'],
+      ['signed to Flightless Records for the new single', 'block'],
+      ['Mistletone Records logo sting, warm grain', 'block'],
+      ['signed to Mistletone Records for the new single', 'block'],
+      ['Popfrenzy Records logo sting, warm grain', 'block'],
+      ['signed to Popfrenzy Records for the new single', 'block'],
+      ['Wonderlick Records logo sting, warm grain', 'block'],
+      ['signed to Wonderlick Records for the new single', 'block'],
+      ['Fishrider Records logo sting, warm grain', 'block'],
+      ['signed to Fishrider Records for the new single', 'block'],
+      ['Rattle Records logo sting, warm grain', 'block'],
+      ['signed to Rattle Records for the new single', 'block'],
+      ['Ode Records logo sting, warm grain', 'block'],
+      ['signed to Ode Records for the new single', 'block'],
+      ['Sunreturn Records logo sting, warm grain', 'block'],
+      ['signed to Sunreturn Records for the new single', 'block'],
+      ['Muzai Records logo sting, warm grain', 'block'],
+      ['signed to Muzai Records for the new single', 'block'],
+      ['Onelove Records logo sting, warm grain', 'block'],
+      ['signed to Onelove Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes AI-chat/gaming trademarks to image/video (Pass 36 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['ChatGPT product shot, studio light', 'block'],
+      ['DeepSeek product shot, studio light', 'block'],
+      ['Qwen product shot, studio light', 'block'],
+      ['Manus product shot, studio light', 'block'],
+      ['Ideogram product shot, studio light', 'block'],
+      ['GPT-5 product shot, studio light', 'block'],
+      ['GPT 5 product shot, studio light', 'block'],
+      ['NotebookLM product shot, studio light', 'block'],
+      ['Hunyuan product shot, studio light', 'block'],
+      ['LMArena product shot, studio light', 'block'],
+      ['OpenAI product shot, studio light', 'block'],
+      ['Grok product shot, studio light', 'block'],
+      ['Copilot logo sting, product shot', 'block'],
+      ['Perplexity logo sting, product shot', 'block'],
+      ['DualSense product shot, studio light', 'block'],
+      ['Xbox Series X product shot, studio light', 'block'],
+      ['Xbox product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

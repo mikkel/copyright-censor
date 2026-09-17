@@ -1654,6 +1654,42 @@ describe('allow-path / innocent usage', () => {
       'signed to Durium Records for the new single',
       'Fonit Cetra logo sting, warm grain',
       'signed to Fonit Cetra for the new single',
+      'Flightless Records logo sting, warm grain',
+      'signed to Flightless Records for the new single',
+      'Mistletone Records logo sting, warm grain',
+      'signed to Mistletone Records for the new single',
+      'Popfrenzy Records logo sting, warm grain',
+      'signed to Popfrenzy Records for the new single',
+      'Wonderlick Records logo sting, warm grain',
+      'signed to Wonderlick Records for the new single',
+      'Fishrider Records logo sting, warm grain',
+      'signed to Fishrider Records for the new single',
+      'Rattle Records logo sting, warm grain',
+      'signed to Rattle Records for the new single',
+      'Ode Records logo sting, warm grain',
+      'signed to Ode Records for the new single',
+      'Sunreturn Records logo sting, warm grain',
+      'signed to Sunreturn Records for the new single',
+      'Muzai Records logo sting, warm grain',
+      'signed to Muzai Records for the new single',
+      'Onelove Records logo sting, warm grain',
+      'signed to Onelove Records for the new single',
+      'ChatGPT product shot, studio light',
+      'DeepSeek product shot, studio light',
+      'Qwen product shot, studio light',
+      'Manus product shot, studio light',
+      'Ideogram product shot, studio light',
+      'GPT-5 product shot, studio light',
+      'NotebookLM product shot, studio light',
+      'Hunyuan product shot, studio light',
+      'LMArena product shot, studio light',
+      'OpenAI product shot, studio light',
+      'Grok product shot, studio light',
+      'Copilot logo sting, product shot',
+      'Perplexity logo sting, product shot',
+      'DualSense product shot, studio light',
+      'Xbox Series X product shot, studio light',
+      'Xbox product shot, studio light',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
@@ -2685,6 +2721,124 @@ describe('allow-path / innocent usage', () => {
       'signed to Durium Records for the new single',
       'Fonit Cetra logo sting, warm grain',
       'signed to Fonit Cetra for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('scopes AI-chat/gaming trademarks to image/video so song prompts stay allow (Pass 36 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore ChatGPT in this song',
+      'wore DeepSeek in this song',
+      'wore Qwen in this song',
+      'wore Manus in this song',
+      'wore Ideogram in this song',
+      'wore GPT-5 in this song',
+      'wore NotebookLM in this song',
+      'wore Hunyuan in this song',
+      'wore LMArena in this song',
+      'wore OpenAI in this song',
+      'wore Grok in this song',
+      'wore Copilot in this song',
+      'wore Perplexity in this song',
+      'wore DualSense in this song',
+      'wore Xbox Series X in this song',
+      'wore Xbox in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music AI-chat/gaming');
+    }
+    const productPrompts = [
+      'ChatGPT product shot, studio light',
+      'DeepSeek product shot, studio light',
+      'Qwen product shot, studio light',
+      'Manus product shot, studio light',
+      'Ideogram product shot, studio light',
+      'GPT-5 product shot, studio light',
+      'NotebookLM product shot, studio light',
+      'Hunyuan product shot, studio light',
+      'LMArena product shot, studio light',
+      'OpenAI product shot, studio light',
+      'Grok product shot, studio light',
+      'Copilot logo sting, product shot',
+      'Perplexity logo sting, product shot',
+      'DualSense product shot, studio light',
+      'Xbox Series X product shot, studio light',
+      'Xbox product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new AU/NZ-label tokens (Pass 36 Part B)', () => {
+    const nearMiss = [
+      'flight foley, warm mics',
+      'flightless foley, warm mics',
+      'less foley, warm mics',
+      'mistle foley, warm mics',
+      'tone foley, warm mics',
+      'mistletone foley, warm mics',
+      'pop foley, warm mics',
+      'frenzy foley, warm mics',
+      'popfrenzy foley, warm mics',
+      'wonder foley, warm mics',
+      'lick foley, warm mics',
+      'wonderlick foley, warm mics',
+      'fish foley, warm mics',
+      'rider foley, warm mics',
+      'fishrider foley, warm mics',
+      'rattle foley, warm mics',
+      'rattles foley, warm mics',
+      'ode foley, warm mics',
+      'odes foley, warm mics',
+      'sun foley, warm mics',
+      'return foley, warm mics',
+      'sunreturn foley, warm mics',
+      'muz foley, warm mics',
+      'zai foley, warm mics',
+      'muzai foley, warm mics',
+      'onelove foley, warm mics',
+      'one love foley, warm mics',
+      'love foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay AU/NZ-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path AU/NZ-label near-miss');
+    }
+  });
+
+  it('still blocks explicit AU/NZ-label prompts on the overlay path (Pass 36 Part B)', () => {
+    const cases = [
+      'Flightless Records logo sting, warm grain',
+      'signed to Flightless Records for the new single',
+      'Mistletone Records logo sting, warm grain',
+      'signed to Mistletone Records for the new single',
+      'Popfrenzy Records logo sting, warm grain',
+      'signed to Popfrenzy Records for the new single',
+      'Wonderlick Records logo sting, warm grain',
+      'signed to Wonderlick Records for the new single',
+      'Fishrider Records logo sting, warm grain',
+      'signed to Fishrider Records for the new single',
+      'Rattle Records logo sting, warm grain',
+      'signed to Rattle Records for the new single',
+      'Ode Records logo sting, warm grain',
+      'signed to Ode Records for the new single',
+      'Sunreturn Records logo sting, warm grain',
+      'signed to Sunreturn Records for the new single',
+      'Muzai Records logo sting, warm grain',
+      'signed to Muzai Records for the new single',
+      'Onelove Records logo sting, warm grain',
+      'signed to Onelove Records for the new single',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
