@@ -3774,4 +3774,117 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Eastern Europe-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new Caribbean-label tokens (Pass 45 Part B)', () => {
+    const nearMiss = [
+      'veepee foley, warm mics',
+      'vp foley, warm mics',
+      'pee foley, warm mics',
+      'chim foley, warm mics',
+      'himney foley, warm mics',
+      'chimne foley, warm mics',
+      'ney foley, warm mics',
+      'chimneya foley, warm mics',
+      'ari foley, warm mics',
+      'riwa foley, warm mics',
+      'ariw foley, warm mics',
+      'iwa foley, warm mics',
+      'ariva foley, warm mics',
+      'disque foley, warm mics',
+      'isques foley, warm mics',
+      'deb foley, warm mics',
+      'ebs foley, warm mics',
+      'debb foley, warm mics',
+      'tad foley, warm mics',
+      'ads foley, warm mics',
+      'tadd foley, warm mics',
+      'tazd foley, warm mics',
+      'down foley, warm mics',
+      'owns foley, warm mics',
+      'downsoundcheck foley, warm mics',
+      'sound foley, warm mics',
+      'wack foley, warm mics',
+      'ackies foley, warm mics',
+      'wacki foley, warm mics',
+      'wacky foley, warm mics',
+      'jam foley, warm mics',
+      'amwax foley, warm mics',
+      'jamwa foley, warm mics',
+      'jamwacks foley, warm mics',
+      'hapi foley, warm mics',
+      'apilos foley, warm mics',
+      'hapil foley, warm mics',
+      'hapillo foley, warm mics',
+      'precis foley, warm mics',
+      'recision foley, warm mics',
+      'product foley, warm mics',
+      'roduction foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay Caribbean-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path Caribbean-label near-miss');
+    }
+  });
+
+  it('still blocks explicit Caribbean-label prompts on the overlay path (Pass 45 Part B)', () => {
+    const cases = [
+      'VP Records logo sting, warm grain',
+      'signed to VP Records for the new single',
+      'Chimney Records logo sting, warm grain',
+      'signed to Chimney Records for the new single',
+      'Ariwa Records logo sting, warm grain',
+      'signed to Ariwa Records for the new single',
+      'Disques Debs logo sting, warm grain',
+      'signed to Disques Debs for the new single',
+      'Tads Records logo sting, warm grain',
+      'signed to Tads Records for the new single',
+      'Downsound Records logo sting, warm grain',
+      'signed to Downsound Records for the new single',
+      'Wackies logo sting, warm grain',
+      'signed to Wackies for the new single',
+      'Jamwax logo sting, warm grain',
+      'signed to Jamwax for the new single',
+      'Hapilos logo sting, warm grain',
+      'signed to Hapilos for the new single',
+      'Precision Productions logo sting, warm grain',
+      'signed to Precision Productions for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new Caribbean-label tokens (Pass 45 Part B)', () => {
+    const innocent = [
+      'dancehall bounce sketch, room tone',
+      'dub siren rehearsal, room tone',
+      'nyabinghi drum loop over warm pads, room tone',
+      'one-drop groove under soft keys',
+      'kingston street ambience at dawn',
+      'harbor wind foley, high ridge',
+      'spanish town market ambience at dawn',
+      'port of spain rooftop foley, warm mics',
+      'bridgetown traffic ambience at dawn',
+      'montego bay courtyard ambience at dawn',
+      'steelpan rehearsal, room tone',
+      'soca road march sketch, room tone',
+      'calypso tent strum over soft keys',
+      'carnival crowd foley, warm mics',
+      'beachside soundcheck ambience, room tone',
+      'roots choir swell, room tone',
+      'reef harbor ambience at dawn',
+      'sugarcane field foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay Caribbean-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path Caribbean-label boundary');
+    }
+  });
 });

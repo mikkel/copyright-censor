@@ -1532,5 +1532,35 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 45 Caribbean-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['VP Records logo sting, warm grain', 'block'],
+      ['signed to VP Records for the new single', 'block'],
+      ['Chimney Records logo sting, warm grain', 'block'],
+      ['signed to Chimney Records for the new single', 'block'],
+      ['Ariwa Records logo sting, warm grain', 'block'],
+      ['signed to Ariwa Records for the new single', 'block'],
+      ['Disques Debs logo sting, warm grain', 'block'],
+      ['signed to Disques Debs for the new single', 'block'],
+      ['Tads Records logo sting, warm grain', 'block'],
+      ['signed to Tads Records for the new single', 'block'],
+      ['Downsound Records logo sting, warm grain', 'block'],
+      ['signed to Downsound Records for the new single', 'block'],
+      ['Wackies logo sting, warm grain', 'block'],
+      ['signed to Wackies for the new single', 'block'],
+      ['Jamwax logo sting, warm grain', 'block'],
+      ['signed to Jamwax for the new single', 'block'],
+      ['Hapilos logo sting, warm grain', 'block'],
+      ['signed to Hapilos for the new single', 'block'],
+      ['Precision Productions logo sting, warm grain', 'block'],
+      ['signed to Precision Productions for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
