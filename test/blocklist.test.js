@@ -1071,5 +1071,71 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 34 ES/PT-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Hivern Discs logo sting, warm grain', 'block'],
+      ['signed to Hivern Discs for the new single', 'block'],
+      ['Príncipe Discos logo sting, warm grain', 'block'],
+      ['signed to Príncipe Discos for the new single', 'block'],
+      ['Principe Discos logo sting, warm grain', 'block'],
+      ['signed to Principe Discos for the new single', 'block'],
+      ['Enchufada logo sting, warm grain', 'block'],
+      ['signed to Enchufada for the new single', 'block'],
+      ['Foehn Records logo sting, warm grain', 'block'],
+      ['signed to Foehn Records for the new single', 'block'],
+      ['Lapsus Records logo sting, warm grain', 'block'],
+      ['signed to Lapsus Records for the new single', 'block'],
+      ['Fina Records logo sting, warm grain', 'block'],
+      ['signed to Fina Records for the new single', 'block'],
+      ['Sonido Muchacho logo sting, warm grain', 'block'],
+      ['signed to Sonido Muchacho for the new single', 'block'],
+      ['BCore Disc logo sting, warm grain', 'block'],
+      ['signed to BCore Disc for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes dev/hardware/social/streaming/misc trademarks to image/video (Pass 34 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Supabase product shot, studio light', 'block'],
+      ['Vercel product shot, studio light', 'block'],
+      ['Fal product shot, studio light', 'block'],
+      ['Keychron product shot, studio light', 'block'],
+      ['Logitech product shot, studio light', 'block'],
+      ['Razer product shot, studio light', 'block'],
+      ['Wooting product shot, studio light', 'block'],
+      ['Secretlab product shot, studio light', 'block'],
+      ['Anker product shot, studio light', 'block'],
+      ['Samsung product shot, studio light', 'block'],
+      ['OnePlus product shot, studio light', 'block'],
+      ['Xiaomi product shot, studio light', 'block'],
+      ['Kobo product shot, studio light', 'block'],
+      ['Supernote product shot, studio light', 'block'],
+      ['Pinterest product shot, studio light', 'block'],
+      ['Strava product shot, studio light', 'block'],
+      ['Duolingo product shot, studio light', 'block'],
+      ['Mubi product shot, studio light', 'block'],
+      ['Letterboxd product shot, studio light', 'block'],
+      ['HBO product shot, studio light', 'block'],
+      ['Hulu product shot, studio light', 'block'],
+      ['Crunchyroll product shot, studio light', 'block'],
+      ['Starlink product shot, studio light', 'block'],
+      ['Freepik product shot, studio light', 'block'],
+      ['Recraft product shot, studio light', 'block'],
+      ['Bogg Bag product shot, studio light', 'block'],
+      ['Owala product shot, studio light', 'block'],
+      ['Boox product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

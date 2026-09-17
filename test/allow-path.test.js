@@ -2343,4 +2343,144 @@ describe('allow-path / innocent usage', () => {
       assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
     }
   });
+
+  it('scopes dev/hardware/social/streaming/misc trademarks to image/video so song prompts stay allow (Pass 34 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore Supabase in this song',
+      'wore Vercel in this song',
+      'wore Fal in this song',
+      'wore Keychron in this song',
+      'wore Logitech in this song',
+      'wore Razer in this song',
+      'wore Wooting in this song',
+      'wore Secretlab in this song',
+      'wore Anker in this song',
+      'wore Samsung in this song',
+      'wore OnePlus in this song',
+      'wore Xiaomi in this song',
+      'wore Kobo in this song',
+      'wore Supernote in this song',
+      'wore Pinterest in this song',
+      'wore Strava in this song',
+      'wore Duolingo in this song',
+      'wore Mubi in this song',
+      'wore Letterboxd in this song',
+      'wore HBO in this song',
+      'wore Hulu in this song',
+      'wore Crunchyroll in this song',
+      'wore Starlink in this song',
+      'wore Freepik in this song',
+      'wore Recraft in this song',
+      'wore Bogg Bag in this song',
+      'wore Owala in this song',
+      'wore Boox in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music dev/hardware/social/streaming/misc');
+    }
+    const productPrompts = [
+      'Supabase product shot, studio light',
+      'Vercel product shot, studio light',
+      'Fal product shot, studio light',
+      'Keychron product shot, studio light',
+      'Logitech product shot, studio light',
+      'Razer product shot, studio light',
+      'Wooting product shot, studio light',
+      'Secretlab product shot, studio light',
+      'Anker product shot, studio light',
+      'Samsung product shot, studio light',
+      'OnePlus product shot, studio light',
+      'Xiaomi product shot, studio light',
+      'Kobo product shot, studio light',
+      'Supernote product shot, studio light',
+      'Pinterest product shot, studio light',
+      'Strava product shot, studio light',
+      'Duolingo product shot, studio light',
+      'Mubi product shot, studio light',
+      'Letterboxd product shot, studio light',
+      'HBO product shot, studio light',
+      'Hulu product shot, studio light',
+      'Crunchyroll product shot, studio light',
+      'Starlink product shot, studio light',
+      'Freepik product shot, studio light',
+      'Recraft product shot, studio light',
+      'Bogg Bag product shot, studio light',
+      'Owala product shot, studio light',
+      'Boox product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new ES/PT-label tokens (Pass 34 Part B)', () => {
+    const nearMiss = [
+      'hivern foley, warm mics',
+      'hiver foley, warm mics',
+      'discs foley, warm mics',
+      'disco foley, warm mics',
+      'principe foley, warm mics',
+      'princi foley, warm mics',
+      'cipe foley, warm mics',
+      'discos foley, warm mics',
+      'enchufa foley, warm mics',
+      'chufada foley, warm mics',
+      'foehn foley, warm mics',
+      'foe foley, warm mics',
+      'oehn foley, warm mics',
+      'lapsus foley, warm mics',
+      'laps foley, warm mics',
+      'lapsu foley, warm mics',
+      'fina foley, warm mics',
+      'fin foley, warm mics',
+      'sonido foley, warm mics',
+      'son foley, warm mics',
+      'nido foley, warm mics',
+      'muchacho foley, warm mics',
+      'muchacha foley, warm mics',
+      'chacho foley, warm mics',
+      'bcore foley, warm mics',
+      'bco foley, warm mics',
+      'core foley, warm mics',
+      'disc foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay ES/PT-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path ES/PT-label near-miss');
+    }
+  });
+
+  it('still blocks explicit ES/PT-label prompts on the overlay path (Pass 34 Part B)', () => {
+    const cases = [
+      'Hivern Discs logo sting, warm grain',
+      'signed to Hivern Discs for the new single',
+      'Príncipe Discos logo sting, warm grain',
+      'signed to Príncipe Discos for the new single',
+      'Principe Discos logo sting, warm grain',
+      'signed to Principe Discos for the new single',
+      'Enchufada logo sting, warm grain',
+      'signed to Enchufada for the new single',
+      'Foehn Records logo sting, warm grain',
+      'signed to Foehn Records for the new single',
+      'Lapsus Records logo sting, warm grain',
+      'signed to Lapsus Records for the new single',
+      'Fina Records logo sting, warm grain',
+      'signed to Fina Records for the new single',
+      'Sonido Muchacho logo sting, warm grain',
+      'signed to Sonido Muchacho for the new single',
+      'BCore Disc logo sting, warm grain',
+      'signed to BCore Disc for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
 });
