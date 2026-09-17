@@ -1019,5 +1019,57 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 33 NL/BE-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Dekmantel Records logo sting, warm grain', 'block'],
+      ['signed to Dekmantel Records for the new single', 'block'],
+      ['Delsin Records logo sting, warm grain', 'block'],
+      ['signed to Delsin Records for the new single', 'block'],
+      ['Bordello A Parigi logo sting, warm grain', 'block'],
+      ['signed to Bordello A Parigi for the new single', 'block'],
+      ['Viewlexx logo sting, warm grain', 'block'],
+      ['signed to Viewlexx for the new single', 'block'],
+      ['Shipwrec logo sting, warm grain', 'block'],
+      ['signed to Shipwrec for the new single', 'block'],
+      ['Crème Organization logo sting, warm grain', 'block'],
+      ['signed to Crème Organization for the new single', 'block'],
+      ['Creme Organization logo sting, warm grain', 'block'],
+      ['signed to Creme Organization for the new single', 'block'],
+      ['Deewee logo sting, warm grain', 'block'],
+      ['signed to Deewee for the new single', 'block'],
+      ['R&S Records logo sting, warm grain', 'block'],
+      ['signed to R&S Records for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes music-irrelevant betting/marketplace trademarks to image/video (Pass 33 Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Bet365 product shot, studio light', 'block'],
+      ['DraftKings product shot, studio light', 'block'],
+      ['FanDuel product shot, studio light', 'block'],
+      ['BetMGM product shot, studio light', 'block'],
+      ['Betway product shot, studio light', 'block'],
+      ['Polymarket product shot, studio light', 'block'],
+      ['Kalshi product shot, studio light', 'block'],
+      ['PredictIt product shot, studio light', 'block'],
+      ['Etsy product shot, studio light', 'block'],
+      ['Shopify product shot, studio light', 'block'],
+      ['Airbnb product shot, studio light', 'block'],
+      ['DoorDash product shot, studio light', 'block'],
+      ['Instacart product shot, studio light', 'block'],
+      ['Expedia product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 

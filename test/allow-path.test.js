@@ -2204,4 +2204,143 @@ describe('allow-path / innocent usage', () => {
       assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
     }
   });
+
+  it('scopes betting/marketplace trademarks to image/video so song prompts stay allow (Pass 33 Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore Bet365 in this song',
+      'wore DraftKings in this song',
+      'wore FanDuel in this song',
+      'wore BetMGM in this song',
+      'wore Betway in this song',
+      'wore Polymarket in this song',
+      'wore Kalshi in this song',
+      'wore PredictIt in this song',
+      'wore Etsy in this song',
+      'wore Shopify in this song',
+      'wore Airbnb in this song',
+      'wore DoorDash in this song',
+      'wore Instacart in this song',
+      'wore Expedia in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music betting/marketplace');
+    }
+    const productPrompts = [
+      'Bet365 product shot, studio light',
+      'DraftKings product shot, studio light',
+      'FanDuel product shot, studio light',
+      'BetMGM product shot, studio light',
+      'Betway product shot, studio light',
+      'Polymarket product shot, studio light',
+      'Kalshi product shot, studio light',
+      'PredictIt product shot, studio light',
+      'Etsy product shot, studio light',
+      'Shopify product shot, studio light',
+      'Airbnb product shot, studio light',
+      'DoorDash product shot, studio light',
+      'Instacart product shot, studio light',
+      'Expedia product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new NL/BE-label tokens (Pass 33 Part B)', () => {
+    const nearMiss = [
+      'dek foley, warm mics',
+      'mantel foley, warm mics',
+      'mantelpiece foley, warm mics',
+      'del foley, warm mics',
+      'sin foley, warm mics',
+      'delsin foley, warm mics',
+      'bordel foley, warm mics',
+      'bordello foley, warm mics',
+      'pari foley, warm mics',
+      'parigi foley, warm mics',
+      'paris foley, warm mics',
+      'view foley, warm mics',
+      'lex foley, warm mics',
+      'viewlex foley, warm mics',
+      'ship foley, warm mics',
+      'wrec foley, warm mics',
+      'wreck foley, warm mics',
+      'creme foley, warm mics',
+      'cream foley, warm mics',
+      'creamer foley, warm mics',
+      'organization foley, warm mics',
+      'dee foley, warm mics',
+      'wee foley, warm mics',
+      'weed foley, warm mics',
+      'dewee foley, warm mics',
+      'r foley, warm mics',
+      's foley, warm mics',
+      'ess foley, warm mics',
+      'r&s foley, warm mics',
+      'bet foley, warm mics',
+      'bets foley, warm mics',
+      '365 foley, warm mics',
+      'draft foley, warm mics',
+      'kings foley, warm mics',
+      'fan foley, warm mics',
+      'duel foley, warm mics',
+      'mgm foley, warm mics',
+      'way foley, warm mics',
+      'poly foley, warm mics',
+      'market foley, warm mics',
+      'kal foley, warm mics',
+      'shi foley, warm mics',
+      'predict foley, warm mics',
+      'door foley, warm mics',
+      'dash foley, warm mics',
+      'shop foley, warm mics',
+      'pify foley, warm mics',
+      'cart foley, warm mics',
+      'insta foley, warm mics',
+      'air foley, warm mics',
+      'bnb foley, warm mics',
+      'expedite foley, warm mics',
+      'pedia foley, warm mics',
+      'ets foley, warm mics',
+      'tsy foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay NL/BE-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path NL/BE-label near-miss');
+    }
+  });
+
+  it('still blocks explicit NL/BE-label prompts on the overlay path (Pass 33 Part B)', () => {
+    const cases = [
+      'Dekmantel Records logo sting, warm grain',
+      'signed to Dekmantel Records for the new single',
+      'Delsin Records logo sting, warm grain',
+      'signed to Delsin Records for the new single',
+      'Bordello A Parigi logo sting, warm grain',
+      'signed to Bordello A Parigi for the new single',
+      'Viewlexx logo sting, warm grain',
+      'signed to Viewlexx for the new single',
+      'Shipwrec logo sting, warm grain',
+      'signed to Shipwrec for the new single',
+      'Crème Organization logo sting, warm grain',
+      'signed to Crème Organization for the new single',
+      'Creme Organization logo sting, warm grain',
+      'signed to Creme Organization for the new single',
+      'Deewee logo sting, warm grain',
+      'signed to Deewee for the new single',
+      'R&S Records logo sting, warm grain',
+      'signed to R&S Records for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
 });
