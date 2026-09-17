@@ -4711,4 +4711,385 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path music-video/video-prompt boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new festival tokens (song-prompt overlay)', () => {
+    const nearMiss = [
+      'coach foley, warm mics',
+      'chella foley, warm mics',
+      'oachella foley, warm mics',
+      'lolla foley, warm mics',
+      'palooza foley, warm mics',
+      'ollapalooza foley, warm mics',
+      'glasto foley, warm mics',
+      'stonbury foley, warm mics',
+      'bonna foley, warm mics',
+      'naroo foley, warm mics',
+      'onnaroo foley, warm mics',
+      'szig foley, warm mics',
+      'iget foley, warm mics',
+      'rosk foley, warm mics',
+      'kilde foley, warm mics',
+      'oskilde foley, warm mics',
+      'pukkel foley, warm mics',
+      'kelpop foley, warm mics',
+      'ukkelpop foley, warm mics',
+      'cream foley, warm mics',
+      'fields foley, warm mics',
+      'fuji foley, warm mics',
+      'rock foley, warm mics',
+      'uji foley, warm mics',
+      'lowl foley, warm mics',
+      'lands foley, warm mics',
+      'owlands foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay festival near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path festival near-miss');
+    }
+  });
+
+  it('still blocks explicit festival prompts on the overlay path (song-prompt overlay)', () => {
+    const cases = [
+      'Coachella headliner anthem, warm grain',
+      'headlining Coachella, warm pads',
+      'Lollapalooza headliner anthem, warm grain',
+      'headlining Lollapalooza, warm pads',
+      'Glastonbury headliner anthem, warm grain',
+      'headlining Glastonbury, warm pads',
+      'Bonnaroo headliner anthem, warm grain',
+      'headlining Bonnaroo, warm pads',
+      'Sziget headliner anthem, warm grain',
+      'headlining Sziget, warm pads',
+      'Roskilde headliner anthem, warm grain',
+      'headlining Roskilde, warm pads',
+      'Pukkelpop headliner anthem, warm grain',
+      'headlining Pukkelpop, warm pads',
+      'Creamfields headliner anthem, warm grain',
+      'headlining Creamfields, warm pads',
+      'Fuji Rock headliner anthem, warm grain',
+      'headlining Fuji Rock, warm pads',
+      'anthem for Lowlands, warm grain',
+      'headlining Lowlands, warm pads',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new festival tokens (song-prompt overlay)', () => {
+    const innocent = [
+      'side stage foley, warm mics',
+      'encore chant foley, warm mics',
+      'campsite ambience foley, warm mics',
+      'headline rehearsal foley, warm mics',
+      'pyramid stage foley, warm mics',
+      'desert polo fields foley, warm mics',
+      'somerset fields foley, warm mics',
+      'lowland mist drone, warm pads',
+      'fuji apple orchard foley, warm mics',
+      'garden foley, warm mics',
+      'danish harbour foley, warm mics',
+      'budapest island foley, warm mics',
+      'belgian night foley, warm mics',
+      'wiltshire farm foley, warm mics',
+      'indio desert wind foley, warm mics',
+      'chicago lakefront foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay festival boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path festival boundary');
+    }
+  });
+
+  it('does not trip on near-miss substrings of new podcast-audiobook tokens (podcast-audiobook Part B)', () => {
+    const nearMiss = [
+      'wonder bread foley, warm mics',
+      'wonder why the room hums, warm mics',
+      'ear wax foley, warm mics',
+      'ear wolf whistle foley, warm mics',
+      'pushkin foley, warm mics',
+      'par cast foley, warm mics',
+      'stitch foley, warm mics',
+      'armchair in the interview room, warm mics',
+      'smart less processing, room tone',
+      'radio lab safety briefing, warm mics',
+      'harper audiobook chapter draft, room tone',
+      'audible studio apartment reverb, room tone',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay podcast-audiobook near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path podcast-audiobook near-miss');
+    }
+  });
+
+  it('still blocks explicit podcast-audiobook prompts on the overlay path (podcast-audiobook Part B)', () => {
+    const cases = [
+      'Wondery intro sting, warm room tone',
+      'pitched to Wondery yesterday',
+      'Earwolf intro sting, warm room tone',
+      'pitched to Earwolf yesterday',
+      'Pushkin Industries intro sting, warm room tone',
+      'pitched to Pushkin Industries yesterday',
+      'Parcast intro sting, warm room tone',
+      'pitched to Parcast yesterday',
+      'Stitcher intro sting, warm room tone',
+      'pitched to Stitcher yesterday',
+      'Armchair Expert intro sting, warm room tone',
+      'pitched to Armchair Expert yesterday',
+      'SmartLess intro sting, warm room tone',
+      'pitched to SmartLess yesterday',
+      'Radiolab intro sting, warm room tone',
+      'pitched to Radiolab yesterday',
+      'HarperAudio intro sting, warm room tone',
+      'Harper Audio intro sting, warm room tone',
+      'pitched to HarperAudio yesterday',
+      'Audible Studios intro sting, warm room tone',
+      'pitched to Audible Studios yesterday',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new podcast-audiobook tokens (podcast-audiobook Part B)', () => {
+    const innocent = [
+      'warm host banter with room tone, two mics',
+      'interview room ambience, soft chair creak',
+      'chapter narration pacing, calm breath',
+      'two hosts trading banter, room tone',
+      'guest interview setup, close mics',
+      'narrator booth tone, page turn foley',
+      'chapter break sting, soft pads',
+      'panel discussion room tone, warm mics',
+      'story circle ambience, quiet room',
+      'cold open banter, room tone',
+      'outro bed with soft keys, room tone',
+      'voiceover booth hum, foam windscreen foley',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay podcast-audiobook boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path podcast-audiobook boundary');
+    }
+  });
+
+  it('scopes short-form platform/footage marks to image/video so song prompts stay allow (short-form Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const image = createCensor({ media: 'image' });
+    const songPrompts = [
+      'wore Pond5 in this song',
+      'wore Shorts Fund in this song',
+      'wore Video Reply in this song',
+    ];
+    for (const prompt of songPrompts) {
+      assertAllow(music, prompt, 'music short-form platform/footage');
+    }
+    const productPrompts = [
+      'Pond5 product shot, studio light',
+      'Shorts Fund product shot, studio light',
+      'Video Reply product shot, studio light',
+    ];
+    for (const prompt of productPrompts) {
+      const result = image.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps music-native short-form identifiers blocking on song prompts (short-form Part A)', () => {
+    const music = createCensor({ media: 'music' });
+    const cases = [
+      'heard Sidemen yesterday',
+      'watched Charli Damelio yesterday',
+      'filmed Wipe It Down yesterday',
+      'saw Grimace yesterday',
+      'licensed with Artlist yesterday',
+      'licensed with Uppbeat yesterday',
+    ];
+    for (const prompt of cases) {
+      const result = music.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new short-form tokens (short-form Part B)', () => {
+    const nearMiss = [
+      'side foley, warm mics',
+      'sides foley, warm mics',
+      'men foley, warm mics',
+      'side men foley, warm mics',
+      'char foley, warm mics',
+      'amelio foley, warm mics',
+      'lee foley, warm mics',
+      'wipe foley, warm mics',
+      'down foley, warm mics',
+      'wipe down foley, warm mics',
+      'grim foley, warm mics',
+      'ace foley, warm mics',
+      'grime foley, warm mics',
+      'art foley, warm mics',
+      'list foley, warm mics',
+      'upp foley, warm mics',
+      'beat foley, warm mics',
+      'upbeat foley, warm mics',
+      'pond foley, warm mics',
+      'shorts foley, warm mics',
+      'fund foley, warm mics',
+      'short fund foley, warm mics',
+      'video foley, warm mics',
+      'reply foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay short-form near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path short-form near-miss');
+    }
+  });
+
+  it('still blocks explicit short-form prompts on the overlay path (short-form Part B)', () => {
+    const cases = [
+      'Sidemen title sting, warm grain',
+      'watched Sidemen yesterday',
+      "Charli D'Amelio title sting, warm grain",
+      'watched Charli Damelio yesterday',
+      'Wipe It Down title sting, warm grain',
+      'filmed Wipe It Down yesterday',
+      'Grimace title sting, warm grain',
+      'saw Grimace yesterday',
+      'Artlist title sting, warm grain',
+      'licensed with Artlist yesterday',
+      'Uppbeat title sting, warm grain',
+      'licensed with Uppbeat yesterday',
+      'Pond5 product shot, studio light',
+      'Shorts Fund product shot, studio light',
+      'Video Reply product shot, studio light',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent short-form-adjacent prompts allow (short-form Part B)', () => {
+    const innocent = [
+      'vertical video vibes, warm room tone',
+      'phone footage from the night out, no captions',
+      'night out clip with friends, room tone',
+      'portrait mode clip, soft daylight',
+      'front camera footage, warm room',
+      'overcast daylight clip, room tone',
+      'late bus foley, warm mics',
+      'grainy zoom foley, warm mics',
+      'shaky cam foley, warm mics',
+      'wipe the counter foley, warm mics',
+      'lens foley, warm mics',
+      'charlie foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay short-form boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path short-form boundary');
+    }
+  });
+
+  it('does not trip on near-miss substrings of new cover-art tokens (Pass 53 Part B)', () => {
+    const nearMiss = [
+      '4a foley, warm mics',
+      'ad foley, warm mics',
+      '4d foley, warm mics',
+      'ad4 foley, warm mics',
+      'd4 foley, warm mics',
+      'ecm foley, warm mics',
+      'ecm record foley, warm mics',
+      'deutsche foley, warm mics',
+      'deut foley, warm mics',
+      'gramo foley, warm mics',
+      'mophon foley, warm mics',
+      'phon foley, warm mics',
+      'grammophon foley, warm mics',
+      'ranky foley, warm mics',
+      'krany foley, warm mics',
+      'kanky foley, warm mics',
+      'krank foley, warm mics',
+      'ria foley, warm mics',
+      'iaa foley, warm mics',
+      'raa foley, warm mics',
+      'gild foley, warm mics',
+      'ildan foley, warm mics',
+      'han foley, warm mics',
+      'anes foley, warm mics',
+      'hanesque foley, warm mics',
+      'chella foley, warm mics',
+      'coachell foley, warm mics',
+      'oachella foley, warm mics',
+      'oachell foley, warm mics',
+      'hella foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay cover-art near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path cover-art near-miss');
+    }
+  });
+
+  it('still blocks explicit cover-art prompts on the overlay path (Pass 53 Part B)', () => {
+    const cases = [
+      '4AD logo sting, warm grain',
+      'signed to 4AD for the new single',
+      'ECM Records logo sting, warm grain',
+      'signed to ECM Records for the new single',
+      'Deutsche Grammophon logo sting, warm grain',
+      'signed to Deutsche Grammophon for the new single',
+      'Kranky logo sting, warm grain',
+      'signed to Kranky for the new single',
+      'RIAA logo sting, warm grain',
+      'signed to RIAA for the new single',
+      'Gildan logo sting, warm grain',
+      'signed to Gildan for the new single',
+      'Hanes logo sting, warm grain',
+      'signed to Hanes for the new single',
+      'Coachella logo sting, warm grain',
+      'signed to Coachella for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new cover-art tokens (Pass 53 Part B)', () => {
+    const innocent = [
+      'matte poster mockup, vinyl texture',
+      'typography layout, matte finish',
+      'vinyl texture foley, warm mics',
+      'matte poster foley, warm mics',
+      'poster layout sketch, room tone',
+      'typography kerning notes, room tone',
+      'sleeve mockup with matte laminate, room tone',
+      'gatefold mockup foley, warm mics',
+      'obi strip mockup foley, warm mics',
+      'hype sticker mockup, room tone',
+      'tour poster layout sketch, room tone',
+      'merch table mockup foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay cover-art boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path cover-art boundary');
+    }
+  });
 });

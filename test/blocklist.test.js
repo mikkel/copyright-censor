@@ -5,6 +5,7 @@ import {
   defaultBlocklist,
   flattenBlocklist,
   mergeBlocklists,
+  shippedCatalog,
 } from '../src/index.js';
 
 describe('blocklist', () => {
@@ -1810,5 +1811,176 @@ describe('blocklist', () => {
       assert.equal(video.check(prompt).verdict, 'block', `video ${JSON.stringify(prompt)}`);
     }
   });
-});
 
+  it('matches podcast-audiobook identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Wondery intro sting, warm room tone', 'block'],
+      ['pitched to Wondery yesterday', 'block'],
+      ['Earwolf intro sting, warm room tone', 'block'],
+      ['pitched to Earwolf yesterday', 'block'],
+      ['Pushkin Industries intro sting, warm room tone', 'block'],
+      ['pitched to Pushkin Industries yesterday', 'block'],
+      ['Parcast intro sting, warm room tone', 'block'],
+      ['pitched to Parcast yesterday', 'block'],
+      ['Stitcher intro sting, warm room tone', 'block'],
+      ['pitched to Stitcher yesterday', 'block'],
+      ['Armchair Expert intro sting, warm room tone', 'block'],
+      ['pitched to Armchair Expert yesterday', 'block'],
+      ['SmartLess intro sting, warm room tone', 'block'],
+      ['pitched to SmartLess yesterday', 'block'],
+      ['Radiolab intro sting, warm room tone', 'block'],
+      ['pitched to Radiolab yesterday', 'block'],
+      ['HarperAudio intro sting, warm room tone', 'block'],
+      ['Harper Audio intro sting, warm room tone', 'block'],
+      ['pitched to HarperAudio yesterday', 'block'],
+      ['Audible Studios intro sting, warm room tone', 'block'],
+      ['pitched to Audible Studios yesterday', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('matches short-form-social overlay identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Sidemen title sting, warm grain', 'block'],
+      ['watched Sidemen yesterday', 'block'],
+      ["Charli D'Amelio title sting, warm grain", 'block'],
+      ['watched Charli Damelio yesterday', 'block'],
+      ['Wipe It Down title sting, warm grain', 'block'],
+      ['filmed Wipe It Down yesterday', 'block'],
+      ['Grimace title sting, warm grain', 'block'],
+      ['saw Grimace yesterday', 'block'],
+      ['Artlist title sting, warm grain', 'block'],
+      ['licensed with Artlist yesterday', 'block'],
+      ['Uppbeat title sting, warm grain', 'block'],
+      ['licensed with Uppbeat yesterday', 'block'],
+      ['Pond5 product shot, studio light', 'block'],
+      ['licensed on Pond5 yesterday', 'block'],
+      ['Shorts Fund product shot, studio light', 'block'],
+      ['paid via Shorts Fund yesterday', 'block'],
+      ['Video Reply product shot, studio light', 'block'],
+      ['replied with Video Reply yesterday', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('proves short-form-social identifiers are true gaps via catalog-only isolation', () => {
+    const catalogOnly = createCensor({ replaceBlocklist: true, catalog: shippedCatalog });
+    const overlayOnly = createCensor({ replaceCatalog: true });
+    const candidates = [
+      'Sidemen',
+      "Charli D'Amelio",
+      'Wipe It Down',
+      'Grimace',
+      'Artlist',
+      'Uppbeat',
+      'Pond5',
+      'Shorts Fund',
+      'Video Reply',
+    ];
+    for (const term of candidates) {
+      const prompt = `warm pads ${term} dusty cassette`;
+      const catalogResult = catalogOnly.check(prompt);
+      assert.equal(
+        catalogResult.verdict,
+        'allow',
+        `catalog-only ${JSON.stringify(prompt)} => ${catalogResult.verdict} (expected allow for a true gap)`,
+      );
+      const overlayResult = overlayOnly.check(prompt);
+      assert.notEqual(
+        overlayResult.verdict,
+        'allow',
+        `overlay ${JSON.stringify(prompt)} unexpectedly allows after adding the identifier`,
+      );
+    }
+  });
+
+  it('scopes short-form platform/footage marks to image/video (short-form Part A)', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Pond5 product shot, studio light', 'block'],
+      ['Shorts Fund product shot, studio light', 'block'],
+      ['Video Reply product shot, studio light', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('documents Part A audit: leftover visual marks are catalog hits, not overlay gaps', () => {
+    const catalogOnly = createCensor({ replaceBlocklist: true, catalog: shippedCatalog });
+    const skipped = [
+      'Netflix',
+      'Paramount',
+      'Sony Pictures',
+      'Universal Pictures',
+      'Warner Bros',
+      'DreamWorks',
+      'Coca-Cola',
+      'Pepsi',
+      'Starbucks',
+      'Adidas',
+      'Gucci',
+    ];
+    for (const term of skipped) {
+      const result = catalogOnly.check(`warm pads ${term} dusty cassette`);
+      assert.notEqual(
+        result.verdict,
+        'allow',
+        `catalog-only ${JSON.stringify(term)} unexpectedly allows; re-audit overlay scoping`,
+      );
+    }
+  });
+
+  it('matches Pass 53 cover-art identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['4AD logo sting, warm grain', 'block'],
+      ['signed to 4AD for the new single', 'block'],
+      ['ECM Records logo sting, warm grain', 'block'],
+      ['signed to ECM Records for the new single', 'block'],
+      ['Deutsche Grammophon logo sting, warm grain', 'block'],
+      ['signed to Deutsche Grammophon for the new single', 'block'],
+      ['Kranky logo sting, warm grain', 'block'],
+      ['signed to Kranky for the new single', 'block'],
+      ['RIAA logo sting, warm grain', 'block'],
+      ['signed to RIAA for the new single', 'block'],
+      ['Gildan logo sting, warm grain', 'block'],
+      ['signed to Gildan for the new single', 'block'],
+      ['Hanes logo sting, warm grain', 'block'],
+      ['signed to Hanes for the new single', 'block'],
+      ['Coachella logo sting, warm grain', 'block'],
+      ['signed to Coachella for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes cover-art packaging/merch marks to image/video (Pass 53 Part A)', () => {
+    const music = createCensor({ replaceCatalog: true, media: 'music' });
+    const image = createCensor({ replaceCatalog: true, media: 'image' });
+    // Coachella stays all-media per song-prompt overlay (#57); its duplicate
+    // image/video-scoped entry from cover-art (#58) was dropped at merge.
+    const scoped = ['RIAA', 'Gildan', 'Hanes'];
+    for (const term of scoped) {
+      const prompt = `signed to ${term} for the new single`;
+      assert.equal(music.check(prompt).verdict, 'allow', `music-path ${JSON.stringify(prompt)}`);
+      assert.equal(image.check(prompt).verdict, 'block', `image-path ${JSON.stringify(prompt)}`);
+    }
+    const labels = ['4AD', 'ECM Records', 'Deutsche Grammophon', 'Kranky'];
+    for (const term of labels) {
+      const prompt = `signed to ${term} for the new single`;
+      assert.equal(music.check(prompt).verdict, 'block', `music-path label ${JSON.stringify(prompt)}`);
+    }
+  });
+});
