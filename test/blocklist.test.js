@@ -1756,5 +1756,47 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 53 cover-art identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['4AD logo sting, warm grain', 'block'],
+      ['signed to 4AD for the new single', 'block'],
+      ['ECM Records logo sting, warm grain', 'block'],
+      ['signed to ECM Records for the new single', 'block'],
+      ['Deutsche Grammophon logo sting, warm grain', 'block'],
+      ['signed to Deutsche Grammophon for the new single', 'block'],
+      ['Kranky logo sting, warm grain', 'block'],
+      ['signed to Kranky for the new single', 'block'],
+      ['RIAA logo sting, warm grain', 'block'],
+      ['signed to RIAA for the new single', 'block'],
+      ['Gildan logo sting, warm grain', 'block'],
+      ['signed to Gildan for the new single', 'block'],
+      ['Hanes logo sting, warm grain', 'block'],
+      ['signed to Hanes for the new single', 'block'],
+      ['Coachella logo sting, warm grain', 'block'],
+      ['signed to Coachella for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes cover-art packaging/merch/poster marks to image/video (Pass 53 Part A)', () => {
+    const music = createCensor({ replaceCatalog: true, media: 'music' });
+    const image = createCensor({ replaceCatalog: true, media: 'image' });
+    const scoped = ['RIAA', 'Gildan', 'Hanes', 'Coachella'];
+    for (const term of scoped) {
+      const prompt = `signed to ${term} for the new single`;
+      assert.equal(music.check(prompt).verdict, 'allow', `music-path ${JSON.stringify(prompt)}`);
+      assert.equal(image.check(prompt).verdict, 'block', `image-path ${JSON.stringify(prompt)}`);
+    }
+    const labels = ['4AD', 'ECM Records', 'Deutsche Grammophon', 'Kranky'];
+    for (const term of labels) {
+      const prompt = `signed to ${term} for the new single`;
+      assert.equal(music.check(prompt).verdict, 'block', `music-path label ${JSON.stringify(prompt)}`);
+    }
+  });
 });
 

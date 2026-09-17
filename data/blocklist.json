@@ -967,6 +967,38 @@
     "Zanku Records",
     "Plutomania Records",
     "Hypertek Digital",
-    "Kukere Records"
+    "Kukere Records",
+    "4AD",
+    "ECM Records",
+    "Deutsche Grammophon",
+    "Kranky",
+    {
+      "term": "RIAA",
+      "media": [
+        "image",
+        "video"
+      ]
+    },
+    {
+      "term": "Gildan",
+      "media": [
+        "image",
+        "video"
+      ]
+    },
+    {
+      "term": "Hanes",
+      "media": [
+        "image",
+        "video"
+      ]
+    },
+    {
+      "term": "Coachella",
+      "media": [
+        "image",
+        "video"
+      ]
+    }
   ]
 }
