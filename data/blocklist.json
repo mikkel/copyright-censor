@@ -967,6 +967,16 @@
     "Zanku Records",
     "Plutomania Records",
     "Hypertek Digital",
-    "Kukere Records"
+    "Kukere Records",
+    "Coachella",
+    "Lollapalooza",
+    "Glastonbury",
+    "Bonnaroo",
+    "Sziget",
+    "Roskilde",
+    "Pukkelpop",
+    "Creamfields",
+    "Fuji Rock",
+    { "term": "Lowlands", "commonWord": true }
   ]
 }

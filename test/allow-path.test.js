@@ -4616,4 +4616,98 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Afrobeats-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new festival tokens (song-prompt overlay)', () => {
+    const nearMiss = [
+      'coach foley, warm mics',
+      'chella foley, warm mics',
+      'oachella foley, warm mics',
+      'lolla foley, warm mics',
+      'palooza foley, warm mics',
+      'ollapalooza foley, warm mics',
+      'glasto foley, warm mics',
+      'stonbury foley, warm mics',
+      'bonna foley, warm mics',
+      'naroo foley, warm mics',
+      'onnaroo foley, warm mics',
+      'szig foley, warm mics',
+      'iget foley, warm mics',
+      'rosk foley, warm mics',
+      'kilde foley, warm mics',
+      'oskilde foley, warm mics',
+      'pukkel foley, warm mics',
+      'kelpop foley, warm mics',
+      'ukkelpop foley, warm mics',
+      'cream foley, warm mics',
+      'fields foley, warm mics',
+      'fuji foley, warm mics',
+      'rock foley, warm mics',
+      'uji foley, warm mics',
+      'lowl foley, warm mics',
+      'lands foley, warm mics',
+      'owlands foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay festival near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path festival near-miss');
+    }
+  });
+
+  it('still blocks explicit festival prompts on the overlay path (song-prompt overlay)', () => {
+    const cases = [
+      'Coachella headliner anthem, warm grain',
+      'headlining Coachella, warm pads',
+      'Lollapalooza headliner anthem, warm grain',
+      'headlining Lollapalooza, warm pads',
+      'Glastonbury headliner anthem, warm grain',
+      'headlining Glastonbury, warm pads',
+      'Bonnaroo headliner anthem, warm grain',
+      'headlining Bonnaroo, warm pads',
+      'Sziget headliner anthem, warm grain',
+      'headlining Sziget, warm pads',
+      'Roskilde headliner anthem, warm grain',
+      'headlining Roskilde, warm pads',
+      'Pukkelpop headliner anthem, warm grain',
+      'headlining Pukkelpop, warm pads',
+      'Creamfields headliner anthem, warm grain',
+      'headlining Creamfields, warm pads',
+      'Fuji Rock headliner anthem, warm grain',
+      'headlining Fuji Rock, warm pads',
+      'anthem for Lowlands, warm grain',
+      'headlining Lowlands, warm pads',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new festival tokens (song-prompt overlay)', () => {
+    const innocent = [
+      'side stage foley, warm mics',
+      'encore chant foley, warm mics',
+      'campsite ambience foley, warm mics',
+      'headline rehearsal foley, warm mics',
+      'pyramid stage foley, warm mics',
+      'desert polo fields foley, warm mics',
+      'somerset fields foley, warm mics',
+      'lowland mist drone, warm pads',
+      'fuji apple orchard foley, warm mics',
+      'garden foley, warm mics',
+      'danish harbour foley, warm mics',
+      'budapest island foley, warm mics',
+      'belgian night foley, warm mics',
+      'wiltshire farm foley, warm mics',
+      'indio desert wind foley, warm mics',
+      'chicago lakefront foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay festival boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path festival boundary');
+    }
+  });
 });
