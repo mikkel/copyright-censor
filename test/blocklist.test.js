@@ -1275,6 +1275,37 @@ describe('blocklist', () => {
     }
   });
 
+  it('matches Pass 38 LatAm-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Discos Fuentes logo sting, warm grain', 'block'],
+      ['signed to Discos Fuentes for the new single', 'block'],
+      ['Codiscos logo sting, warm grain', 'block'],
+      ['signed to Codiscos for the new single', 'block'],
+      ['Discos Peerless logo sting, warm grain', 'block'],
+      ['signed to Discos Peerless for the new single', 'block'],
+      ['Orfeón logo sting, warm grain', 'block'],
+      ['signed to Orfeón for the new single', 'block'],
+      ['signed to Orfeon for the new single', 'block'],
+      ['Musart logo sting, warm grain', 'block'],
+      ['signed to Musart for the new single', 'block'],
+      ['Fania Records logo sting, warm grain', 'block'],
+      ['signed to Fania Records for the new single', 'block'],
+      ['Pina Records logo sting, warm grain', 'block'],
+      ['signed to Pina Records for the new single', 'block'],
+      ['ZZK Records logo sting, warm grain', 'block'],
+      ['signed to ZZK Records for the new single', 'block'],
+      ['Quemasucabeza logo sting, warm grain', 'block'],
+      ['signed to Quemasucabeza for the new single', 'block'],
+      ['Rancho Humilde logo sting, warm grain', 'block'],
+      ['signed to Rancho Humilde for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
   it('scopes membership/creator/dev/phone trademarks to image/video (Pass 37 Part A)', () => {
     const censor = createCensor({ replaceCatalog: true });
     const cases = [

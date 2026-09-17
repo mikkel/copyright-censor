@@ -1710,6 +1710,26 @@ describe('allow-path / innocent usage', () => {
       'signed to Jeunesse Cosmique for the new single',
       'Mothland logo sting, warm grain',
       'signed to Mothland for the new single',
+      'Discos Fuentes logo sting, warm grain',
+      'signed to Discos Fuentes for the new single',
+      'Codiscos logo sting, warm grain',
+      'signed to Codiscos for the new single',
+      'Discos Peerless logo sting, warm grain',
+      'signed to Discos Peerless for the new single',
+      'Orfeón logo sting, warm grain',
+      'signed to Orfeón for the new single',
+      'Musart logo sting, warm grain',
+      'signed to Musart for the new single',
+      'Fania Records logo sting, warm grain',
+      'signed to Fania Records for the new single',
+      'Pina Records logo sting, warm grain',
+      'signed to Pina Records for the new single',
+      'ZZK Records logo sting, warm grain',
+      'signed to ZZK Records for the new single',
+      'Quemasucabeza logo sting, warm grain',
+      'signed to Quemasucabeza for the new single',
+      'Rancho Humilde logo sting, warm grain',
+      'signed to Rancho Humilde for the new single',
       'DALL-E product shot, studio light',
       'CapCut edit sting, product shot',
       'Descript product shot, studio light',
@@ -2985,6 +3005,80 @@ describe('allow-path / innocent usage', () => {
       'signed to Jeunesse Cosmique for the new single',
       'Mothland logo sting, warm grain',
       'signed to Mothland for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('does not trip on near-miss substrings of new LatAm-label tokens (Pass 38 Part B)', () => {
+    const nearMiss = [
+      'fania foley, warm mics',
+      'fan foley, warm mics',
+      'nia foley, warm mics',
+      'fuentes foley, warm mics',
+      'fuen foley, warm mics',
+      'tes foley, warm mics',
+      'discos foley, warm mics',
+      'peerless foley, warm mics',
+      'peer foley, warm mics',
+      'less foley, warm mics',
+      'cod foley, warm mics',
+      'iscos foley, warm mics',
+      'orf foley, warm mics',
+      'feon foley, warm mics',
+      'mus foley, warm mics',
+      'art foley, warm mics',
+      'pin foley, warm mics',
+      'pina foley, warm mics',
+      'zz foley, warm mics',
+      'zk foley, warm mics',
+      'zzk foley, warm mics',
+      'ranch foley, warm mics',
+      'cho foley, warm mics',
+      'rancho foley, warm mics',
+      'humilde foley, warm mics',
+      'hum foley, warm mics',
+      'ilde foley, warm mics',
+      'quem foley, warm mics',
+      'sucabeza foley, warm mics',
+      'quema foley, warm mics',
+      'cabeza foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay LatAm-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path LatAm-label near-miss');
+    }
+  });
+
+  it('still blocks explicit LatAm-label prompts on the overlay path (Pass 38 Part B)', () => {
+    const cases = [
+      'Discos Fuentes logo sting, warm grain',
+      'signed to Discos Fuentes for the new single',
+      'Codiscos logo sting, warm grain',
+      'signed to Codiscos for the new single',
+      'Discos Peerless logo sting, warm grain',
+      'signed to Discos Peerless for the new single',
+      'Orfeón logo sting, warm grain',
+      'signed to Orfeón for the new single',
+      'signed to Orfeon for the new single',
+      'Musart logo sting, warm grain',
+      'signed to Musart for the new single',
+      'Fania Records logo sting, warm grain',
+      'signed to Fania Records for the new single',
+      'Pina Records logo sting, warm grain',
+      'signed to Pina Records for the new single',
+      'ZZK Records logo sting, warm grain',
+      'signed to ZZK Records for the new single',
+      'Quemasucabeza logo sting, warm grain',
+      'signed to Quemasucabeza for the new single',
+      'Rancho Humilde logo sting, warm grain',
+      'signed to Rancho Humilde for the new single',
     ];
     for (const prompt of cases) {
       const result = overlay.check(prompt);
