@@ -4616,4 +4616,80 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path Afrobeats-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new podcast-audiobook tokens (podcast-audiobook Part B)', () => {
+    const nearMiss = [
+      'wonder bread foley, warm mics',
+      'wonder why the room hums, warm mics',
+      'ear wax foley, warm mics',
+      'ear wolf whistle foley, warm mics',
+      'pushkin foley, warm mics',
+      'par cast foley, warm mics',
+      'stitch foley, warm mics',
+      'armchair in the interview room, warm mics',
+      'smart less processing, room tone',
+      'radio lab safety briefing, warm mics',
+      'harper audiobook chapter draft, room tone',
+      'audible studio apartment reverb, room tone',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay podcast-audiobook near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path podcast-audiobook near-miss');
+    }
+  });
+
+  it('still blocks explicit podcast-audiobook prompts on the overlay path (podcast-audiobook Part B)', () => {
+    const cases = [
+      'Wondery intro sting, warm room tone',
+      'pitched to Wondery yesterday',
+      'Earwolf intro sting, warm room tone',
+      'pitched to Earwolf yesterday',
+      'Pushkin Industries intro sting, warm room tone',
+      'pitched to Pushkin Industries yesterday',
+      'Parcast intro sting, warm room tone',
+      'pitched to Parcast yesterday',
+      'Stitcher intro sting, warm room tone',
+      'pitched to Stitcher yesterday',
+      'Armchair Expert intro sting, warm room tone',
+      'pitched to Armchair Expert yesterday',
+      'SmartLess intro sting, warm room tone',
+      'pitched to SmartLess yesterday',
+      'Radiolab intro sting, warm room tone',
+      'pitched to Radiolab yesterday',
+      'HarperAudio intro sting, warm room tone',
+      'Harper Audio intro sting, warm room tone',
+      'pitched to HarperAudio yesterday',
+      'Audible Studios intro sting, warm room tone',
+      'pitched to Audible Studios yesterday',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new podcast-audiobook tokens (podcast-audiobook Part B)', () => {
+    const innocent = [
+      'warm host banter with room tone, two mics',
+      'interview room ambience, soft chair creak',
+      'chapter narration pacing, calm breath',
+      'two hosts trading banter, room tone',
+      'guest interview setup, close mics',
+      'narrator booth tone, page turn foley',
+      'chapter break sting, soft pads',
+      'panel discussion room tone, warm mics',
+      'story circle ambience, quiet room',
+      'cold open banter, room tone',
+      'outro bed with soft keys, room tone',
+      'voiceover booth hum, foam windscreen foley',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay podcast-audiobook boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path podcast-audiobook boundary');
+    }
+  });
 });

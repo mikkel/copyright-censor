@@ -462,7 +462,10 @@
     "Lorcana",
     "Hytale",
     { "term": "Companion", "commonWord": true },
-    { "term": "Novocaine", "commonWord": true }
+    { "term": "Novocaine", "commonWord": true },
+    "Armchair Expert",
+    "SmartLess",
+    "Radiolab"
   ],
   "trademarks": [
     "Ableton",
@@ -967,6 +970,13 @@
     "Zanku Records",
     "Plutomania Records",
     "Hypertek Digital",
-    "Kukere Records"
+    "Kukere Records",
+    "Wondery",
+    "Earwolf",
+    "Pushkin Industries",
+    "Parcast",
+    "Stitcher",
+    { "term": "HarperAudio", "aliases": ["Harper Audio"] },
+    "Audible Studios"
   ]
 }

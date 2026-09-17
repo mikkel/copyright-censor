@@ -1756,5 +1756,36 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches podcast-audiobook identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Wondery intro sting, warm room tone', 'block'],
+      ['pitched to Wondery yesterday', 'block'],
+      ['Earwolf intro sting, warm room tone', 'block'],
+      ['pitched to Earwolf yesterday', 'block'],
+      ['Pushkin Industries intro sting, warm room tone', 'block'],
+      ['pitched to Pushkin Industries yesterday', 'block'],
+      ['Parcast intro sting, warm room tone', 'block'],
+      ['pitched to Parcast yesterday', 'block'],
+      ['Stitcher intro sting, warm room tone', 'block'],
+      ['pitched to Stitcher yesterday', 'block'],
+      ['Armchair Expert intro sting, warm room tone', 'block'],
+      ['pitched to Armchair Expert yesterday', 'block'],
+      ['SmartLess intro sting, warm room tone', 'block'],
+      ['pitched to SmartLess yesterday', 'block'],
+      ['Radiolab intro sting, warm room tone', 'block'],
+      ['pitched to Radiolab yesterday', 'block'],
+      ['HarperAudio intro sting, warm room tone', 'block'],
+      ['Harper Audio intro sting, warm room tone', 'block'],
+      ['pitched to HarperAudio yesterday', 'block'],
+      ['Audible Studios intro sting, warm room tone', 'block'],
+      ['pitched to Audible Studios yesterday', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
