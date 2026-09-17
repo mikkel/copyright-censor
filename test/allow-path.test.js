@@ -4002,4 +4002,114 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path IE/Nordic-label boundary');
     }
   });
+
+  it('does not trip on near-miss substrings of new CIS-label tokens (Pass 47 Part B)', () => {
+    const nearMiss = [
+      'melod foley, warm mics',
+      'elodiya foley, warm mics',
+      'melodiy foley, warm mics',
+      'melodija foley, warm mics',
+      'mister foley, warm mics',
+      'isteriya foley, warm mics',
+      'misteria foley, warm mics',
+      'zvuk foley, warm mics',
+      'zuka foley, warm mics',
+      'monol foley, warm mics',
+      'onolit foley, warm mics',
+      'monolite foley, warm mics',
+      'sneg foley, warm mics',
+      'negiri foley, warm mics',
+      'snegir foley, warm mics',
+      'muzy foley, warm mics',
+      'uzyka foley, warm mics',
+      'muzycka foley, warm mics',
+      'gaz foley, warm mics',
+      'azgolder foley, warm mics',
+      'gazgold foley, warm mics',
+      'gazgolda foley, warm mics',
+      'vukm foley, warm mics',
+      'zvukm foley, warm mics',
+      'kvadro foley, warm mics',
+      'vadro foley, warm mics',
+      'kvado foley, warm mics',
+      'disk foley, warm mics',
+      'extra foley, warm mics',
+      'xtraphone foley, warm mics',
+      'extraphon foley, warm mics',
+      'extrafone foley, warm mics',
+      'sinte foley, warm mics',
+      'intez foley, warm mics',
+      'sintex foley, warm mics',
+      'ant foley, warm mics',
+      'ntrop foley, warm mics',
+      'antro foley, warm mics',
+      'anthrop foley, warm mics',
+      'record foley, warm mics',
+      'records foley, warm mics',
+    ];
+    for (const prompt of nearMiss) {
+      assertAllow(overlay, prompt, 'overlay CIS-label near-miss');
+    }
+    for (const prompt of nearMiss) {
+      assertAllow(full, prompt, 'full-path CIS-label near-miss');
+    }
+  });
+
+  it('still blocks explicit CIS-label prompts on the overlay path (Pass 47 Part B)', () => {
+    const cases = [
+      'Melodiya logo sting, warm grain',
+      'signed to Melodiya for the new single',
+      'Misteriya Zvuka logo sting, warm grain',
+      'signed to Misteriya Zvuka for the new single',
+      'Monolit Records logo sting, warm grain',
+      'signed to Monolit Records for the new single',
+      'Snegiri Muzyka logo sting, warm grain',
+      'signed to Snegiri Muzyka for the new single',
+      'Gazgolder logo sting, warm grain',
+      'signed to Gazgolder for the new single',
+      'Zvuk-M logo sting, warm grain',
+      'signed to Zvuk-M for the new single',
+      'Kvadro-Disk logo sting, warm grain',
+      'signed to Kvadro-Disk for the new single',
+      'Extraphone logo sting, warm grain',
+      'signed to Extraphone for the new single',
+      'Sintez Records logo sting, warm grain',
+      'signed to Sintez Records for the new single',
+      'AnTrop logo sting, warm grain',
+      'signed to AnTrop for the new single',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.equal(result.verdict, 'block', `${JSON.stringify(prompt)} => ${result.verdict}`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside new CIS-label tokens (Pass 47 Part B)', () => {
+    const innocent = [
+      'moscow courtyard ambience at dawn',
+      'neva river ambience at dawn',
+      'taiga wind foley, high ridge',
+      'balalaika rehearsal, room tone',
+      'bayan accordion rehearsal, room tone',
+      'volga river ambience at dawn',
+      'ural mountain wind foley, high ridge',
+      'siberian night train ambience',
+      'kiev courtyard ambience at dawn',
+      'caspian shoreline ambience at dawn',
+      'caucasus ridge wind foley, high ridge',
+      'steppe grassland ambience at dawn',
+      'village choir rehearsal, room tone',
+      'folk dance rehearsal, room tone',
+      'winter market ambience at dawn',
+      'tram depot ambience at dawn',
+      'subway tunnel tone, low rumble',
+      'frost crackle foley, cold air',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay CIS-label boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path CIS-label boundary');
+    }
+  });
 });

@@ -1592,5 +1592,35 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches Pass 47 CIS-label identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Melodiya logo sting, warm grain', 'block'],
+      ['signed to Melodiya for the new single', 'block'],
+      ['Misteriya Zvuka logo sting, warm grain', 'block'],
+      ['signed to Misteriya Zvuka for the new single', 'block'],
+      ['Monolit Records logo sting, warm grain', 'block'],
+      ['signed to Monolit Records for the new single', 'block'],
+      ['Snegiri Muzyka logo sting, warm grain', 'block'],
+      ['signed to Snegiri Muzyka for the new single', 'block'],
+      ['Gazgolder logo sting, warm grain', 'block'],
+      ['signed to Gazgolder for the new single', 'block'],
+      ['Zvuk-M logo sting, warm grain', 'block'],
+      ['signed to Zvuk-M for the new single', 'block'],
+      ['Kvadro-Disk logo sting, warm grain', 'block'],
+      ['signed to Kvadro-Disk for the new single', 'block'],
+      ['Extraphone logo sting, warm grain', 'block'],
+      ['signed to Extraphone for the new single', 'block'],
+      ['Sintez Records logo sting, warm grain', 'block'],
+      ['signed to Sintez Records for the new single', 'block'],
+      ['AnTrop logo sting, warm grain', 'block'],
+      ['signed to AnTrop for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });
 
