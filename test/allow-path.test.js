@@ -5092,4 +5092,53 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path cover-art boundary');
     }
   });
+
+  it('still blocks explicit weekly-ahead prompts on the overlay path (2026-09-21 Part B)', () => {
+    const cases = [
+      'Kim Petras vocal air over pads',
+      'Selena Quintanilla vocal air over pads',
+      'Panic! at the Disco arrangement with tape hiss',
+      'Ashe hook over warm pads',
+      'Lalisa hook over warm pads',
+      'make it sound like Unholy',
+      'MMMBop arrangement with tape hiss',
+      'the song One of Us on analog tape',
+      'the song Self Aware on analog tape',
+      'Phone, Keys, Wallet sketch on analog tape',
+      'Stop The Wedding sketch on analog tape',
+      'Q Productions logo sting, warm grain',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.notEqual(result.verdict, 'allow', `${JSON.stringify(prompt)} unexpectedly allows`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside weekly-ahead tokens (2026-09-21 Part B)', () => {
+    const innocent = [
+      'ominous synth pads, late-night keys',
+      'chevy pickup bed foley, warm mics',
+      'phone foley with room tone',
+      'keys jingle foley, warm mics',
+      'wallet left on the tour bus, room tone',
+      'one of us left the room, quiet vocal',
+      'self aware mix notes, less harsh highs',
+      'ashe juniper smoke foley, warm mics',
+      'stop the wedding march tempo talk, room tone',
+      'believe in the chorus stack, warm room',
+      'another take, restless piano at midnight',
+      'hit the fader hard, warm tape',
+      'great room tone, wider pads',
+      'country road foley at dawn',
+      'wall of canyon reverb, warm mics',
+      'drink ticket foley at the bar',
+      'mamacita bounce sketch, dusty cassette',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
 });

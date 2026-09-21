@@ -1983,4 +1983,68 @@ describe('blocklist', () => {
       assert.equal(music.check(prompt).verdict, 'block', `music-path label ${JSON.stringify(prompt)}`);
     }
   });
+
+  it('matches weekly-ahead 2026-09-21 identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Kim Petras vocal air over pads', 'review'],
+      ['Sam Smith vocal air over pads', 'review'],
+      ['Joan Osborne vocal air over pads', 'review'],
+      ['Hanson arrangement with tape hiss', 'review'],
+      ['Bubba Sparxxx bounce on cheap speakers', 'review'],
+      ['Ja Rule hook over warm pads', 'review'],
+      ['Panic! at the Disco arrangement with tape hiss', 'review'],
+      ['Panic at the Disco arrangement with tape hiss', 'review'],
+      ['Selena Quintanilla vocal air over pads', 'review'],
+      ['Selena Quintanilla-Perez vocal air over pads', 'review'],
+      ['Adela hook over warm pads', 'review'],
+      ['Temper City hook over warm pads', 'review'],
+      ['Alyssa Grace hook over warm pads', 'review'],
+      ['Sienna Spiro hook over warm pads', 'review'],
+      ['Audrey Hobert hook over warm pads', 'review'],
+      ['Mack Geiger hook over warm pads', 'review'],
+      ['Hudson Westbrook hook over warm pads', 'review'],
+      ['Babychiefdoit hook over warm pads', 'review'],
+      ['Belly Gang Kushington hook over warm pads', 'review'],
+      ['Belly Gang hook over warm pads', 'review'],
+      ['Dexter and The Moonrocks hook over warm pads', 'review'],
+      ['Dexter & The Moonrocks hook over warm pads', 'review'],
+      ['Lainey Wilson hook over warm pads', 'review'],
+      ['F3Miii hook over warm pads', 'review'],
+      ['Ashe hook over warm pads', 'review'],
+      ['Lalisa hook over warm pads', 'review'],
+      ['BLACKPINK LISA hook over warm pads', 'review'],
+      ['Lisa BLACKPINK hook over warm pads', 'review'],
+      ['make it sound like Unholy', 'block'],
+      ['MMMBop arrangement with tape hiss', 'block'],
+      ['Always On Time sketch on analog tape', 'block'],
+      ['Ms. New Booty bounce sketch', 'block'],
+      ['Ms New Booty bounce sketch', 'block'],
+      ['Miss New Booty bounce sketch', 'block'],
+      ['the song One of Us on analog tape', 'block'],
+      ['Bass Persuades sketch on analog tape', 'block'],
+      ["Ain't In LA sketch on analog tape", 'block'],
+      ['Aint In LA sketch on analog tape', 'block'],
+      ['Take Me Back (Leave Me There) sketch on analog tape', 'block'],
+      ['Bloodstream sketch on analog tape', 'block'],
+      ['the song Self Aware on analog tape', 'block'],
+      ['Phone, Keys, Wallet sketch on analog tape', 'block'],
+      ['Phone Keys Wallet sketch on analog tape', 'block'],
+      ['Hit The Wall guitar take', 'block'],
+      ['Great Expectation piano sketch', 'block'],
+      ['Chevy Silverado guitar take', 'block'],
+      ['Another Drink bar-room sketch', 'block'],
+      ['Wtf Goin bounce sketch', 'block'],
+      ['WTF Goin bounce sketch', 'block'],
+      ['Country And She Knows It sketch on analog tape', 'block'],
+      ['Sawadika bounce sketch', 'block'],
+      ['Stop The Wedding sketch on analog tape', 'block'],
+      ['Q Productions logo sting, warm grain', 'block'],
+      ['signed to Q Productions for the new single', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
 });

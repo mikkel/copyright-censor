@@ -188,7 +188,29 @@
     "fcukers",
     "Obskur",
     { "term": "Wishy", "commonWord": true },
-    { "term": "Steve McCurry", "media": ["image", "video"] }
+    { "term": "Steve McCurry", "media": ["image", "video"] },
+    "Kim Petras",
+    "Sam Smith",
+    "Joan Osborne",
+    "Hanson",
+    "Bubba Sparxxx",
+    "Ja Rule",
+    { "term": "Panic! at the Disco", "aliases": ["Panic at the Disco", "Panic At The Disco"] },
+    { "term": "Selena Quintanilla", "aliases": ["Selena Quintanilla-Perez", "Selena Quintanilla-Pérez"] },
+    "Adela",
+    "Temper City",
+    "Alyssa Grace",
+    "Sienna Spiro",
+    "Audrey Hobert",
+    "Mack Geiger",
+    "Hudson Westbrook",
+    "Babychiefdoit",
+    { "term": "Belly Gang Kushington", "aliases": ["Belly Gang"] },
+    { "term": "Dexter and The Moonrocks", "aliases": ["Dexter And The Moonrocks", "Dexter & The Moonrocks"] },
+    "Lainey Wilson",
+    "F3Miii",
+    { "term": "Ashe", "commonWord": true },
+    { "term": "Lalisa", "aliases": ["BLACKPINK LISA", "Lisa BLACKPINK"] }
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -313,7 +335,26 @@
     { "term": "What You Need", "commonWord": true },
     "Wish You Were Here",
     { "term": "Wonderwall", "commonWord": true },
-    "You Can't Always Get What You Want"
+    "You Can't Always Get What You Want",
+    "Unholy",
+    "MMMBop",
+    "Always On Time",
+    { "term": "Ms. New Booty", "aliases": ["Ms New Booty", "Miss New Booty"] },
+    { "term": "One of Us", "commonWord": true },
+    "Bass Persuades",
+    { "term": "Ain't In LA", "aliases": ["Ain't In La", "Aint In LA"] },
+    "Take Me Back (Leave Me There)",
+    "Bloodstream",
+    { "term": "Self Aware", "commonWord": true },
+    { "term": "Phone, Keys, Wallet", "aliases": ["Phone Keys Wallet"] },
+    "Hit The Wall",
+    "Great Expectation",
+    "Chevy Silverado",
+    "Another Drink",
+    { "term": "Wtf Goin", "aliases": ["WTF Goin"] },
+    "Country And She Knows It",
+    "Sawadika",
+    "Stop The Wedding"
   ],
   "franchises": [
     "Avengers",
@@ -1041,6 +1082,7 @@
         "image",
         "video"
       ]
-    }
+    },
+    "Q Productions"
   ]
 }
