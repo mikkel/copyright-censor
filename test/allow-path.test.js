@@ -5092,4 +5092,124 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path cover-art boundary');
     }
   });
+
+  it('still blocks explicit weekly-ahead prompts on the overlay path (2026-09-21 Part B)', () => {
+    const cases = [
+      'Kim Petras vocal air over pads',
+      'Selena Quintanilla vocal air over pads',
+      'Panic! at the Disco arrangement with tape hiss',
+      'Ashe hook over warm pads',
+      'Lalisa hook over warm pads',
+      'make it sound like Unholy',
+      'MMMBop arrangement with tape hiss',
+      'the song One of Us on analog tape',
+      'the song Self Aware on analog tape',
+      'Phone, Keys, Wallet sketch on analog tape',
+      'Stop The Wedding sketch on analog tape',
+      'Q Productions logo sting, warm grain',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.notEqual(result.verdict, 'allow', `${JSON.stringify(prompt)} unexpectedly allows`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside weekly-ahead tokens (2026-09-21 Part B)', () => {
+    const innocent = [
+      'ominous synth pads, late-night keys',
+      'chevy pickup bed foley, warm mics',
+      'phone foley with room tone',
+      'keys jingle foley, warm mics',
+      'wallet left on the tour bus, room tone',
+      'one of us left the room, quiet vocal',
+      'self aware mix notes, less harsh highs',
+      'ashe juniper smoke foley, warm mics',
+      'stop the wedding march tempo talk, room tone',
+      'believe in the chorus stack, warm room',
+      'another take, restless piano at midnight',
+      'hit the fader hard, warm tape',
+      'great room tone, wider pads',
+      'country road foley at dawn',
+      'wall of canyon reverb, warm mics',
+      'drink ticket foley at the bar',
+      'mamacita bounce sketch, dusty cassette',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
+
+  it('still blocks explicit weekly-ahead prompts on the overlay path (2026-09-28)', () => {
+    const cases = [
+      'Jhené Aiko hook over warm pads',
+      'Tyga hook over warm pads',
+      'Comehelpglo hook over warm pads',
+      '21 Savage hook over warm pads',
+      'Dan + Shay hook over warm pads',
+      'Robert Smith hook over warm pads',
+      'Yoshi character render, warm grain',
+      'Bowser character render, warm grain',
+      'Princess Peach character render, warm grain',
+      'a Toad character render, warm grain',
+      'Mario Kart gameplay still, warm grain',
+      'Super Mushroom item render, warm grain',
+      'the song Westside Whimsy on analog tape',
+      'the song Ghost on analog tape',
+      'the song Love Bomb on analog tape',
+      'the song California Girls on analog tape',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.notEqual(result.verdict, 'allow', `${JSON.stringify(prompt)} unexpectedly allows`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside weekly-ahead tokens (2026-09-28)', () => {
+    const innocent = [
+      'mushroom foraging foley at dawn',
+      'kart track ambience, low rumble',
+      'peach cobbler foley, warm mics',
+      'toad chorus at the pond, room tone',
+      'ghost notes on the snare, warm mics',
+      'ceiling fan hum, room tone',
+      'sun washed linen, warm mics',
+      'cowgirl boots foley, dusty floor',
+      'so good to be home, quiet piano',
+      'he walks on the porch, easy groove',
+      'love the kick drum, warm room',
+      'nothing to prove, quiet mix notes',
+      'wild evening, cat nap foley',
+      'in my room tone, wider pads',
+      'honey drizzle foley, warm mics',
+      'ahi tuna sizzle, kitchen foley',
+      'hardy plank foley, construction site',
+      'frost poems, quiet reading',
+      'mexico city street foley at dawn',
+      'paint the porch, warm afternoon',
+      'rein the horse, leather foley',
+      'kid gloves foley, soft hands',
+      'sanity break, quiet keys',
+      'all my demos, quiet vocal',
+      'get to rehearsal, easy feel',
+      'california poppy field recording',
+      'cowboy boots foley, dusty floor',
+      'what is wrong with the mix',
+      'some of the love in the room',
+      'my body feels heavy, slow tempo',
+      'think fast, play loose',
+      'startle the drummer, loud fill',
+      'ah ha, that take worked, warm room',
+      'rethink the bridge, softer keys',
+      'tiger growl foley, low rumble',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
 });
