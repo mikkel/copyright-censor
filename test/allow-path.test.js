@@ -5212,4 +5212,51 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path weekly-ahead boundary');
     }
   });
+
+  it('still blocks explicit weekly-ahead prompts on the overlay path (2026-10-03)', () => {
+    const cases = [
+      'beabadoobee hook over warm pads',
+      'Miley hook over warm pads',
+      'play RHYNO on analog tape',
+      'play Macacoa 2000 on analog tape',
+      'play Shabang on analog tape',
+      'play Cursum Perficio on analog tape',
+      'GTA6 gameplay still, warm grain',
+      'GTAVI gameplay still, warm grain',
+      'Leonida nights, warm grain',
+      'Pocketpair creature render, warm grain',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.notEqual(result.verdict, 'allow', `${JSON.stringify(prompt)} unexpectedly allows`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside weekly-ahead tokens (2026-10-03)', () => {
+    const innocent = [
+      'rhino foley at the watering hole',
+      'rhinestone foley, costume rack',
+      'shabby booth foley, warm mics',
+      'soft drum taps, room tone',
+      'macaw squawk foley, warm mics',
+      'leonids meteor foley at dawn',
+      'lint roller foley, warm mics',
+      'pair of mics, room tone',
+      'gta stencil foley, warm mics',
+      'smiley sticker foley, warm mics',
+      'bee hum foley at dawn',
+      'cursive notes, quiet desk',
+      'dusty mellotron swells, quiet room',
+      'rain on the awning foley',
+      'shower steam foley, warm mics',
+      'curfew siren foley at dusk',
+      'perforated tin foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
 });

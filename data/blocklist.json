@@ -81,7 +81,7 @@
     "Marvin Gaye",
     "Metallica",
     "Michael Jackson",
-    "Miley Cyrus",
+    { "term": "Miley Cyrus", "aliases": ["Miley"] },
     "Morgan Wallen",
     { "term": "Motley Crue", "aliases": ["Mötley Crüe", "Motley Crüe"] },
     "Nas",
@@ -243,7 +243,8 @@
     "Tim McGraw",
     "Zach John King",
     "Corey Kent",
-    { "term": "Robert Smith", "commonWord": true }
+    { "term": "Robert Smith", "commonWord": true },
+    "beabadoobee"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -422,7 +423,11 @@
     { "term": "Cowgirl", "commonWord": true },
     "Honeybee",
     "In My Room",
-    { "term": "Ahi", "commonWord": true }
+    { "term": "Ahi", "commonWord": true },
+    "RHYNO",
+    "Macacoa 2000",
+    "Shabang",
+    "Cursum Perficio"
   ],
   "franchises": [
     "Avengers",
@@ -529,7 +534,7 @@
     "Smiski",
     "Deltarune",
     "Dota 2",
-    "GTA 6",
+    { "term": "GTA 6", "aliases": ["GTA6", "GTAVI"] },
     "Castlevania",
     "Undertale",
     "Zootopia",
@@ -588,7 +593,8 @@
     { "term": "Princess Peach", "aliases": ["Princess Toadstool"] },
     { "term": "Toad", "commonWord": true },
     "Mario Kart",
-    "Super Mushroom"
+    "Super Mushroom",
+    "Leonida"
   ],
   "trademarks": [
     "Ableton",
@@ -1157,6 +1163,7 @@
         "video"
       ]
     },
-    "Q Productions"
+    "Q Productions",
+    { "term": "Pocketpair", "media": ["image", "video"] }
   ]
 }
