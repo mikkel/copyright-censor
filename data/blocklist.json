@@ -244,7 +244,9 @@
     "Zach John King",
     "Corey Kent",
     { "term": "Robert Smith", "commonWord": true },
-    "beabadoobee"
+    "beabadoobee",
+    "Yebba",
+    { "term": "Cornelio Vega y su Dinastía", "aliases": ["Cornelio Vega y su Dinastia"] }
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -427,7 +429,14 @@
     "RHYNO",
     "Macacoa 2000",
     "Shabang",
-    "Cursum Perficio"
+    "Cursum Perficio",
+    { "term": "HABIBTI", "aliases": ["Habibti (FOMO)"] },
+    { "term": "Quebec", "commonWord": true },
+    { "term": "Cleveland", "commonWord": true },
+    { "term": "Pink Clouding", "commonWord": true },
+    { "term": "The Life of a Showgirl", "commonWord": true },
+    "15 Besos",
+    "Quince Besos"
   ],
   "franchises": [
     "Avengers",
@@ -594,7 +603,8 @@
     { "term": "Toad", "commonWord": true },
     "Mario Kart",
     "Super Mushroom",
-    "Leonida"
+    "Leonida",
+    { "term": "Cluckin' Bell", "aliases": ["Cluckin Bell"], "media": ["image", "video"] }
   ],
   "trademarks": [
     "Ableton",
@@ -1164,6 +1174,7 @@
       ]
     },
     "Q Productions",
-    { "term": "Pocketpair", "media": ["image", "video"] }
+    { "term": "Pocketpair", "media": ["image", "video"] },
+    "Gerencia 360"
   ]
 }

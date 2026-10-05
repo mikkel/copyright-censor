@@ -5259,4 +5259,55 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path weekly-ahead boundary');
     }
   });
+
+  it('still blocks explicit weekly-ahead prompts on the overlay path (2026-10-05)', () => {
+    const cases = [
+      'Yebba hook over warm pads',
+      'play HABIBTI on analog tape',
+      'play Habibti (FOMO) on analog tape',
+      'play Quebec on analog tape',
+      'play Cleveland on analog tape',
+      'play Pink Clouding on analog tape',
+      'play The Life of a Showgirl on analog tape',
+      'play Life of a Showgirl on analog tape',
+      'play 15 Besos on analog tape',
+      'play Quince Besos on analog tape',
+      'Cornelio Vega y su Dinastía hook over warm pads',
+      'Gerencia 360 logo lockup, warm grain',
+      "Cluckin' Bell storefront, warm grain",
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.notEqual(result.verdict, 'allow', `${JSON.stringify(prompt)} unexpectedly allows`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside weekly-ahead tokens (2026-10-05)', () => {
+    const innocent = [
+      'eclipse photography over the desert, telephoto',
+      'quebec city street scene, overcast light',
+      'cleveland park foley at dawn',
+      'cold weather foley, breath fog',
+      'pink clouds at dawn, soft glow',
+      'soft pink neon glow, gentle haze',
+      'showgirl costume sketch, backstage lamps',
+      'solar farm aerial at noon, wide shot',
+      'shoulder stretch foley, quiet gym',
+      'babylon candle foley, quiet room',
+      'patient intake foley, quiet desk',
+      'fifteen kisses stage play, warm lamps',
+      'bell chime foley, quiet room',
+      'clucking hen foley, warm barn',
+      'gerencia meeting foley, quiet room',
+      'smooth vocal run foley, warm room',
+      'habit foley, quiet room',
+      'cornfield foley at dawn, quiet rows',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
 });
