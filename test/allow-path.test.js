@@ -5310,4 +5310,17 @@ describe('allow-path / innocent usage', () => {
       assertAllow(full, prompt, 'full-path weekly-ahead boundary');
     }
   });
+
+  it('keeps the whole-shabang idiom allow on overlay and full paths (2026-10-06)', () => {
+    const innocent = [
+      'the whole shabang, warm room tone',
+      'went for the whole shabang with strings and brass',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay shabang idiom');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path shabang idiom');
+    }
+  });
 });

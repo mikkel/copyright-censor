@@ -428,7 +428,7 @@
     { "term": "Ahi", "commonWord": true },
     "RHYNO",
     "Macacoa 2000",
-    "Shabang",
+    { "term": "Shabang", "commonWord": true },
     "Cursum Perficio",
     { "term": "HABIBTI", "aliases": ["Habibti (FOMO)"] },
     { "term": "Quebec", "commonWord": true },
