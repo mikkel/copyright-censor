@@ -12,6 +12,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   deploy:
+    if: github.repository == 'difflabai/copyright-censor'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
