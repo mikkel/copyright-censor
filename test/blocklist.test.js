@@ -2145,4 +2145,70 @@ describe('blocklist', () => {
       assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
     }
   });
+
+  it('matches weekly-ahead 2026-10-03 identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['beabadoobee hook over warm pads', 'review'],
+      ['Beabadoobee hook over warm pads', 'review'],
+      ['Miley hook over warm pads', 'review'],
+      ['Miley Cyrus hook over warm pads', 'review'],
+      ['play RHYNO on analog tape', 'block'],
+      ['play rhyno on analog tape', 'block'],
+      ['play Macacoa 2000 on analog tape', 'block'],
+      ['play Shabang on analog tape', 'block'],
+      ['play Cursum Perficio on analog tape', 'block'],
+      ['GTA 6 gameplay still, warm grain', 'block'],
+      ['GTA6 gameplay still, warm grain', 'block'],
+      ['GTAVI gameplay still, warm grain', 'block'],
+      ['Leonida nights, warm grain', 'block'],
+      ['Pocketpair creature render, warm grain', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('scopes the weekly-ahead 2026-10-03 Pocketpair token to image/video', () => {
+    const music = createCensor({ replaceCatalog: true, media: 'music' });
+    const image = createCensor({ replaceCatalog: true, media: 'image' });
+    const prompt = 'Pocketpair creature render, warm grain';
+    assert.equal(music.check(prompt).verdict, 'allow', `music-path ${JSON.stringify(prompt)}`);
+    assert.equal(image.check(prompt).verdict, 'block', `image-path ${JSON.stringify(prompt)}`);
+  });
+
+  it('matches weekly-ahead 2026-10-05 identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Yebba hook over warm pads', 'review'],
+      ['play HABIBTI on analog tape', 'block'],
+      ['play Habibti (FOMO) on analog tape', 'block'],
+      ['play Quebec on analog tape', 'block'],
+      ['play Cleveland on analog tape', 'block'],
+      ['play Cleveland! on analog tape', 'block'],
+      ['play Pink Clouding on analog tape', 'block'],
+      ['play The Life of a Showgirl on analog tape', 'block'],
+      ['play Life of a Showgirl on analog tape', 'block'],
+      ['play 15 Besos on analog tape', 'block'],
+      ['play Quince Besos on analog tape', 'block'],
+      ['Cornelio Vega y su Dinastía hook over warm pads', 'review'],
+      ['Cornelio Vega y su Dinastia hook over warm pads', 'review'],
+      ['Gerencia 360 logo lockup, warm grain', 'block'],
+      ["Cluckin' Bell storefront, warm grain", 'block'],
+      ['Cluckin Bell storefront, warm grain', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it("scopes the weekly-ahead 2026-10-05 Cluckin' Bell token to image/video", () => {
+    const music = createCensor({ replaceCatalog: true, media: 'music' });
+    const image = createCensor({ replaceCatalog: true, media: 'image' });
+    const prompt = "Cluckin' Bell storefront, warm grain";
+    assert.equal(music.check(prompt).verdict, 'allow', `music-path ${JSON.stringify(prompt)}`);
+    assert.equal(image.check(prompt).verdict, 'block', `image-path ${JSON.stringify(prompt)}`);
+  });
 });

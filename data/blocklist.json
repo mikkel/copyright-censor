@@ -81,7 +81,7 @@
     "Marvin Gaye",
     "Metallica",
     "Michael Jackson",
-    "Miley Cyrus",
+    { "term": "Miley Cyrus", "aliases": ["Miley"] },
     "Morgan Wallen",
     { "term": "Motley Crue", "aliases": ["Mötley Crüe", "Motley Crüe"] },
     "Nas",
@@ -243,7 +243,10 @@
     "Tim McGraw",
     "Zach John King",
     "Corey Kent",
-    { "term": "Robert Smith", "commonWord": true }
+    { "term": "Robert Smith", "commonWord": true },
+    "beabadoobee",
+    "Yebba",
+    { "term": "Cornelio Vega y su Dinastía", "aliases": ["Cornelio Vega y su Dinastia"] }
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -422,7 +425,18 @@
     { "term": "Cowgirl", "commonWord": true },
     "Honeybee",
     "In My Room",
-    { "term": "Ahi", "commonWord": true }
+    { "term": "Ahi", "commonWord": true },
+    "RHYNO",
+    "Macacoa 2000",
+    { "term": "Shabang", "commonWord": true },
+    "Cursum Perficio",
+    { "term": "HABIBTI", "aliases": ["Habibti (FOMO)"] },
+    { "term": "Quebec", "commonWord": true },
+    { "term": "Cleveland", "commonWord": true },
+    { "term": "Pink Clouding", "commonWord": true },
+    { "term": "The Life of a Showgirl", "commonWord": true },
+    "15 Besos",
+    "Quince Besos"
   ],
   "franchises": [
     "Avengers",
@@ -529,7 +543,7 @@
     "Smiski",
     "Deltarune",
     "Dota 2",
-    "GTA 6",
+    { "term": "GTA 6", "aliases": ["GTA6", "GTAVI"] },
     "Castlevania",
     "Undertale",
     "Zootopia",
@@ -588,7 +602,9 @@
     { "term": "Princess Peach", "aliases": ["Princess Toadstool"] },
     { "term": "Toad", "commonWord": true },
     "Mario Kart",
-    "Super Mushroom"
+    "Super Mushroom",
+    "Leonida",
+    { "term": "Cluckin' Bell", "aliases": ["Cluckin Bell"], "media": ["image", "video"] }
   ],
   "trademarks": [
     "Ableton",
@@ -1157,6 +1173,8 @@
         "video"
       ]
     },
-    "Q Productions"
+    "Q Productions",
+    { "term": "Pocketpair", "media": ["image", "video"] },
+    "Gerencia 360"
   ]
 }
