@@ -246,7 +246,10 @@
     { "term": "Robert Smith", "commonWord": true },
     "beabadoobee",
     "Yebba",
-    { "term": "Cornelio Vega y su Dinastía", "aliases": ["Cornelio Vega y su Dinastia"] }
+    { "term": "Cornelio Vega y su Dinastía", "aliases": ["Cornelio Vega y su Dinastia"] },
+    "Bill Withers",
+    "Kenjiro Tsuda",
+    "dolly babe"
   ],
   "works": [
     { "term": "7 Rings", "commonWord": true },
@@ -349,7 +352,7 @@
     "Smells Like Teen Spirit",
     { "term": "So Easy (To Fall in Love)", "aliases": ["So Easy"], "commonWord": true },
     "Someone Like You",
-    { "term": "Something to Lose", "commonWord": true },
+    { "term": "Something to Lose", "commonWord": true, "requires": ["Stella Lefty", "Vincent Mason"] },
     "Spend Dat",
     "Stairway to Heaven",
     "stupid song",
@@ -436,7 +439,14 @@
     { "term": "Pink Clouding", "commonWord": true },
     { "term": "The Life of a Showgirl", "commonWord": true },
     "15 Besos",
-    "Quince Besos"
+    "Quince Besos",
+    { "term": "Just the Two of Us", "commonWord": true },
+    { "term": "The Art of Loving", "media": ["music"] },
+    { "term": "Pink Blush", "commonWord": true },
+    { "term": "Last Thing You Need", "commonWord": true },
+    { "term": "I've Seen It", "requires": ["Olivia Dean"] },
+    { "term": "Pure", "requires": ["Sienna Spiro"] },
+    { "term": "Expectations", "requires": ["Olivia Rodrigo"] }
   ],
   "franchises": [
     "Avengers",
@@ -604,7 +614,9 @@
     "Mario Kart",
     "Super Mushroom",
     "Leonida",
-    { "term": "Cluckin' Bell", "aliases": ["Cluckin Bell"], "media": ["image", "video"] }
+    { "term": "Cluckin' Bell", "aliases": ["Cluckin Bell"], "media": ["image", "video"] },
+    { "term": "Tung Tung Tung Sahur", "aliases": ["Tung Tung Sahur"] },
+    { "term": "Triple T", "requires": ["Tung", "Sahur", "brainrot", "brain rot"] }
   ],
   "trademarks": [
     "Ableton",

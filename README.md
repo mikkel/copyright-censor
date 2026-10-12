@@ -119,6 +119,7 @@ Set `replaceBlocklist: true` / `replaceCatalog: true` to ignore the shipped extr
 - **artists** default to `review`
 - **works / franchises / trademarks** default to `block`
 - `commonWord: true` only flags a capitalized token or a nearby rights cue
+- `requires: ["Artist Name"]` only flags the term when one of those phrases also appears (artist or other context). Title case alone does not fire
 - Single-token common English **work** titles are dropped at compile time (`love`, `home`, `stay`) so the slider stays usable
 - Matching is word-boundary, case-insensitive, accent-folded
 
@@ -130,6 +131,7 @@ These fire without a catalog hit:
 
 - Reproduction: `cover of`, `lyrics from`, `word for word`, `recreate the song`, `chorus:`, `screenshot from`, …
 - Likeness: `in the style of`, `inspired by`, `voice of`, `official logo`
+- `AI cover` together with a listed artist name (bare "AI cover" or "AI cover letter" does not fire)
 - A long quoted passage (8+ words) is treated as a pasted lyric-like excerpt — tests use invented or public-domain strings only
 
 ## CLI

@@ -51,6 +51,7 @@ const ARTICLES = new Set(['the', 'a', 'an']);
  * @property {string[]} [aliases]
  * @property {Array<'music' | 'image' | 'video' | 'all'>} [media]
  * @property {boolean} [commonWord]
+ * @property {string[]} [requires] co-occurring phrases; any one must also appear
  */
 
 /**
@@ -127,6 +128,7 @@ function normalizeEntry(item, kind) {
       aliases: [],
       media: ['all'],
       commonWord: false,
+      requires: [],
     };
   }
   if (typeof item !== 'object' || typeof item.term !== 'string') return null;
@@ -134,6 +136,9 @@ function normalizeEntry(item, kind) {
   if (term.length < 2) return null;
   const verdict = isVerdict(item.verdict) ? item.verdict : defaults.verdict;
   const media = Array.isArray(item.media) && item.media.length > 0 ? item.media : ['all'];
+  const requires = Array.isArray(item.requires)
+    ? item.requires.filter((phrase) => typeof phrase === 'string' && phrase.trim())
+    : [];
   return {
     term,
     kind: typeof item.kind === 'string' ? item.kind : defaults.kind,
@@ -142,7 +147,22 @@ function normalizeEntry(item, kind) {
     aliases: Array.isArray(item.aliases) ? item.aliases.filter((alias) => typeof alias === 'string') : [],
     media,
     commonWord: Boolean(item.commonWord),
+    requires,
   };
+}
+
+/**
+ * @param {string[] | undefined} requires
+ * @returns {string[][]}
+ */
+function compileRequires(requires) {
+  if (!Array.isArray(requires)) return [];
+  const phrases = [];
+  for (const phrase of requires) {
+    const tokens = tokenize(phrase).map((token) => token.norm).filter(Boolean);
+    if (tokens.length > 0) phrases.push(tokens);
+  }
+  return phrases;
 }
 
 /**
@@ -164,16 +184,17 @@ export function flattenBlocklist(input) {
     }
   }
 
-  /** @type {Array<BlocklistEntry & { tokens: string[] }>} */
+  /** @type {Array<BlocklistEntry & { tokens: string[], requiresTokens: string[][] }>} */
   const compiled = [];
   for (const entry of rawEntries) {
+    const requiresTokens = compileRequires(entry.requires);
     const terms = [entry.term, ...entry.aliases];
     for (const term of terms) {
       const tokens = tokenize(term).map((token) => token.norm).filter(Boolean);
       if (tokens.length === 0) continue;
-      compiled.push({ ...entry, term, tokens });
+      compiled.push({ ...entry, term, tokens, requiresTokens });
       if (tokens.length > 1 && ARTICLES.has(tokens[0])) {
-        compiled.push({ ...entry, term, tokens: tokens.slice(1) });
+        compiled.push({ ...entry, term, tokens: tokens.slice(1), requiresTokens });
       }
     }
   }

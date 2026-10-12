@@ -165,7 +165,7 @@ describe('blocklist', () => {
       ['the song Boston on analog tape', 'block'],
       ['Boston song sketch, Stella Lefty vocal', 'block'],
       ['the song Dracula on analog tape', 'block'],
-      ['Something to Lose piano sketch', 'block'],
+      ['Stella Lefty Something to Lose piano sketch', 'block'],
       ['the song 9 to 5 on piano', 'block'],
       ['Steamboat Willie title card, warm grain', 'block'],
       ['Nintendo Switch bumper sting', 'block'],
@@ -2210,5 +2210,100 @@ describe('blocklist', () => {
     const prompt = "Cluckin' Bell storefront, warm grain";
     assert.equal(music.check(prompt).verdict, 'allow', `music-path ${JSON.stringify(prompt)}`);
     assert.equal(image.check(prompt).verdict, 'block', `image-path ${JSON.stringify(prompt)}`);
+  });
+
+  it('requires co-occurrence before a gated phrase can fire', () => {
+    const censor = createCensor({
+      replaceBlocklist: true,
+      blocklist: {
+        artists: ['Zorblin Faye'],
+        works: [{ term: 'Lantern Glass', requires: ['Zorblin Faye'] }],
+      },
+    });
+    assert.equal(censor.check('Lantern Glass piano sketch').verdict, 'allow');
+    assert.equal(censor.check('the song lantern glass on analog tape').verdict, 'allow');
+    assert.equal(censor.check('Zorblin Faye lantern glass piano sketch').verdict, 'block');
+  });
+
+  it('matches weekly-ahead 2026-10-12 identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Bill Withers vocal air over pads', 'review'],
+      ['bill withers vocal air over pads', 'review'],
+      ['Kenjiro Tsuda vocal air over pads', 'review'],
+      ['dolly babe hook over warm pads', 'review'],
+      ['play Just the Two of Us on analog tape', 'block'],
+      ['play The Art of Loving on analog tape', 'block'],
+      ['play Art of Loving on analog tape', 'block'],
+      ['the song just the two of us on analog tape', 'block'],
+      ['play Pink Blush on analog tape', 'block'],
+      ['the song pink blush on analog tape', 'block'],
+      ['play Last Thing You Need on analog tape', 'block'],
+      ['the song last thing you need on analog tape', 'block'],
+      ['Olivia Dean I\'ve Seen It piano sketch', 'block'],
+      ['olivia dean ive seen it piano sketch', 'block'],
+      ['Stella Lefty Something to Lose piano sketch', 'block'],
+      ['Vincent Mason something to lose, quiet room', 'block'],
+      ['something to lose, Stella Lefty vocal', 'block'],
+      ['Sienna Spiro Pure sketch on analog tape', 'block'],
+      ['sienna spiro pure sketch on analog tape', 'block'],
+      ['Olivia Rodrigo Expectations sketch', 'block'],
+      ['olivia rodrigo expectations sketch', 'block'],
+      ['Tung Tung Tung Sahur character render, warm grain', 'block'],
+      ['Tung Tung Sahur mascot, warm grain', 'block'],
+      ['brainrot Triple T mascot, warm grain', 'block'],
+      ['Tung Tung Sahur Triple T still, warm grain', 'block'],
+      ['Italian Brainrot Triple T title sting, warm grain', 'block'],
+      ['AI cover of Kenjiro Tsuda, warm pads', 'block'],
+      ['Kenjiro Tsuda AI cover, warm pads', 'block'],
+      ['in the voice of Kenjiro Tsuda, warm pads', 'review'],
+      ['Bill Withers AI cover, warm pads', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('keeps weekly-ahead 2026-10-12 generic titles allow without their co-occurring name', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const prompts = [
+      'I\'ve Seen It piano sketch',
+      'the song I\'ve Seen It on analog tape',
+      'Something to Lose piano sketch',
+      'the song something to lose on analog tape',
+      'play Pure on analog tape',
+      'the song Pure on analog tape',
+      'play Expectations on analog tape',
+      'the song Expectations on analog tape',
+      'Triple T character render, warm grain',
+      'triple t time signature, quiet click',
+      'just the two of us in the booth, quiet mics',
+      'pink blush lighting, soft glow',
+      'the last thing you need is more reverb',
+      'an AI cover, warm pads',
+      'draft an AI cover letter, quiet desk',
+      'dolly in slowly, then part the curtains',
+    ];
+    for (const prompt of prompts) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, 'allow', `${JSON.stringify(prompt)} => ${result.verdict} (${result.reasons.join('; ')})`);
+    }
+  });
+
+  it('scopes the weekly-ahead 2026-10-12 Art of Loving token to music', () => {
+    const music = createCensor({ replaceCatalog: true, media: 'music' });
+    const image = createCensor({ replaceCatalog: true, media: 'image' });
+    const video = createCensor({ replaceCatalog: true, media: 'video' });
+    const prompts = [
+      'play The Art of Loving on analog tape',
+      'play Art of Loving on analog tape',
+      'the art of loving a quiet mix',
+    ];
+    for (const prompt of prompts) {
+      assert.equal(music.check(prompt).verdict, 'block', `music-path ${JSON.stringify(prompt)}`);
+      assert.equal(image.check(prompt).verdict, 'allow', `image-path ${JSON.stringify(prompt)}`);
+      assert.equal(video.check(prompt).verdict, 'allow', `video-path ${JSON.stringify(prompt)}`);
+    }
   });
 });

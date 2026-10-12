@@ -50,6 +50,8 @@ const BLOCK_PATTERNS = [
   },
 ];
 
+const AI_COVER_RE = /\bai\s+covers?\b/giu;
+
 const REVIEW_PATTERNS = [
   {
     re: /\bin the style of\b/giu,
@@ -181,6 +183,45 @@ export function findHeuristicSpans(text) {
   }
   spans.push(...quotedReproductionSpans(text));
   return spans;
+}
+
+/**
+ * "AI cover" is reproduction intent when a listed artist name is also in the
+ * prompt. Bare "AI cover" / "AI cover letter" stays quiet — there is no
+ * separate voice roster; artist entries are the likeness list.
+ * "AI cover of …" is already caught by the cover-of pattern.
+ * @param {string} text
+ * @param {import('./tokenize.js').Token[]} tokens
+ * @param {string[][]} artistPhrases normalized artist token sequences
+ * @returns {Span[]}
+ */
+export function findAiCoverArtistSpans(text, tokens, artistPhrases) {
+  if (!text || !tokens?.length || !artistPhrases?.length) return [];
+  AI_COVER_RE.lastIndex = 0;
+  if (!AI_COVER_RE.test(text)) return [];
+  const norms = tokens.map((token) => token.norm);
+  if (!artistPhrases.some((phrase) => phrase.length > 0 && containsPhrase(norms, phrase))) return [];
+  return spansFromPattern(text, AI_COVER_RE, 'block', 'ai-cover reproduction intent');
+}
+
+/**
+ * @param {string[]} norms
+ * @param {string[]} phrase
+ */
+function containsPhrase(norms, phrase) {
+  const width = phrase.length;
+  if (!width || width > norms.length) return false;
+  for (let i = 0; i <= norms.length - width; i += 1) {
+    let found = true;
+    for (let j = 0; j < width; j += 1) {
+      if (norms[i + j] !== phrase[j]) {
+        found = false;
+        break;
+      }
+    }
+    if (found) return true;
+  }
+  return false;
 }
 
 /**

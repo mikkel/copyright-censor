@@ -33,13 +33,17 @@ export function compileMatcher(entries) {
    */
   function find(text, tokens, allowSet) {
     const spans = [];
+    const norms = tokens.map((token) => token.norm);
     let i = 0;
     while (i < tokens.length) {
       const candidates = byFirst.get(tokens[i].norm) ?? [];
       let best = null;
       for (const entry of candidates) {
         if (!matchesAt(tokens, i, entry.tokens)) continue;
-        if (needsFraming(entry) && !framingAllowsMatch(tokens, i, entry.tokens.length, entry.kind)) {
+        // `requires` is co-occurrence only: title case and rights cues do not fire it.
+        if (entry.requiresTokens?.length) {
+          if (!hasRequiredPhrase(norms, entry.requiresTokens)) continue;
+        } else if (needsFraming(entry) && !framingAllowsMatch(tokens, i, entry.tokens.length, entry.kind)) {
           continue;
         }
         const phrase = entry.tokens.join(' ');
@@ -81,6 +85,28 @@ function matchesAt(tokens, index, termTokens) {
     if (tokens[index + i].norm !== termTokens[i]) return false;
   }
   return true;
+}
+
+/**
+ * @param {string[]} norms
+ * @param {string[][]} phrases
+ */
+function hasRequiredPhrase(norms, phrases) {
+  for (const phrase of phrases) {
+    const width = phrase.length;
+    if (!width || width > norms.length) continue;
+    for (let i = 0; i <= norms.length - width; i += 1) {
+      let found = true;
+      for (let j = 0; j < width; j += 1) {
+        if (norms[i + j] !== phrase[j]) {
+          found = false;
+          break;
+        }
+      }
+      if (found) return true;
+    }
+  }
+  return false;
 }
 
 /**

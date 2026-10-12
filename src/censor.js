@@ -9,7 +9,7 @@ import {
   mergeBlocklists,
 } from './blocklist.js';
 import { shippedCatalog } from './catalog.js';
-import { findHeuristicSpans } from './heuristics.js';
+import { findAiCoverArtistSpans, findHeuristicSpans } from './heuristics.js';
 import { compileAllowSet, compileMatcher, mergeSpans } from './matcher.js';
 import { tokenize } from './tokenize.js';
 import { VERDICTS, worstVerdict } from './verdicts.js';
@@ -73,6 +73,7 @@ export function createCensor(options = {}) {
   const commonPhrases = new Set(
     entries.filter((entry) => entry.commonWord).map((entry) => entry.tokens.join(' ')),
   );
+  const artistPhrases = entries.filter((entry) => entry.kind === 'artist').map((entry) => entry.tokens);
 
   /**
    * @param {unknown} text
@@ -86,7 +87,8 @@ export function createCensor(options = {}) {
     const catalogSpans = catalog ? findCatalogSpans(catalog, raw, tokens, allowSet, commonPhrases) : [];
     const listSpans = matcher.find(raw, tokens, allowSet);
     const heuristicSpans = findHeuristicSpans(raw);
-    const spans = mergeSpans([...catalogSpans, ...listSpans, ...heuristicSpans]);
+    const aiCoverSpans = findAiCoverArtistSpans(raw, tokens, artistPhrases);
+    const spans = mergeSpans([...catalogSpans, ...listSpans, ...heuristicSpans, ...aiCoverSpans]);
     const verdict = spans.reduce((current, span) => worstVerdict(current, span.verdict), VERDICTS.ALLOW);
     return {
       verdict,

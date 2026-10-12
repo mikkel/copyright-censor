@@ -1136,7 +1136,7 @@ describe('allow-path / innocent usage', () => {
       'the song Boston on analog tape',
       'Boston song sketch, Stella Lefty vocal',
       'the song Dracula on analog tape',
-      'Something to Lose piano sketch',
+      'Stella Lefty Something to Lose piano sketch',
       'the song 9 to 5 on piano',
       'Steamboat Willie title card, warm grain',
       'Nintendo Switch bumper sting',
@@ -5308,6 +5308,74 @@ describe('allow-path / innocent usage', () => {
     }
     for (const prompt of innocent) {
       assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
+
+  it('still blocks explicit weekly-ahead prompts on the overlay path (2026-10-12)', () => {
+    const cases = [
+      'Bill Withers vocal air over pads',
+      'Kenjiro Tsuda vocal air over pads',
+      'dolly babe hook over warm pads',
+      'play Just the Two of Us on analog tape',
+      'play The Art of Loving on analog tape',
+      'the art of loving a quiet mix',
+      'play Pink Blush on analog tape',
+      'play Last Thing You Need on analog tape',
+      'Olivia Dean I\'ve Seen It piano sketch',
+      'Stella Lefty Something to Lose piano sketch',
+      'Vincent Mason something to lose, quiet room',
+      'Sienna Spiro Pure sketch on analog tape',
+      'Olivia Rodrigo Expectations sketch',
+      'Tung Tung Tung Sahur character render, warm grain',
+      'Tung Tung Sahur mascot, warm grain',
+      'brainrot Triple T mascot, warm grain',
+      'Kenjiro Tsuda AI cover, warm pads',
+      'AI cover of Kenjiro Tsuda, warm pads',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.notEqual(result.verdict, 'allow', `${JSON.stringify(prompt)} unexpectedly allows`);
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside weekly-ahead tokens (2026-10-12)', () => {
+    const innocent = [
+      'just the two of us in the booth, quiet mics',
+      'pink blush lighting, soft glow',
+      'the last thing you need is more reverb',
+      'high expectations, quiet piano',
+      'play expectations on analog tape',
+      'pure sine wave, warm room',
+      'triple t time signature, quiet click',
+      'something to lose on the chorus, quiet room',
+      'withered leaf foley, quiet room',
+      'sahara wind foley at dawn',
+      'tungsten hum, warm lamp',
+      'dollhouse foley, quiet room',
+      'a babe in the woods foley, warm mics',
+      'withers on the vine, field recording',
+      'loving the room tone, quiet mics',
+      'AI coverage of the show, warm grain',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
+
+  it('keeps weekly-ahead 2026-10-12 gated titles allow on the overlay when the co-occurring name is absent', () => {
+    const prompts = [
+      'I\'ve Seen It piano sketch',
+      'Something to Lose piano sketch',
+      'play Pure on analog tape',
+      'Triple T character render, warm grain',
+      'an AI cover, warm pads',
+      'draft an AI cover letter, quiet desk',
+    ];
+    for (const prompt of prompts) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead gated');
     }
   });
 

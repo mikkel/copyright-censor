@@ -34,6 +34,8 @@ export interface BlocklistEntry {
   aliases?: string[];
   media?: MediaKind[];
   commonWord?: boolean;
+  /** Fire only when one of these phrases also appears in the prompt. */
+  requires?: string[];
 }
 
 export interface Blocklist {
