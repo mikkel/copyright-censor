@@ -5379,6 +5379,94 @@ describe('allow-path / innocent usage', () => {
     }
   });
 
+  it('still blocks explicit weekly-ahead prompts on the overlay path (2026-10-26)', () => {
+    const cases = [
+      'Joni Mitchell vocal air over pads',
+      'Johnny Cash vocal air over pads',
+      'Evanescence vocal air over pads',
+      'Elvis hook over warm pads',
+      'Jamie Miller hook over warm pads',
+      'Joni Mitchell both sides now, quiet mics',
+      'the song Both Sides Now on analog tape',
+      'Johnny Cash ring of fire piano sketch',
+      "play Papa Don't Preach on analog tape",
+      'Evanescence Bring Me to Life piano sketch',
+      'Elvis all shook up piano sketch',
+      "Elvis can't help falling in love piano sketch",
+      'the song Don\'t Be Cruel on analog tape',
+      'Elvis a little less conversation piano sketch',
+      'Elvis Presley return to sender piano sketch',
+      'Dominic Fike Babydoll sketch on analog tape',
+      'Jamie Miller Babydoll sketch on analog tape',
+      'ADÉLA Nicole Kidman piano sketch',
+      'the song Nicole Kidman on analog tape',
+      'play Lush Life on analog tape',
+      'play Nothing on analog tape',
+      'Steve Lacy The Feeling piano sketch',
+      'Audrey Hobert Sue Me piano sketch',
+      'play Draw You Out on analog tape',
+      'Hulk character render, warm grain',
+      'Despicable Me character render, warm grain',
+      'signed to Reservoir Media for the new single',
+      'the Reservoir label, warm grain',
+      'Suno v6 bounce sketch',
+      'sounds like Udio, warm pads',
+      'play Bloodstream on analog tape',
+    ];
+    for (const prompt of cases) {
+      const result = overlay.check(prompt);
+      assert.notEqual(result.verdict, 'allow', `${JSON.stringify(prompt)} unexpectedly allows`);
+    }
+  });
+
+  it('keeps weekly-ahead 2026-10-26 gated titles allow on the overlay when the co-occurring name is absent', () => {
+    const prompts = [
+      'Both Sides Now piano sketch',
+      'Ring of Fire foley at the camp, warm mics',
+      'Bring Me to Life piano sketch',
+      'All Shook Up piano sketch',
+      "Can't Help Falling in Love piano sketch",
+      "Don't Be Cruel piano sketch",
+      'A Little Less Conversation piano sketch',
+      'Return to Sender piano sketch',
+      'Babydoll arrangement on cheap speakers',
+      'Nicole Kidman portrait, warm grain',
+      'The Feeling piano sketch',
+      'Sue Me piano sketch',
+      'Bloodstream sketch on analog tape',
+    ];
+    for (const prompt of prompts) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead gated');
+    }
+  });
+
+  it('keeps innocent boundary prompts allow beside weekly-ahead tokens (2026-10-26)', () => {
+    const innocent = [
+      'both sides now in the stereo image, quiet mics',
+      'ring of fire foley at the camp, warm mics',
+      'all shook up from the subway ride, room tone',
+      'dont be cruel with the compression',
+      'a little less conversation, a little more room tone',
+      'return to sender, this package is foley',
+      'babydoll dress foley, quiet room',
+      'lush life of the studio, warm mics',
+      'nothing to prove, quiet mix notes',
+      'the feeling of tape hiss, warm room',
+      'sue me for the extra reverb, quiet desk',
+      'draw you out of the mix, quiet room',
+      'a reservoir of tape hiss, field recording',
+      'bloodstream pulse foley, quiet room',
+      'green cabinet product shot, warm grain',
+      'despicable weather foley, warm mics',
+    ];
+    for (const prompt of innocent) {
+      assertAllow(overlay, prompt, 'overlay weekly-ahead boundary');
+    }
+    for (const prompt of innocent) {
+      assertAllow(full, prompt, 'full-path weekly-ahead boundary');
+    }
+  });
+
   it('keeps the whole-shabang idiom allow on overlay and full paths (2026-10-06)', () => {
     const innocent = [
       'the whole shabang, warm room tone',
