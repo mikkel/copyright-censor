@@ -90,7 +90,7 @@ describe('blocklist', () => {
       ['Midnight Sun pads and soft choir', 'block'],
       ['Hootie Frutti bounce sketch', 'block'],
       ['Janice STFU demo take', 'block'],
-      ['Babydoll arrangement on cheap speakers', 'block'],
+      ['Dominic Fike Babydoll arrangement on cheap speakers', 'block'],
       ['McArthur collab sketch', 'block'],
       ['Ain\'t No Mountain High Enough sketch', 'block'],
       ['All I Want for Christmas Is You sketch', 'block'],
@@ -2026,7 +2026,7 @@ describe('blocklist', () => {
       ["Ain't In LA sketch on analog tape", 'block'],
       ['Aint In LA sketch on analog tape', 'block'],
       ['Take Me Back (Leave Me There) sketch on analog tape', 'block'],
-      ['Bloodstream sketch on analog tape', 'block'],
+      ['play Bloodstream on analog tape', 'block'],
       ['the song Self Aware on analog tape', 'block'],
       ['Phone, Keys, Wallet sketch on analog tape', 'block'],
       ['Phone Keys Wallet sketch on analog tape', 'block'],
@@ -2284,6 +2284,103 @@ describe('blocklist', () => {
       'an AI cover, warm pads',
       'draft an AI cover letter, quiet desk',
       'dolly in slowly, then part the curtains',
+    ];
+    for (const prompt of prompts) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, 'allow', `${JSON.stringify(prompt)} => ${result.verdict} (${result.reasons.join('; ')})`);
+    }
+  });
+
+  it('matches weekly-ahead 2026-10-26 identifiers from invented prompts only', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const cases = [
+      ['Joni Mitchell vocal air over pads', 'review'],
+      ['Johnny Cash vocal air over pads', 'review'],
+      ['Evanescence vocal air over pads', 'review'],
+      ['Elvis hook over warm pads', 'review'],
+      ['elvis presley hook over warm pads', 'review'],
+      ['Jamie Miller hook over warm pads', 'review'],
+      ['ADÉLA hook over warm pads', 'review'],
+      ['Joni Mitchell both sides now, quiet mics', 'block'],
+      ['the song Both Sides Now on analog tape', 'block'],
+      ['lyrics of Ring of Fire, quiet room', 'block'],
+      ['Johnny Cash ring of fire piano sketch', 'block'],
+      ["play Papa Don't Preach on analog tape", 'block'],
+      ['Evanescence Bring Me to Life piano sketch', 'block'],
+      ['the song Bring Me to Life on analog tape', 'block'],
+      ['Elvis all shook up piano sketch', 'block'],
+      ['the song All Shook Up on analog tape', 'block'],
+      ["Elvis can't help falling in love piano sketch", 'block'],
+      ['lyrics of Can\'t Help Falling in Love, quiet room', 'block'],
+      ["don't be cruel, Elvis vocal, quiet room", 'block'],
+      ['the song Don\'t Be Cruel on analog tape', 'block'],
+      ['Elvis a little less conversation piano sketch', 'block'],
+      ['Little Less Conversation, Elvis vocal, quiet room', 'block'],
+      ['the song Return to Sender on analog tape', 'block'],
+      ['Elvis Presley return to sender piano sketch', 'block'],
+      ['Dominic Fike babydoll dress foley, quiet room', 'block'],
+      ['Jamie Miller Babydoll sketch on analog tape', 'block'],
+      ['Adela Nicole Kidman piano sketch', 'block'],
+      ['ADÉLA Nicole Kidman piano sketch', 'block'],
+      ['the song Nicole Kidman on analog tape', 'block'],
+      ['play Lush Life on analog tape', 'block'],
+      ['the song lush life on analog tape', 'block'],
+      ['play Nothing on analog tape', 'block'],
+      ['the song Nothing on analog tape', 'block'],
+      ['Steve Lacy The Feeling piano sketch', 'block'],
+      ['steve lacy the feeling, quiet room', 'block'],
+      ['Audrey Hobert Sue Me piano sketch', 'block'],
+      ['audrey hobert sue me, quiet desk', 'block'],
+      ['play Draw You Out on analog tape', 'block'],
+      ['the song Draw You Out on analog tape', 'block'],
+      ['Hulk character render, warm grain', 'block'],
+      ['Despicable Me character render, warm grain', 'block'],
+      ['signed to Reservoir Media for the new single', 'block'],
+      ['the Reservoir label, warm grain', 'block'],
+      ['Suno v6 bounce sketch', 'block'],
+      ['sounds like Udio, warm pads', 'block'],
+      ['play Bloodstream on analog tape', 'block'],
+      ['the song Bloodstream on analog tape', 'block'],
+    ];
+    for (const [prompt, verdict] of cases) {
+      const result = censor.check(prompt);
+      assert.equal(result.verdict, verdict, `${JSON.stringify(prompt)} => ${result.verdict} (expected ${verdict})`);
+    }
+  });
+
+  it('keeps weekly-ahead 2026-10-26 gated titles allow without their co-occurring name', () => {
+    const censor = createCensor({ replaceCatalog: true });
+    const prompts = [
+      'Both Sides Now piano sketch',
+      'both sides now in the stereo image, quiet mics',
+      'Ring of Fire foley at the camp, warm mics',
+      'ring of fire foley at the camp, warm mics',
+      'Bring Me to Life piano sketch',
+      'bring me to life with a little plate reverb',
+      'All Shook Up piano sketch',
+      'all shook up from the subway ride, room tone',
+      "Can't Help Falling in Love piano sketch",
+      'cant help falling in love with this room tone',
+      "Don't Be Cruel piano sketch",
+      'dont be cruel with the compression',
+      'A Little Less Conversation piano sketch',
+      'a little less conversation, a little more room tone',
+      'Return to Sender piano sketch',
+      'return to sender, this package is foley',
+      'Babydoll arrangement on cheap speakers',
+      'babydoll dress foley, quiet room',
+      'Nicole Kidman portrait, warm grain',
+      'lush life of the studio, warm mics',
+      'nothing to prove, quiet mix notes',
+      'Nothing to prove, quiet mix notes',
+      'The Feeling piano sketch',
+      'the feeling of tape hiss, warm room',
+      'Sue Me piano sketch',
+      'sue me for the extra reverb, quiet desk',
+      'draw you out of the mix, quiet room',
+      'a reservoir of tape hiss, field recording',
+      'bloodstream pulse foley, quiet room',
+      'Bloodstream sketch on analog tape',
     ];
     for (const prompt of prompts) {
       const result = censor.check(prompt);
